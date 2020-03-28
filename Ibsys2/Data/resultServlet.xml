@@ -63,4 +63,80 @@
     <article id="59" amount="800" startamount="1800" pct="44.44" price="0.19" stockvalue="150.30" />
     <totalstockvalue>223276.38</totalstockvalue>
   </warehousestock>
+  <inwardstockmovement>
+    <order orderperiod="2" id="5" mode="5" article="36" amount="300" time="15840" materialcosts="2400.00"
+           ordercosts="100.00" entirecosts="2500.00" piececosts="8.33" />
+    <order orderperiod="1" id="10" mode="5" article="45" amount="900" time="17280" materialcosts="48.60"
+           ordercosts="50.00" entirecosts="98.60" piececosts="0.11" />
+    <order orderperiod="2" id="8" mode="5" article="44" amount="900" time="17280" materialcosts="405.00"
+           ordercosts="50.00" entirecosts="455.00" piececosts="0.51" />
+    <order orderperiod="1" id="2" mode="5" article="22" amount="300" time="18720" materialcosts="1755.00"
+           ordercosts="50.00" entirecosts="1805.00" piececosts="6.02" />
+    <order orderperiod="2" id="4" mode="5" article="28" amount="1000" time="18720" materialcosts="1200.00"
+           ordercosts="50.00" entirecosts="1250.00" piececosts="1.25" />
+    <order orderperiod="1" id="1" mode="5" article="21" amount="300" time="20160" materialcosts="1350.00"
+           ordercosts="50.00" entirecosts="1400.00" piececosts="4.67" />
+    <order orderperiod="1" id="5" mode="5" article="32" amount="3000" time="20160" materialcosts="2025.00"
+           ordercosts="50.00" entirecosts="2075.00" piececosts="0.69" />
+    <order orderperiod="1" id="6" mode="5" article="35" amount="3600" time="20160" materialcosts="3240.00"
+           ordercosts="75.00" entirecosts="3315.00" piececosts="0.92" />
+    <order orderperiod="2" id="6" mode="5" article="37" amount="600" time="20160" materialcosts="900.00"
+           ordercosts="50.00" entirecosts="950.00" piececosts="1.58" />
+    <order orderperiod="3" id="2" mode="5" article="25" amount="3600" time="20160" materialcosts="194.40"
+           ordercosts="50.00" entirecosts="244.40" piececosts="0.07" />
+    <order orderperiod="3" id="3" mode="5" article="27" amount="1800" time="20160" materialcosts="162.00"
+           ordercosts="75.00" entirecosts="237.00" piececosts="0.13" />
+    <order orderperiod="3" id="10" mode="5" article="41" amount="900" time="20160" materialcosts="48.60"
+           ordercosts="50.00" entirecosts="98.60" piececosts="0.11" />
+    <order orderperiod="3" id="12" mode="5" article="44" amount="900" time="21600" materialcosts="405.00"
+           ordercosts="50.00" entirecosts="455.00" piececosts="0.51" />
+  </inwardstockmovement>
+  <futureinwardstockmovement>
+    <order orderperiod="3" id="6" mode="5" article="36" amount="300" />
+    <order orderperiod="3" id="9" mode="5" article="39" amount="1800" />
+    <order orderperiod="3" id="11" mode="5" article="42" amount="800" />
+    <order orderperiod="3" id="13" mode="5" article="46" amount="300" />
+    <order orderperiod="3" id="14" mode="5" article="47" amount="150" />
+    <order orderperiod="3" id="15" mode="5" article="48" amount="600" />
+    <order orderperiod="3" id="16" mode="5" article="52" amount="1300" />
+    <order orderperiod="2" id="1" mode="5" article="21" amount="300" />
+    <order orderperiod="3" id="4" mode="5" article="28" amount="4500" />
+    <order orderperiod="3" id="7" mode="5" article="37" amount="600" />
+    <order orderperiod="3" id="8" mode="5" article="38" amount="300" />
+    <order orderperiod="3" id="5" mode="5" article="35" amount="3600" />
+    <order orderperiod="3" id="17" mode="5" article="53" amount="22000" />
+    <order orderperiod="3" id="1" mode="5" article="24" amount="8000" />
+  </futureinwardstockmovement>
+  <idletimecosts>
+    <workplace id="1" setupevents="7" idletime="460" wageidletimecosts="207.00" wagecosts="873.00"
+               machineidletimecosts="4.60" />
+    <workplace id="2" setupevents="7" idletime="990" wageidletimecosts="445.50" wagecosts="634.50"
+               machineidletimecosts="9.90" />
+    <workplace id="3" setupevents="3" idletime="900" wageidletimecosts="405.00" wagecosts="675.00"
+               machineidletimecosts="9.00" />
+    <workplace id="4" setupevents="4" idletime="840" wageidletimecosts="378.00" wagecosts="702.00"
+               machineidletimecosts="8.40" />
+    <workplace id="6" setupevents="3" idletime="1127" wageidletimecosts="507.15" wagecosts="572.85"
+               machineidletimecosts="112.70" />
+    <workplace id="7" setupevents="33" idletime="74" wageidletimecosts="66.60" wagecosts="1913.40"
+               machineidletimecosts="7.40" />
+    <workplace id="8" setupevents="29" idletime="240" wageidletimecosts="117.00" wagecosts="1098.00"
+               machineidletimecosts="24.00" />
+    <workplace id="9" setupevents="15" idletime="525" wageidletimecosts="338.40" wagecosts="1821.60"
+               machineidletimecosts="131.25" />
+    <workplace id="10" setupevents="4" idletime="140" wageidletimecosts="63.00" wagecosts="1017.00"
+               machineidletimecosts="14.00" />
+    <workplace id="11" setupevents="4" idletime="705" wageidletimecosts="317.25" wagecosts="762.75"
+               machineidletimecosts="70.50" />
+    <workplace id="12" setupevents="7" idletime="530" wageidletimecosts="290.25" wagecosts="1307.25"
+               machineidletimecosts="53.00" />
+    <workplace id="13" setupevents="7" idletime="790" wageidletimecosts="355.50" wagecosts="724.50"
+               machineidletimecosts="118.50" />
+    <workplace id="14" setupevents="0" idletime="1728" wageidletimecosts="777.60" wagecosts="302.40"
+               machineidletimecosts="17.28" />
+    <workplace id="15" setupevents="4" idletime="954" wageidletimecosts="429.30" wagecosts="650.70"
+               machineidletimecosts="9.54" />
+    <sum setupevents="127" idletime="10003" wageidletimecosts="4697.55" wagecosts="13054.95"
+         machineidletimecosts="590.07" />
+  </idletimecosts>
 </results>

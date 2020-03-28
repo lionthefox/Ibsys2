@@ -17,7 +17,67 @@
                   <xs:attribute name="stockvalue" type="xs:decimal" />
                 </xs:complexType>
               </xs:element>
-              <xs:element name="totalstockvalue" type="xs:decimal" minOccurs="1" maxOccurs="1"></xs:element>
+              <xs:element name="totalstockvalue" type="xs:decimal" minOccurs="1" maxOccurs="1" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="inwardstockmovement">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="order">
+                <xs:complexType>
+                  <xs:attribute name="orderperiod" type="xs:integer" />
+                  <xs:attribute name="id" type="xs:integer" />
+                  <xs:attribute name="mode" type="xs:integer" />
+                  <xs:attribute name="article" type="xs:integer" />
+                  <xs:attribute name="amount" type="xs:integer" />
+                  <xs:attribute name="time" type="xs:integer" />
+                  <xs:attribute name="materialcosts" type="xs:decimal" />
+                  <xs:attribute name="ordercosts" type="xs:decimal" />
+                  <xs:attribute name="entirecosts" type="xs:decimal" />
+                  <xs:attribute name="piececosts" type="xs:decimal" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="futureinwardstockmovement">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="order">
+                <xs:complexType>
+                  <xs:attribute name="orderperiod" type="xs:integer" />
+                  <xs:attribute name="id" type="xs:integer" />
+                  <xs:attribute name="mode" type="xs:integer" />
+                  <xs:attribute name="article" type="xs:integer" />
+                  <xs:attribute name="amount" type="xs:integer" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="idletimecosts">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="workplace">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:integer" />
+                  <xs:attribute name="setupevents" type="xs:integer" />
+                  <xs:attribute name="idletime" type="xs:integer" />
+                  <xs:attribute name="wageidletimecosts" type="xs:decimal" />
+                  <xs:attribute name="wagecosts" type="xs:decimal" />
+                  <xs:attribute name="machineidletimecosts" type="xs:decimal" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="sum">
+                <xs:complexType>
+                  <xs:attribute name="setupevents" type="xs:integer" />
+                  <xs:attribute name="idletime" type="xs:integer" />
+                  <xs:attribute name="wageidletimecosts" type="xs:decimal" />
+                  <xs:attribute name="wagecosts" type="xs:decimal" />
+                  <xs:attribute name="machineidletimecosts" type="xs:decimal" />
+                </xs:complexType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
