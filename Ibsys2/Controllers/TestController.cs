@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.IO;
+using System.Text.Json;
+using System.Xml.Serialization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
 
 namespace Ibsys2.Controllers
 {
@@ -8,22 +11,33 @@ namespace Ibsys2.Controllers
   [Route("test")]
   public class TestController : ControllerBase
   {
-    private readonly ILogger<TestController> _logger;
+    private readonly ILogger<TestController> logger;
 
     public TestController(ILogger<TestController> logger)
     {
-      _logger = logger;
+      this.logger = logger;
     }
 
     [HttpGet("get")]
     public object Get()
     {
-      return new
+      return JsonSerializer.Serialize(ParseResultsXml());
+    }
+
+    private results ParseResultsXml()
+    {
+      try
       {
-        Name = "Test",
-        Author = "Leon",
-        Date = DateAndTime.Now
-      };
+        using var fileStream = new FileStream(@".\Data\resultServlet.xml", FileMode.Open);
+        var xmlSerializer = new XmlSerializer(typeof(results));
+        var results = xmlSerializer.Deserialize(fileStream) as results;
+        return results;
+      }
+      catch (Exception exception)
+      {
+        logger.LogError(exception, exception.Message);
+        return null;
+      }
     }
   }
 }

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="results">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="warehousestock" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="article" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:string" />
+                  <xs:attribute name="amount" type="xs:integer" />
+                  <xs:attribute name="startamount" type="xs:integer" />
+                  <xs:attribute name="pct" type="xs:decimal" />
+                  <xs:attribute name="price" type="xs:decimal" />
+                  <xs:attribute name="stockvalue" type="xs:decimal" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="totalstockvalue" type="xs:decimal" minOccurs="1" maxOccurs="1"></xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="game" type="xs:integer"></xs:attribute>
+      <xs:attribute name="group" type="xs:integer"></xs:attribute>
+      <xs:attribute name="period" type="xs:integer"></xs:attribute>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

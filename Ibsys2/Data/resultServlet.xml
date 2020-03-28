@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<results game="228" group="4" period="3">
+  <warehousestock>
+    <article id="1" amount="20" startamount="100" pct="20.00" price="161.72" stockvalue="3234.32" />
+    <article id="2" amount="80" startamount="100" pct="80.00" price="165.95" stockvalue="13275.84" />
+    <article id="3" amount="50" startamount="100" pct="50.00" price="166.96" stockvalue="8348.20" />
+    <article id="4" amount="100" startamount="100" pct="100.00" price="39.31" stockvalue="3931.11" />
+    <article id="5" amount="80" startamount="100" pct="80.00" price="40.70" stockvalue="3255.71" />
+    <article id="6" amount="75" startamount="100" pct="75.00" price="41.40" stockvalue="3105.33" />
+    <article id="7" amount="135" startamount="100" pct="135.00" price="34.22" stockvalue="4619.16" />
+    <article id="8" amount="130" startamount="100" pct="130.00" price="36.00" stockvalue="4680.01" />
+    <article id="9" amount="75" startamount="100" pct="75.00" price="36.71" stockvalue="2753.18" />
+    <article id="10" amount="100" startamount="100" pct="100.00" price="13.32" stockvalue="1331.93" />
+    <article id="11" amount="90" startamount="100" pct="90.00" price="15.73" stockvalue="1415.85" />
+    <article id="12" amount="75" startamount="100" pct="75.00" price="14.76" stockvalue="1106.96" />
+    <article id="13" amount="60" startamount="100" pct="60.00" price="13.86" stockvalue="831.85" />
+    <article id="14" amount="130" startamount="100" pct="130.00" price="14.68" stockvalue="1909.00" />
+    <article id="15" amount="75" startamount="100" pct="75.00" price="13.86" stockvalue="1039.69" />
+    <article id="16" amount="224" startamount="300" pct="74.67" price="7.08" stockvalue="1584.92" />
+    <article id="17" amount="254" startamount="300" pct="84.67" price="7.32" stockvalue="1859.06" />
+    <article id="18" amount="60" startamount="100" pct="60.00" price="14.68" stockvalue="881.02" />
+    <article id="19" amount="90" startamount="100" pct="90.00" price="16.63" stockvalue="1496.60" />
+    <article id="20" amount="75" startamount="100" pct="75.00" price="17.01" stockvalue="1275.94" />
+    <article id="21" amount="220" startamount="300" pct="73.33" price="4.67" stockvalue="1026.67" />
+    <article id="22" amount="270" startamount="300" pct="90.00" price="6.02" stockvalue="1624.50" />
+    <article id="23" amount="350" startamount="300" pct="116.67" price="6.21" stockvalue="2173.50" />
+    <article id="24" amount="7056" startamount="6100" pct="115.67" price="0.17" stockvalue="1179.93" />
+    <article id="25" amount="4830" startamount="3600" pct="134.17" price="0.07" stockvalue="346.22" />
+    <article id="26" amount="240" startamount="300" pct="80.00" price="11.63" stockvalue="2790.22" />
+    <article id="27" amount="2270" startamount="1800" pct="126.11" price="0.14" stockvalue="323.78" />
+    <article id="28" amount="1566" startamount="4500" pct="34.80" price="1.23" stockvalue="1929.20" />
+    <article id="29" amount="75" startamount="100" pct="75.00" price="69.75" stockvalue="5231.48" />
+    <article id="30" amount="50" startamount="100" pct="50.00" price="128.24" stockvalue="6411.80" />
+    <article id="31" amount="50" startamount="100" pct="50.00" price="145.86" stockvalue="7293.05" />
+    <article id="32" amount="3185" startamount="2700" pct="117.96" price="0.70" stockvalue="2224.58" />
+    <article id="33" amount="675" startamount="900" pct="75.00" price="22.00" stockvalue="14850.00" />
+    <article id="34" amount="13900" startamount="22000" pct="63.18" price="0.10" stockvalue="1390.00" />
+    <article id="35" amount="3640" startamount="3600" pct="101.11" price="0.93" stockvalue="3368.43" />
+    <article id="36" amount="335" startamount="900" pct="37.22" price="8.22" stockvalue="2753.63" />
+    <article id="37" amount="585" startamount="900" pct="65.00" price="1.57" stockvalue="920.83" />
+    <article id="38" amount="435" startamount="300" pct="145.00" price="1.83" stockvalue="794.39" />
+    <article id="39" amount="985" startamount="900" pct="109.44" price="1.39" stockvalue="1370.79" />
+    <article id="40" amount="906" startamount="900" pct="100.67" price="2.35" stockvalue="2124.69" />
+    <article id="41" amount="1206" startamount="900" pct="134.00" price="0.12" stockvalue="145.83" />
+    <article id="42" amount="12" startamount="1800" pct="0.67" price="0.10" stockvalue="1.20" />
+    <article id="43" amount="976" startamount="1900" pct="51.37" price="5.00" stockvalue="4880.00" />
+    <article id="44" amount="1636" startamount="2700" pct="60.59" price="0.51" stockvalue="826.81" />
+    <article id="45" amount="876" startamount="900" pct="97.33" price="0.11" stockvalue="95.68" />
+    <article id="46" amount="276" startamount="900" pct="30.67" price="0.19" stockvalue="53.64" />
+    <article id="47" amount="0" startamount="900" pct="0.00" price="3.50" stockvalue="0.00" />
+    <article id="48" amount="460" startamount="1800" pct="25.56" price="1.57" stockvalue="723.96" />
+    <article id="49" amount="130" startamount="100" pct="130.00" price="68.17" stockvalue="8862.14" />
+    <article id="50" amount="100" startamount="100" pct="100.00" price="124.57" stockvalue="12456.60" />
+    <article id="51" amount="170" startamount="100" pct="170.00" price="141.90" stockvalue="24122.83" />
+    <article id="52" amount="225" startamount="600" pct="37.50" price="19.88" stockvalue="4473.74" />
+    <article id="53" amount="8900" startamount="22000" pct="40.45" price="0.09" stockvalue="822.46" />
+    <article id="54" amount="50" startamount="100" pct="50.00" price="70.36" stockvalue="3518.24" />
+    <article id="55" amount="90" startamount="100" pct="90.00" price="127.82" stockvalue="11503.80" />
+    <article id="56" amount="90" startamount="100" pct="90.00" price="144.96" stockvalue="13045.95" />
+    <article id="57" amount="620" startamount="600" pct="103.33" price="20.96" stockvalue="12996.44" />
+    <article id="58" amount="23120" startamount="22000" pct="105.09" price="0.11" stockvalue="2533.40" />
+    <article id="59" amount="800" startamount="1800" pct="44.44" price="0.19" stockvalue="150.30" />
+    <totalstockvalue>223276.38</totalstockvalue>
+  </warehousestock>
+</results>
