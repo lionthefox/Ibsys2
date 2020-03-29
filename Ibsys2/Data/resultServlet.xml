@@ -139,7 +139,7 @@
     <sum setupevents="127" idletime="10003" wageidletimecosts="4697.55" wagecosts="13054.95"
          machineidletimecosts="590.07" />
   </idletimecosts>
-  <!--<waitinglistworkstations>
+  <waitinglistworkstations>
     <workplace id="1" timeneed="360">
       <waitinglist period="3" order="14" firstbatch="20" lastbatch="20" item="49" amount="10" timeneed="60" />
       <waitinglist period="3" order="15" firstbatch="6" lastbatch="10" item="54" amount="50" timeneed="300" />
@@ -156,6 +156,7 @@
     <workplace id="12" timeneed="0" /><workplace id="13" timeneed="0" /><workplace id="14" timeneed="0" />
     <workplace id="15" timeneed="0" />
   </waitinglistworkstations>
+  <!--
   <waitingliststock>
     <missingpart id="42">
       <waitinglist period="3" order="9" firstbatch="23" lastbatch="25" item="16" amount="30" />

@@ -32,6 +32,8 @@ public partial class results {
     
     private resultsIdletimecosts idletimecostsField;
     
+    private resultsWaitinglistworkstations waitinglistworkstationsField;
+    
     private string gameField;
     
     private string groupField;
@@ -79,6 +81,17 @@ public partial class results {
         }
         set {
             this.idletimecostsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public resultsWaitinglistworkstations waitinglistworkstations {
+        get {
+            return this.waitinglistworkstationsField;
+        }
+        set {
+            this.waitinglistworkstationsField = value;
         }
     }
     
@@ -754,6 +767,302 @@ public partial class resultsIdletimecostsWorkplace {
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsIdletimecostsSum {
+    
+    private string setupeventsField;
+    
+    private string idletimeField;
+    
+    private decimal wageidletimecostsField;
+    
+    private bool wageidletimecostsFieldSpecified;
+    
+    private decimal wagecostsField;
+    
+    private bool wagecostsFieldSpecified;
+    
+    private decimal machineidletimecostsField;
+    
+    private bool machineidletimecostsFieldSpecified;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string setupevents {
+        get {
+            return this.setupeventsField;
+        }
+        set {
+            this.setupeventsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string idletime {
+        get {
+            return this.idletimeField;
+        }
+        set {
+            this.idletimeField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public decimal wageidletimecosts {
+        get {
+            return this.wageidletimecostsField;
+        }
+        set {
+            this.wageidletimecostsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool wageidletimecostsSpecified {
+        get {
+            return this.wageidletimecostsFieldSpecified;
+        }
+        set {
+            this.wageidletimecostsFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public decimal wagecosts {
+        get {
+            return this.wagecostsField;
+        }
+        set {
+            this.wagecostsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool wagecostsSpecified {
+        get {
+            return this.wagecostsFieldSpecified;
+        }
+        set {
+            this.wagecostsFieldSpecified = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute()]
+    public decimal machineidletimecosts {
+        get {
+            return this.machineidletimecostsField;
+        }
+        set {
+            this.machineidletimecostsField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIgnoreAttribute()]
+    public bool machineidletimecostsSpecified {
+        get {
+            return this.machineidletimecostsFieldSpecified;
+        }
+        set {
+            this.machineidletimecostsFieldSpecified = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+public partial class resultsWaitinglistworkstations {
+    
+    private resultsWaitinglistworkstationsWorkplace workplaceField;
+    
+    private resultsWaitinglistworkstationsSum sumField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public resultsWaitinglistworkstationsWorkplace workplace {
+        get {
+            return this.workplaceField;
+        }
+        set {
+            this.workplaceField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public resultsWaitinglistworkstationsSum sum {
+        get {
+            return this.sumField;
+        }
+        set {
+            this.sumField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+public partial class resultsWaitinglistworkstationsWorkplace {
+    
+    private resultsWaitinglistworkstationsWorkplaceWaitinglist waitinglistField;
+    
+    private string idField;
+    
+    private string timeneedField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public resultsWaitinglistworkstationsWorkplaceWaitinglist waitinglist {
+        get {
+            return this.waitinglistField;
+        }
+        set {
+            this.waitinglistField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string id {
+        get {
+            return this.idField;
+        }
+        set {
+            this.idField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string timeneed {
+        get {
+            return this.timeneedField;
+        }
+        set {
+            this.timeneedField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+public partial class resultsWaitinglistworkstationsWorkplaceWaitinglist {
+    
+    private string periodField;
+    
+    private string orderField;
+    
+    private string firstbatchField;
+    
+    private string lastbatchField;
+    
+    private string itemField;
+    
+    private string amountField;
+    
+    private string timeneedField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string period {
+        get {
+            return this.periodField;
+        }
+        set {
+            this.periodField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string order {
+        get {
+            return this.orderField;
+        }
+        set {
+            this.orderField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string firstbatch {
+        get {
+            return this.firstbatchField;
+        }
+        set {
+            this.firstbatchField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string lastbatch {
+        get {
+            return this.lastbatchField;
+        }
+        set {
+            this.lastbatchField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string item {
+        get {
+            return this.itemField;
+        }
+        set {
+            this.itemField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string amount {
+        get {
+            return this.amountField;
+        }
+        set {
+            this.amountField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlAttributeAttribute(DataType="integer")]
+    public string timeneed {
+        get {
+            return this.timeneedField;
+        }
+        set {
+            this.timeneedField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.8.3928.0")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
+public partial class resultsWaitinglistworkstationsSum {
     
     private string setupeventsField;
     

@@ -81,6 +81,40 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="waitinglistworkstations">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="workplace">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="waitinglist">
+                      <xs:complexType>
+                          <xs:attribute name="period" type="xs:integer" />
+                          <xs:attribute name="order" type="xs:integer" />
+                          <xs:attribute name="firstbatch" type="xs:integer" />
+                          <xs:attribute name="lastbatch" type="xs:integer" />
+                          <xs:attribute name="item" type="xs:integer" />
+                          <xs:attribute name="amount" type="xs:integer" />
+                          <xs:attribute name="timeneed" type="xs:integer" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:integer" />
+                  <xs:attribute name="timeneed" type="xs:integer" />
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="sum">
+                <xs:complexType>
+                  <xs:attribute name="setupevents" type="xs:integer" />
+                  <xs:attribute name="idletime" type="xs:integer" />
+                  <xs:attribute name="wageidletimecosts" type="xs:decimal" />
+                  <xs:attribute name="wagecosts" type="xs:decimal" />
+                  <xs:attribute name="machineidletimecosts" type="xs:decimal" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:sequence>
       <xs:attribute name="game" type="xs:integer"></xs:attribute>
       <xs:attribute name="group" type="xs:integer"></xs:attribute>
