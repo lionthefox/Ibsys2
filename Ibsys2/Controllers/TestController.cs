@@ -19,9 +19,9 @@ namespace Ibsys2.Controllers
     }
 
     [HttpGet("get")]
-    public object Get()
+    public results Get()
     {
-      return JsonSerializer.Serialize(ParseResultsXml());
+      return ParseResultsXml();
     }
 
     private results ParseResultsXml()
