@@ -156,7 +156,6 @@
     <workplace id="12" timeneed="0" /><workplace id="13" timeneed="0" /><workplace id="14" timeneed="0" />
     <workplace id="15" timeneed="0" />
   </waitinglistworkstations>
-  <!--
   <waitingliststock>
     <missingpart id="42">
       <waitinglist period="3" order="9" firstbatch="23" lastbatch="25" item="16" amount="30" />
@@ -606,5 +605,5 @@
     <summary>
       <profit current="4547.29" average="5585.93" all="16757.80" />
     </summary>
-  </result>-->
+  </result>
 </results>

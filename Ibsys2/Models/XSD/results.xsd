@@ -1,41 +1,41 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="results">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="warehousestock" minOccurs="1" maxOccurs="1">
+        <xs:element name="warehousestock">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="article" minOccurs="1" maxOccurs="unbounded">
+              <xs:element maxOccurs="unbounded" name="article">
                 <xs:complexType>
-                  <xs:attribute name="id" type="xs:string" />
-                  <xs:attribute name="amount" type="xs:integer" />
-                  <xs:attribute name="startamount" type="xs:integer" />
-                  <xs:attribute name="pct" type="xs:decimal" />
-                  <xs:attribute name="price" type="xs:decimal" />
-                  <xs:attribute name="stockvalue" type="xs:decimal" />
+                  <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="amount" type="xs:unsignedShort" use="required" />
+                  <xs:attribute name="startamount" type="xs:unsignedShort" use="required" />
+                  <xs:attribute name="pct" type="xs:decimal" use="required" />
+                  <xs:attribute name="price" type="xs:decimal" use="required" />
+                  <xs:attribute name="stockvalue" type="xs:decimal" use="required" />
                 </xs:complexType>
               </xs:element>
-              <xs:element name="totalstockvalue" type="xs:decimal" minOccurs="1" maxOccurs="1" />
+              <xs:element name="totalstockvalue" type="xs:decimal" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="inwardstockmovement">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="order">
+              <xs:element maxOccurs="unbounded" name="order">
                 <xs:complexType>
-                  <xs:attribute name="orderperiod" type="xs:integer" />
-                  <xs:attribute name="id" type="xs:integer" />
-                  <xs:attribute name="mode" type="xs:integer" />
-                  <xs:attribute name="article" type="xs:integer" />
-                  <xs:attribute name="amount" type="xs:integer" />
-                  <xs:attribute name="time" type="xs:integer" />
-                  <xs:attribute name="materialcosts" type="xs:decimal" />
-                  <xs:attribute name="ordercosts" type="xs:decimal" />
-                  <xs:attribute name="entirecosts" type="xs:decimal" />
-                  <xs:attribute name="piececosts" type="xs:decimal" />
+                  <xs:attribute name="orderperiod" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="mode" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="article" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="amount" type="xs:unsignedShort" use="required" />
+                  <xs:attribute name="time" type="xs:unsignedShort" use="required" />
+                  <xs:attribute name="materialcosts" type="xs:decimal" use="required" />
+                  <xs:attribute name="ordercosts" type="xs:decimal" use="required" />
+                  <xs:attribute name="entirecosts" type="xs:decimal" use="required" />
+                  <xs:attribute name="piececosts" type="xs:decimal" use="required" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -44,13 +44,13 @@
         <xs:element name="futureinwardstockmovement">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="order">
+              <xs:element maxOccurs="unbounded" name="order">
                 <xs:complexType>
-                  <xs:attribute name="orderperiod" type="xs:integer" />
-                  <xs:attribute name="id" type="xs:integer" />
-                  <xs:attribute name="mode" type="xs:integer" />
-                  <xs:attribute name="article" type="xs:integer" />
-                  <xs:attribute name="amount" type="xs:integer" />
+                  <xs:attribute name="orderperiod" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="mode" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="article" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="amount" type="xs:unsignedShort" use="required" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -59,23 +59,23 @@
         <xs:element name="idletimecosts">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="workplace">
+              <xs:element maxOccurs="unbounded" name="workplace">
                 <xs:complexType>
-                  <xs:attribute name="id" type="xs:integer" />
-                  <xs:attribute name="setupevents" type="xs:integer" />
-                  <xs:attribute name="idletime" type="xs:integer" />
-                  <xs:attribute name="wageidletimecosts" type="xs:decimal" />
-                  <xs:attribute name="wagecosts" type="xs:decimal" />
-                  <xs:attribute name="machineidletimecosts" type="xs:decimal" />
+                  <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="setupevents" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="idletime" type="xs:unsignedShort" use="required" />
+                  <xs:attribute name="wageidletimecosts" type="xs:decimal" use="required" />
+                  <xs:attribute name="wagecosts" type="xs:decimal" use="required" />
+                  <xs:attribute name="machineidletimecosts" type="xs:decimal" use="required" />
                 </xs:complexType>
               </xs:element>
               <xs:element name="sum">
                 <xs:complexType>
-                  <xs:attribute name="setupevents" type="xs:integer" />
-                  <xs:attribute name="idletime" type="xs:integer" />
-                  <xs:attribute name="wageidletimecosts" type="xs:decimal" />
-                  <xs:attribute name="wagecosts" type="xs:decimal" />
-                  <xs:attribute name="machineidletimecosts" type="xs:decimal" />
+                  <xs:attribute name="setupevents" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="idletime" type="xs:unsignedShort" use="required" />
+                  <xs:attribute name="wageidletimecosts" type="xs:decimal" use="required" />
+                  <xs:attribute name="wagecosts" type="xs:decimal" use="required" />
+                  <xs:attribute name="machineidletimecosts" type="xs:decimal" use="required" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -84,41 +84,305 @@
         <xs:element name="waitinglistworkstations">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="workplace">
+              <xs:element maxOccurs="unbounded" name="workplace">
+                <xs:complexType>
+                  <xs:sequence minOccurs="0">
+                    <xs:element maxOccurs="unbounded" name="waitinglist">
+                      <xs:complexType>
+                        <xs:attribute name="period" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="order" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="firstbatch" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="lastbatch" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="item" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="amount" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="timeneed" type="xs:unsignedShort" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="timeneed" type="xs:unsignedShort" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="waitingliststock">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="missingpart">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="waitinglist">
                       <xs:complexType>
-                          <xs:attribute name="period" type="xs:integer" />
-                          <xs:attribute name="order" type="xs:integer" />
-                          <xs:attribute name="firstbatch" type="xs:integer" />
-                          <xs:attribute name="lastbatch" type="xs:integer" />
-                          <xs:attribute name="item" type="xs:integer" />
-                          <xs:attribute name="amount" type="xs:integer" />
-                          <xs:attribute name="timeneed" type="xs:integer" />
+                        <xs:attribute name="period" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="order" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="firstbatch" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="lastbatch" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="item" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="amount" type="xs:unsignedByte" use="required" />
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="id" type="xs:integer" />
-                  <xs:attribute name="timeneed" type="xs:integer" />
+                  <xs:attribute name="id" type="xs:unsignedByte" use="required" />
                 </xs:complexType>
               </xs:element>
-              <xs:element name="sum">
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ordersinwork">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="workplace">
                 <xs:complexType>
-                  <xs:attribute name="setupevents" type="xs:integer" />
-                  <xs:attribute name="idletime" type="xs:integer" />
-                  <xs:attribute name="wageidletimecosts" type="xs:decimal" />
-                  <xs:attribute name="wagecosts" type="xs:decimal" />
-                  <xs:attribute name="machineidletimecosts" type="xs:decimal" />
+                  <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="period" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="order" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="batch" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="item" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="amount" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="timeneed" type="xs:unsignedByte" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="completedorders">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="order">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="batch">
+                      <xs:complexType>
+                        <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="amount" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="cycletime" type="xs:unsignedShort" use="required" />
+                        <xs:attribute name="cost" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="period" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="item" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="quantity" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="cost" type="xs:decimal" use="required" />
+                  <xs:attribute name="averageunitcosts" type="xs:decimal" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="cycletimes">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="order">
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="period" type="xs:unsignedByte" use="required" />
+                  <xs:attribute name="starttime" type="xs:string" use="required" />
+                  <xs:attribute name="finishtime" type="xs:string" use="required" />
+                  <xs:attribute name="cycletimemin" type="xs:unsignedShort" use="required" />
+                  <xs:attribute name="cycletimefactor" type="xs:decimal" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="startedorders" type="xs:unsignedByte" use="required" />
+            <xs:attribute name="waitingorders" type="xs:unsignedByte" use="required" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="result">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="general">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="capacity">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:unsignedShort" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:unsignedInt" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="possiblecapacity">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:unsignedShort" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:unsignedInt" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="relpossiblenormalcapacity">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:string" use="required" />
+                        <xs:attribute name="average" type="xs:string" use="required" />
+                        <xs:attribute name="all" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="productivetime">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:unsignedShort" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:unsignedInt" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="effiency">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:string" use="required" />
+                        <xs:attribute name="average" type="xs:string" use="required" />
+                        <xs:attribute name="all" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="sellwish">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:unsignedShort" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:unsignedShort" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="salesquantity">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:unsignedShort" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:unsignedShort" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="deliveryreliability">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:string" use="required" />
+                        <xs:attribute name="average" type="xs:string" use="required" />
+                        <xs:attribute name="all" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="idletime">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:unsignedShort" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:unsignedShort" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="idletimecosts">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="storevalue">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="storagecosts">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="defectivegoods">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="quantity">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:unsignedByte" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:unsignedByte" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="costs">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="normalsale">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="salesprice">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="profit">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="profitperunit">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="directsale">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="profit">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="contractpenalty">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="marketplacesale">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="profit">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="summary">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="profit">
+                      <xs:complexType>
+                        <xs:attribute name="current" type="xs:decimal" use="required" />
+                        <xs:attribute name="average" type="xs:decimal" use="required" />
+                        <xs:attribute name="all" type="xs:decimal" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
-      <xs:attribute name="game" type="xs:integer"></xs:attribute>
-      <xs:attribute name="group" type="xs:integer"></xs:attribute>
-      <xs:attribute name="period" type="xs:integer"></xs:attribute>
+      <xs:attribute name="game" type="xs:unsignedByte" use="required" />
+      <xs:attribute name="group" type="xs:unsignedByte" use="required" />
+      <xs:attribute name="period" type="xs:unsignedByte" use="required" />
     </xs:complexType>
   </xs:element>
 </xs:schema>

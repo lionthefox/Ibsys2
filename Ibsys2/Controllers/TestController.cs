@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text.Json;
 using System.Xml.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,11 +10,11 @@ namespace Ibsys2.Controllers
   [Route("test")]
   public class TestController : ControllerBase
   {
-    private readonly ILogger<TestController> logger;
+    private readonly ILogger<TestController> _logger;
 
     public TestController(ILogger<TestController> logger)
     {
-      this.logger = logger;
+      _logger = logger;
     }
 
     [HttpGet("get")]
@@ -35,7 +34,7 @@ namespace Ibsys2.Controllers
       }
       catch (Exception exception)
       {
-        logger.LogError(exception, exception.Message);
+        _logger.LogError(exception, exception.Message);
         return null;
       }
     }
