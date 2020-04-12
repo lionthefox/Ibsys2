@@ -9,18 +9,10 @@
     }
   },
   "profiles": {
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "test/get",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
-    },
     "Ibsys2": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "test/get",
+      "launchUrl": "test/parse-personal-maschinen",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

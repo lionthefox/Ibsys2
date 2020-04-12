@@ -1,42 +1,44 @@
-﻿using System;
-using System.IO;
-using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using Ibsys2.Models;
+using Ibsys2.Models.Stammdaten;
+using Ibsys2.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Ibsys2.Controllers
 {
-  [ApiController]
-  [Route("test")]
-  public class TestController : ControllerBase
-  {
-    private readonly ILogger<TestController> _logger;
-
-    public TestController(ILogger<TestController> logger)
+    [ApiController]
+    [Route("test")]
+    public class TestController : ControllerBase
     {
-      _logger = logger;
-    }
+        private readonly ILogger<TestController> _logger;
+        private readonly ParserService _parserService;
 
-    [HttpGet("get")]
-    public results Get()
-    {
-      return ParseResultsXml();
-    }
+        public TestController(
+            ILogger<TestController> logger,
+            ParserService parserService
+        )
+        {
+            _logger = logger;
+            _parserService = parserService;
+        }
 
-    private results ParseResultsXml()
-    {
-      try
-      {
-        using var fileStream = new FileStream(@".\Data\resultServlet.xml", FileMode.Open);
-        var xmlSerializer = new XmlSerializer(typeof(results));
-        var results = xmlSerializer.Deserialize(fileStream) as results;
-        return results;
-      }
-      catch (Exception exception)
-      {
-        _logger.LogError(exception, exception.Message);
-        return null;
-      }
+        [HttpGet("parse-results")]
+        public results ParseResults()
+        {
+            return _parserService.ParseResultsXml();
+        }
+
+        [HttpGet("parse-artikel")]
+        public IList<Artikel> ParseArticles()
+        {
+            return _parserService.ParseArtikelCsv();
+        }
+
+        [HttpGet("parse-personal-maschinen")]
+        public IList<PersonalMaschinen> ParsePersonalMaschinen()
+        {
+            return _parserService.ParsePersonalMaschinenCsv();
+        }
     }
-  }
 }
