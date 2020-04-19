@@ -11,27 +11,27 @@ using Microsoft.Extensions.Logging;
 
 namespace Ibsys2.Services
 {
-    public class ParserService
+    public class FileRepository
     {
-        private readonly ILogger<ParserService> _logger;
+        private readonly ILogger<FileRepository> logger;
 
-        public ParserService(ILogger<ParserService> logger)
+        public FileRepository(ILogger<FileRepository> logger)
         {
-            _logger = logger;
+            this.logger = logger;
         }
 
         public results ParseResultsXml()
         {
             try
             {
-                using var fileStream = new FileStream(@".\Data\resultServlet.xml", FileMode.Open);
+                using var fileStream = new FileStream(@".\Data\last_period_results.xml", FileMode.Open);
                 var xmlSerializer = new XmlSerializer(typeof(results));
                 var results = xmlSerializer.Deserialize(fileStream) as results;
                 return results;
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, exception.Message);
+                logger.LogError("ParseResultsXml failed:", exception);
                 return null;
             }
         }
@@ -47,7 +47,7 @@ namespace Ibsys2.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, exception.Message);
+                logger.LogError("ParseArtikelCsv failed:", exception);
                 return null;
             }
         }   
@@ -62,7 +62,7 @@ namespace Ibsys2.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, exception.Message);
+                logger.LogError("ParsePersonalMaschinenCsv failed:", exception);
                 return null;
             }
         }

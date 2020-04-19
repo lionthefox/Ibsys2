@@ -12,7 +12,7 @@
     "Ibsys2": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "test/parse-personal-maschinen",
+      "launchUrl": "simulation",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
