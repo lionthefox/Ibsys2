@@ -14,7 +14,7 @@ namespace Ibsys2.Controllers
 
     public SimulationController(
       ILogger<SimulationController> logger,
-      FileRepository fileRepository, SimulationService simulationService)
+      SimulationService simulationService)
     {
       this.logger = logger;
       this.simulationService = simulationService;

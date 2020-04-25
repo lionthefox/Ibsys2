@@ -66,5 +66,35 @@ namespace Ibsys2.Services
                 return null;
             }
         }
+
+        public IList<Kaufteil> ParseKaufteileCsv()
+        {
+            try
+            {
+                using var reader = new StreamReader(@".\Data\Kaufteile.csv");
+                using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
+                return new List<Kaufteil>(csvReader.GetRecords<Kaufteil>().ToList());
+            }
+            catch (Exception exception)
+            {
+                logger.LogError("ParseKaufteileCsv failed:", exception);
+                return null;
+            }
+        }
+
+        public IList<Arbeitsplatz> ParseArbeitsplätzeCsv()
+        {
+            try
+            {
+                using var reader = new StreamReader(@".\Data\Arbeitsplätze.csv");
+                using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
+                return new List<Arbeitsplatz>(csvReader.GetRecords<Arbeitsplatz>().ToList());
+            }
+            catch (Exception exception)
+            {
+                logger.LogError("ParseArbeitsplätzeCsv failed:", exception);
+                return null;
+            }
+        }
     }
 }
