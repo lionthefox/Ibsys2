@@ -8,9 +8,9 @@ namespace Ibsys2.Services
     {
         private readonly FileRepository _fileRepository;
 
-        private results LastPeriodResults { get; set; }
-        private IList<Artikel> ArtikelStammdaten { get; set; }
-        private IList<PersonalMaschinen> PersonalMaschinenStammdaten { get; set; }
+        public results LastPeriodResults { get; set; }
+        public IList<Artikel> ArtikelStammdaten { get; set; }
+        public IList<PersonalMaschinen> PersonalMaschinenStammdaten { get; set; }
         public IList<Arbeitsplatz> Arbeitsplätze { get; set; }
         public IList<Kaufteil> Kaufteile { get; set; }
 

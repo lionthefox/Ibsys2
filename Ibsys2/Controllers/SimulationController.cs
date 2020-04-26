@@ -20,18 +20,26 @@ namespace Ibsys2.Controllers
             _simulationService = simulationService;
         }
 
+        [HttpGet]
+        public string Info()
+        {
+            return
+                "To start the simulation send a POST request, with the last period results as json body, to this URL.";
+        }
+
         [HttpPost]
-        public string Simulate([FromBody] results results)
+        public results Simulate([FromBody] results results)
         {
             try
             {
                 _simulationService.Initialize(results);
-                return "Simulation successful";
+                _logger.LogInformation("Simulation successful");
+                return _simulationService.LastPeriodResults;
             }
             catch (Exception exception)
             {
                 _logger.LogError("Simulation failed:", exception);
-                return $"Simulation failed: {exception.Message}";
+                return null;
             }
         }
     }
