@@ -44,11 +44,11 @@ public partial class results {
     
     private resultsResult resultField;
     
-    private byte gameField;
+    private int gameField;
     
-    private byte groupField;
+    private int groupField;
     
-    private byte periodField;
+    private int periodField;
     
     /// <remarks/>
     public resultsWarehousestock warehousestock {
@@ -158,7 +158,7 @@ public partial class results {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte game {
+    public int game {
         get {
             return this.gameField;
         }
@@ -169,7 +169,7 @@ public partial class results {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte group {
+    public int group {
         get {
             return this.groupField;
         }
@@ -180,7 +180,7 @@ public partial class results {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte period {
+    public int period {
         get {
             return this.periodField;
         }
@@ -232,7 +232,7 @@ public partial class resultsWarehousestock {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsWarehousestockArticle {
     
-    private byte idField;
+    private int idField;
     
     private ushort amountField;
     
@@ -246,7 +246,7 @@ public partial class resultsWarehousestockArticle {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte id {
+    public int id {
         get {
             return this.idField;
         }
@@ -319,13 +319,13 @@ public partial class resultsWarehousestockArticle {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsOrder {
     
-    private byte orderperiodField;
+    private int orderperiodField;
     
-    private byte idField;
+    private int idField;
     
-    private byte modeField;
+    private int modeField;
     
-    private byte articleField;
+    private int articleField;
     
     private ushort amountField;
     
@@ -341,7 +341,7 @@ public partial class resultsOrder {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte orderperiod {
+    public int orderperiod {
         get {
             return this.orderperiodField;
         }
@@ -352,7 +352,7 @@ public partial class resultsOrder {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte id {
+    public int id {
         get {
             return this.idField;
         }
@@ -363,7 +363,7 @@ public partial class resultsOrder {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte mode {
+    public int mode {
         get {
             return this.modeField;
         }
@@ -374,7 +374,7 @@ public partial class resultsOrder {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte article {
+    public int article {
         get {
             return this.articleField;
         }
@@ -458,19 +458,19 @@ public partial class resultsOrder {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsOrder1 {
     
-    private byte orderperiodField;
+    private int orderperiodField;
     
-    private byte idField;
+    private int idField;
     
-    private byte modeField;
+    private int modeField;
     
-    private byte articleField;
+    private int articleField;
     
     private ushort amountField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte orderperiod {
+    public int orderperiod {
         get {
             return this.orderperiodField;
         }
@@ -481,7 +481,7 @@ public partial class resultsOrder1 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte id {
+    public int id {
         get {
             return this.idField;
         }
@@ -492,7 +492,7 @@ public partial class resultsOrder1 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte mode {
+    public int mode {
         get {
             return this.modeField;
         }
@@ -503,7 +503,7 @@ public partial class resultsOrder1 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte article {
+    public int article {
         get {
             return this.articleField;
         }
@@ -566,9 +566,9 @@ public partial class resultsIdletimecosts {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsIdletimecostsWorkplace {
     
-    private byte idField;
+    private int idField;
     
-    private byte setupeventsField;
+    private int setupeventsField;
     
     private ushort idletimeField;
     
@@ -580,7 +580,7 @@ public partial class resultsIdletimecostsWorkplace {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte id {
+    public int id {
         get {
             return this.idField;
         }
@@ -591,7 +591,7 @@ public partial class resultsIdletimecostsWorkplace {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte setupevents {
+    public int setupevents {
         get {
             return this.setupeventsField;
         }
@@ -653,7 +653,7 @@ public partial class resultsIdletimecostsWorkplace {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsIdletimecostsSum {
     
-    private byte setupeventsField;
+    private int setupeventsField;
     
     private ushort idletimeField;
     
@@ -665,7 +665,7 @@ public partial class resultsIdletimecostsSum {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte setupevents {
+    public int setupevents {
         get {
             return this.setupeventsField;
         }
@@ -729,7 +729,7 @@ public partial class resultsWorkplace {
     
     private resultsWorkplaceWaitinglist[] waitinglistField;
     
-    private byte idField;
+    private int idField;
     
     private ushort timeneedField;
     
@@ -746,7 +746,7 @@ public partial class resultsWorkplace {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte id {
+    public int id {
         get {
             return this.idField;
         }
@@ -775,23 +775,23 @@ public partial class resultsWorkplace {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsWorkplaceWaitinglist {
     
-    private byte periodField;
+    private int periodField;
     
-    private byte orderField;
+    private int orderField;
     
-    private byte firstbatchField;
+    private int firstbatchField;
     
-    private byte lastbatchField;
+    private int lastbatchField;
     
-    private byte itemField;
+    private int itemField;
     
-    private byte amountField;
+    private int amountField;
     
     private ushort timeneedField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte period {
+    public int period {
         get {
             return this.periodField;
         }
@@ -802,7 +802,7 @@ public partial class resultsWorkplaceWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte order {
+    public int order {
         get {
             return this.orderField;
         }
@@ -813,7 +813,7 @@ public partial class resultsWorkplaceWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte firstbatch {
+    public int firstbatch {
         get {
             return this.firstbatchField;
         }
@@ -824,7 +824,7 @@ public partial class resultsWorkplaceWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte lastbatch {
+    public int lastbatch {
         get {
             return this.lastbatchField;
         }
@@ -835,7 +835,7 @@ public partial class resultsWorkplaceWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte item {
+    public int item {
         get {
             return this.itemField;
         }
@@ -846,7 +846,7 @@ public partial class resultsWorkplaceWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte amount {
+    public int amount {
         get {
             return this.amountField;
         }
@@ -877,7 +877,7 @@ public partial class resultsMissingpart {
     
     private resultsMissingpartWaitinglist waitinglistField;
     
-    private byte idField;
+    private int idField;
     
     /// <remarks/>
     public resultsMissingpartWaitinglist waitinglist {
@@ -891,7 +891,7 @@ public partial class resultsMissingpart {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte id {
+    public int id {
         get {
             return this.idField;
         }
@@ -909,21 +909,21 @@ public partial class resultsMissingpart {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsMissingpartWaitinglist {
     
-    private byte periodField;
+    private int periodField;
     
-    private byte orderField;
+    private int orderField;
     
-    private byte firstbatchField;
+    private int firstbatchField;
     
-    private byte lastbatchField;
+    private int lastbatchField;
     
-    private byte itemField;
+    private int itemField;
     
-    private byte amountField;
+    private int amountField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte period {
+    public int period {
         get {
             return this.periodField;
         }
@@ -934,7 +934,7 @@ public partial class resultsMissingpartWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte order {
+    public int order {
         get {
             return this.orderField;
         }
@@ -945,7 +945,7 @@ public partial class resultsMissingpartWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte firstbatch {
+    public int firstbatch {
         get {
             return this.firstbatchField;
         }
@@ -956,7 +956,7 @@ public partial class resultsMissingpartWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte lastbatch {
+    public int lastbatch {
         get {
             return this.lastbatchField;
         }
@@ -967,7 +967,7 @@ public partial class resultsMissingpartWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte item {
+    public int item {
         get {
             return this.itemField;
         }
@@ -978,7 +978,7 @@ public partial class resultsMissingpartWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte amount {
+    public int amount {
         get {
             return this.amountField;
         }
@@ -996,23 +996,23 @@ public partial class resultsMissingpartWaitinglist {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsWorkplace1 {
     
-    private byte idField;
+    private int idField;
     
-    private byte periodField;
+    private int periodField;
     
-    private byte orderField;
+    private int orderField;
     
-    private byte batchField;
+    private int batchField;
     
-    private byte itemField;
+    private int itemField;
     
-    private byte amountField;
+    private int amountField;
     
-    private byte timeneedField;
+    private int timeneedField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte id {
+    public int id {
         get {
             return this.idField;
         }
@@ -1023,7 +1023,7 @@ public partial class resultsWorkplace1 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte period {
+    public int period {
         get {
             return this.periodField;
         }
@@ -1034,7 +1034,7 @@ public partial class resultsWorkplace1 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte order {
+    public int order {
         get {
             return this.orderField;
         }
@@ -1045,7 +1045,7 @@ public partial class resultsWorkplace1 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte batch {
+    public int batch {
         get {
             return this.batchField;
         }
@@ -1056,7 +1056,7 @@ public partial class resultsWorkplace1 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte item {
+    public int item {
         get {
             return this.itemField;
         }
@@ -1067,7 +1067,7 @@ public partial class resultsWorkplace1 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte amount {
+    public int amount {
         get {
             return this.amountField;
         }
@@ -1078,7 +1078,7 @@ public partial class resultsWorkplace1 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte timeneed {
+    public int timeneed {
         get {
             return this.timeneedField;
         }
@@ -1098,13 +1098,13 @@ public partial class resultsOrder2 {
     
     private resultsOrderBatch[] batchField;
     
-    private byte periodField;
+    private int periodField;
     
-    private byte idField;
+    private int idField;
     
-    private byte itemField;
+    private int itemField;
     
-    private byte quantityField;
+    private int quantityField;
     
     private decimal costField;
     
@@ -1123,7 +1123,7 @@ public partial class resultsOrder2 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte period {
+    public int period {
         get {
             return this.periodField;
         }
@@ -1134,7 +1134,7 @@ public partial class resultsOrder2 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte id {
+    public int id {
         get {
             return this.idField;
         }
@@ -1145,7 +1145,7 @@ public partial class resultsOrder2 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte item {
+    public int item {
         get {
             return this.itemField;
         }
@@ -1156,7 +1156,7 @@ public partial class resultsOrder2 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte quantity {
+    public int quantity {
         get {
             return this.quantityField;
         }
@@ -1196,9 +1196,9 @@ public partial class resultsOrder2 {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsOrderBatch {
     
-    private byte idField;
+    private int idField;
     
-    private byte amountField;
+    private int amountField;
     
     private ushort cycletimeField;
     
@@ -1206,7 +1206,7 @@ public partial class resultsOrderBatch {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte id {
+    public int id {
         get {
             return this.idField;
         }
@@ -1217,7 +1217,7 @@ public partial class resultsOrderBatch {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte amount {
+    public int amount {
         get {
             return this.amountField;
         }
@@ -1259,9 +1259,9 @@ public partial class resultsCycletimes {
     
     private resultsCycletimesOrder[] orderField;
     
-    private byte startedordersField;
+    private int startedordersField;
     
-    private byte waitingordersField;
+    private int waitingordersField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("order")]
@@ -1276,7 +1276,7 @@ public partial class resultsCycletimes {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte startedorders {
+    public int startedorders {
         get {
             return this.startedordersField;
         }
@@ -1287,7 +1287,7 @@ public partial class resultsCycletimes {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte waitingorders {
+    public int waitingorders {
         get {
             return this.waitingordersField;
         }
@@ -1305,9 +1305,9 @@ public partial class resultsCycletimes {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsCycletimesOrder {
     
-    private byte idField;
+    private int idField;
     
-    private byte periodField;
+    private int periodField;
     
     private string starttimeField;
     
@@ -1319,7 +1319,7 @@ public partial class resultsCycletimesOrder {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte id {
+    public int id {
         get {
             return this.idField;
         }
@@ -1330,7 +1330,7 @@ public partial class resultsCycletimesOrder {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte period {
+    public int period {
         get {
             return this.periodField;
         }
@@ -2235,15 +2235,15 @@ public partial class resultsResultDefectivegoods {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsResultDefectivegoodsQuantity {
     
-    private byte currentField;
+    private int currentField;
     
     private decimal averageField;
     
-    private byte allField;
+    private int allField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte current {
+    public int current {
         get {
             return this.currentField;
         }
@@ -2265,7 +2265,7 @@ public partial class resultsResultDefectivegoodsQuantity {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public byte all {
+    public int all {
         get {
             return this.allField;
         }

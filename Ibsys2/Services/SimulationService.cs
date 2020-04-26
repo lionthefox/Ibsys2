@@ -6,7 +6,7 @@ namespace Ibsys2.Services
 {
     public class SimulationService
     {
-        private readonly FileRepository fileRepository;
+        private readonly FileRepository _fileRepository;
 
         private results LastPeriodResults { get; set; }
         private IList<Artikel> ArtikelStammdaten { get; set; }
@@ -16,16 +16,16 @@ namespace Ibsys2.Services
 
         public SimulationService(FileRepository fileRepository)
         {
-            this.fileRepository = fileRepository;
+            _fileRepository = fileRepository;
         }
 
-        public void Initialize()
+        public void Initialize(results results)
         {
-            LastPeriodResults = fileRepository.ParseResultsXml();
-            ArtikelStammdaten = fileRepository.ParseArtikelCsv();
-            PersonalMaschinenStammdaten = fileRepository.ParsePersonalMaschinenCsv();
-            Arbeitsplätze = fileRepository.ParseArbeitsplätzeCsv();
-            Kaufteile = fileRepository.ParseKaufteileCsv();
+            LastPeriodResults = results;
+            ArtikelStammdaten = _fileRepository.ParseArtikelCsv();
+            PersonalMaschinenStammdaten = _fileRepository.ParsePersonalMaschinenCsv();
+            Arbeitsplätze = _fileRepository.ParseArbeitsplätzeCsv();
+            Kaufteile = _fileRepository.ParseKaufteileCsv();
         }
     }
 }

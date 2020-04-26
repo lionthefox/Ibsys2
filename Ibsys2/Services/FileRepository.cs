@@ -13,11 +13,11 @@ namespace Ibsys2.Services
 {
     public class FileRepository
     {
-        private readonly ILogger<FileRepository> logger;
+        private readonly ILogger<FileRepository> _logger;
 
         public FileRepository(ILogger<FileRepository> logger)
         {
-            this.logger = logger;
+            _logger = logger;
         }
 
         public results ParseResultsXml()
@@ -27,11 +27,12 @@ namespace Ibsys2.Services
                 using var fileStream = new FileStream(@".\Data\last_period_results.xml", FileMode.Open);
                 var xmlSerializer = new XmlSerializer(typeof(results));
                 var results = xmlSerializer.Deserialize(fileStream) as results;
+
                 return results;
             }
             catch (Exception exception)
             {
-                logger.LogError("ParseResultsXml failed:", exception);
+                _logger.LogError("ParseResultsXml failed:", exception);
                 return null;
             }
         }
@@ -43,11 +44,11 @@ namespace Ibsys2.Services
             {
                 using var reader = new StreamReader(@".\Data\Artikel.csv");
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
-                return new List<Artikel>(csvReader.GetRecords<Artikel>().ToList());csvReader.GetRecords<Artikel>().ToList();
+                return new List<Artikel>(csvReader.GetRecords<Artikel>().ToList());
             }
             catch (Exception exception)
             {
-                logger.LogError("ParseArtikelCsv failed:", exception);
+                _logger.LogError("ParseArtikelCsv failed:", exception);
                 return null;
             }
         }   
@@ -62,7 +63,7 @@ namespace Ibsys2.Services
             }
             catch (Exception exception)
             {
-                logger.LogError("ParsePersonalMaschinenCsv failed:", exception);
+                _logger.LogError("ParsePersonalMaschinenCsv failed:", exception);
                 return null;
             }
         }
@@ -77,7 +78,7 @@ namespace Ibsys2.Services
             }
             catch (Exception exception)
             {
-                logger.LogError("ParseKaufteileCsv failed:", exception);
+                _logger.LogError("ParseKaufteileCsv failed:", exception);
                 return null;
             }
         }
@@ -92,7 +93,7 @@ namespace Ibsys2.Services
             }
             catch (Exception exception)
             {
-                logger.LogError("ParseArbeitsplätzeCsv failed:", exception);
+                _logger.LogError("ParseArbeitsplätzeCsv failed:", exception);
                 return null;
             }
         }
