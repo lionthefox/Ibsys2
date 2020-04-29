@@ -68,17 +68,17 @@ namespace Ibsys2.Services
             }
         }
 
-        public IList<Kaufteil> ParseKaufteileCsv()
+        public IList<StücklistenAuflösung> ParseStücklistenAuflösungCsv()
         {
             try
             {
-                using var reader = new StreamReader(@".\Data\Kaufteile.csv");
+                using var reader = new StreamReader(@".\Data\Stücklisten_Auflösung.csv");
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
-                return new List<Kaufteil>(csvReader.GetRecords<Kaufteil>().ToList());
+                return new List<StücklistenAuflösung>(csvReader.GetRecords<StücklistenAuflösung>().ToList());
             }
             catch (Exception exception)
             {
-                _logger.LogError("ParseKaufteileCsv failed:", exception);
+                _logger.LogError("ParseStücklistenAuflösungCsv failed:", exception);
                 return null;
             }
         }

@@ -1,6 +1,6 @@
 ﻿namespace Ibsys2.Models.Stammdaten
 {
-    public class Kaufteil
+    public class StücklistenAuflösung
     {
         public int Matnr { get; set; }
         public int Arbeitsplatz { get; set; }

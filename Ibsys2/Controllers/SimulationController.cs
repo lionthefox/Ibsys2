@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Text.Json.Serialization;
+using Ibsys2.Models;
 using Ibsys2.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 
 namespace Ibsys2.Controllers
 {
@@ -28,11 +31,11 @@ namespace Ibsys2.Controllers
         }
 
         [HttpPost]
-        public results Simulate([FromBody] results results)
+        public results Simulate([FromBody] SimulationInput input)
         {
             try
             {
-                _simulationService.Initialize(results);
+                _simulationService.Initialize(input.Results);
                 _logger.LogInformation("Simulation successful");
                 return _simulationService.LastPeriodResults;
             }

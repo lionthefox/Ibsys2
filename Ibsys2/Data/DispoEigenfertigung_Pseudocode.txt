@@ -1,0 +1,43 @@
+Sicherheitsbestand = Summe(Vertiebswunsch) / n * 0,5 mit n = Anzahl der kommenden Perioden
+
+
+ToDos:
+  - Aufträge in Bearbeitung und in der Warteschlange noch Berücksichtigen
+
+
+
+
+
+1. Stückliste auflösen
+
+func stueckliste(matnr: Int): List<Matnr, Anzahl> {
+  liste = stuecklisteUnterpositionen(matnr)
+  foreach item in liste {
+    unterpos = stueckliste(item.matnr)
+    if unterpos.size > 0 {
+      liste.addall(unterpos)
+    }
+  }
+  return liste
+}
+
+
+func stuecklisteUnterpositionen (matnr: Int): List<Matnr, Anzahl>{
+  var positionen = new List<Matnr, Anzahl>;
+  foreach item in stueckliste{
+    if item.Matnr == matnr {
+      positionen.add([item.Teil, item.Anzahl]);
+    }
+  }
+  return positionen
+}
+
+
+Prüfen auf E-Teile
+-> Artikel.csv alle Elemente, die mit "E" enden
+-> Leerzeichen entfernen
+
+func prodmenge(matnr: Int, vertrieb: Double, sicherheitsb: Double): prodmenge: Double{
+  vertrieb + sicherheitb - Lagerbestand Vorperiode = prodmenge
+  return prodmenge
+}

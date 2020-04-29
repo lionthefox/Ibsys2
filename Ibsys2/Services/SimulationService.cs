@@ -12,7 +12,7 @@ namespace Ibsys2.Services
         public IList<Artikel> ArtikelStammdaten { get; set; }
         public IList<PersonalMaschinen> PersonalMaschinenStammdaten { get; set; }
         public IList<Arbeitsplatz> Arbeitsplätze { get; set; }
-        public IList<Kaufteil> Kaufteile { get; set; }
+        public IList<StücklistenAuflösung> StücklistenAuflösungen { get; set; }
 
         public SimulationService(FileRepository fileRepository)
         {
@@ -25,7 +25,7 @@ namespace Ibsys2.Services
             ArtikelStammdaten = _fileRepository.ParseArtikelCsv();
             PersonalMaschinenStammdaten = _fileRepository.ParsePersonalMaschinenCsv();
             Arbeitsplätze = _fileRepository.ParseArbeitsplätzeCsv();
-            Kaufteile = _fileRepository.ParseKaufteileCsv();
+            StücklistenAuflösungen = _fileRepository.ParseStücklistenAuflösungCsv();
         }
     }
 }
