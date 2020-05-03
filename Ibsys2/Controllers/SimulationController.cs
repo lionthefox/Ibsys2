@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Text.Json.Serialization;
 using Ibsys2.Models;
 using Ibsys2.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 
 namespace Ibsys2.Controllers
 {

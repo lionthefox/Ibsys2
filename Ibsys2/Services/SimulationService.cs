@@ -2,7 +2,6 @@
 using System.Linq;
 using Ibsys2.Models;
 using Ibsys2.Models.Stammdaten;
-using Microsoft.Extensions.Logging;
 
 namespace Ibsys2.Services
 {
