@@ -35,7 +35,7 @@ namespace Ibsys2.Controllers
         {
             try
             {
-                _simulationService.Initialize(input.Results);
+                _simulationService.Start(input.Results);
                 _logger.LogInformation("Simulation successful");
                 return _simulationService.LastPeriodResults;
             }

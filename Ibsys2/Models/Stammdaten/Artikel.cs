@@ -3,7 +3,8 @@ namespace Ibsys2.Models
 {
     public class Artikel
     {
-        public string Artikelnummer { get; set; }
+        public int Artikelnummer { get; set; }
+        public char Typ { get; set; }
         public string Bezeichnung { get; set; }
         public string Verwendung { get; set; }
         public int Startmenge { get; set; }

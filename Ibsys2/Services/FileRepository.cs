@@ -68,13 +68,13 @@ namespace Ibsys2.Services
             }
         }
 
-        public IList<StücklistenAuflösung> ParseStücklistenAuflösungCsv()
+        public IList<StücklistenPosition> ParseStücklistenAuflösungCsv()
         {
             try
             {
                 using var reader = new StreamReader(@".\Data\Stücklisten_Auflösung.csv");
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
-                return new List<StücklistenAuflösung>(csvReader.GetRecords<StücklistenAuflösung>().ToList());
+                return new List<StücklistenPosition>(csvReader.GetRecords<StücklistenPosition>().ToList());
             }
             catch (Exception exception)
             {

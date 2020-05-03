@@ -1,6 +1,9 @@
-﻿namespace Ibsys2.Models.Stammdaten
+﻿using System.Diagnostics;
+
+namespace Ibsys2.Models.Stammdaten
 {
-    public class StücklistenAuflösung
+    [DebuggerDisplay("MatNr = {Matnr}")]
+    public class StücklistenPosition
     {
         public int Matnr { get; set; }
         public int Arbeitsplatz { get; set; }
