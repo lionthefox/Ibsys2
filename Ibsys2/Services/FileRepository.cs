@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml.Serialization;
 using CsvHelper;
 using Ibsys2.Models;
@@ -15,6 +16,8 @@ namespace Ibsys2.Services
     {
         private readonly ILogger<FileRepository> _logger;
 
+        private readonly string dataDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Data");
+        
         public FileRepository(ILogger<FileRepository> logger)
         {
             _logger = logger;
@@ -24,7 +27,7 @@ namespace Ibsys2.Services
         {
             try
             {
-                using var fileStream = new FileStream(@".\Data\last_period_results.xml", FileMode.Open);
+                using var fileStream = new FileStream(Path.Combine(dataDirectory, "last_period_results.xml"), FileMode.Open);
                 var xmlSerializer = new XmlSerializer(typeof(results));
                 var results = xmlSerializer.Deserialize(fileStream) as results;
 
@@ -42,7 +45,7 @@ namespace Ibsys2.Services
         {
             try
             {
-                using var reader = new StreamReader(@".\Data\Artikel.csv");
+                using var reader = new StreamReader(Path.Combine(dataDirectory,"Artikel.csv"));
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
                 return new List<Artikel>(csvReader.GetRecords<Artikel>().ToList());
             }
@@ -57,7 +60,7 @@ namespace Ibsys2.Services
         {
             try
             {
-                using var reader = new StreamReader(@".\Data\PersonalMaschinen.csv");
+                using var reader = new StreamReader(Path.Combine(dataDirectory,"PersonalMaschinen.csv"));
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
                 return csvReader.GetRecords<PersonalMaschinen>().ToList();
             }
@@ -72,7 +75,7 @@ namespace Ibsys2.Services
         {
             try
             {
-                using var reader = new StreamReader(@".\Data\Stücklisten_Auflösung.csv");
+                using var reader = new StreamReader(Path.Combine(dataDirectory, "Stücklisten_Auflösung.csv"));
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
                 return new List<StücklistenPosition>(csvReader.GetRecords<StücklistenPosition>().ToList());
             }
@@ -87,7 +90,7 @@ namespace Ibsys2.Services
         {
             try
             {
-                using var reader = new StreamReader(@".\Data\Arbeitsplätze.csv");
+                using var reader = new StreamReader(Path.Combine(dataDirectory, "Arbeitsplätze.csv"));
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
                 return new List<Arbeitsplatz>(csvReader.GetRecords<Arbeitsplatz>().ToList());
             }

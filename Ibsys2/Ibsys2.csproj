@@ -16,6 +16,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Data\Arbeitsplätze.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Artikel.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\PersonalMaschinen.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data\Stücklisten_Auflösung.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Models\XSD\input.xsd">
       <SubType>Designer</SubType>
     </None>
