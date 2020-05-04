@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { FilePond } from 'react-filepond';
 import axios from 'axios';
+
+import simulationInput from '../assets/examples/simulation_input';
 
 const useStyles = makeStyles(() => ({
   uploadContainer: {
@@ -83,6 +85,7 @@ const UploadContainer = ({ children }) => {
 const FileUpload = ({ multipleFiles, url }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
+  const dropZone = useRef(null);
 
   return (
     <UploadContainer>
@@ -100,8 +103,9 @@ const FileUpload = ({ multipleFiles, url }) => {
         </div>
       ) : null}
       <FilePond
+        ref={dropZone}
         allowMultiple={multipleFiles}
-        acceptedFileTypes={['application/json']}
+        acceptedFileTypes={['text/xml']}
         allowReorder={true}
         instantUpload={true}
         dropOnPage={true}
@@ -111,16 +115,13 @@ const FileUpload = ({ multipleFiles, url }) => {
           fetch: null,
           revert: null,
           process: (fieldName, file, metadata, load, error, progress) => {
-            const formData = new FormData();
-            formData.append('file', file, file.name);
-            for (const [key, value] of formData.entries()) {
-              console.log(key, value);
-            }
+            console.log(dropZone.current.getFile().getFileEncodeBase64String());
 
             axios({
               url: url,
               method: 'POST',
-              data: formData,
+              headers: { 'Content-Type': 'application/json' },
+              data: simulationInput,
               onUploadProgress: (e) => {
                 progress(e.lengthComputable, e.loaded, e.total);
               },
