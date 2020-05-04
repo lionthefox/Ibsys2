@@ -4,7 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import { FilePond } from 'react-filepond';
 import axios from 'axios';
 
-import simulationInput from '../assets/examples/simulation_input';
+import simulationInput from '../../assets/examples/simulation_input';
+import xmlToJson from './XMLtoJSONConverter';
 
 const useStyles = makeStyles(() => ({
   uploadContainer: {
@@ -115,13 +116,21 @@ const FileUpload = ({ multipleFiles, url }) => {
           fetch: null,
           revert: null,
           process: (fieldName, file, metadata, load, error, progress) => {
-            console.log(dropZone.current.getFile().getFileEncodeBase64String());
+            const encodedXML = dropZone.current
+              .getFile()
+              .getFileEncodeBase64String();
+            const decodedXML = atob(encodedXML);
+            const parsedXML = new DOMParser().parseFromString(
+              decodedXML,
+              'text/xml'
+            );
+            const jsonObj = xmlToJson(parsedXML);
 
             axios({
               url: url,
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              data: simulationInput,
+              data: jsonObj,
               onUploadProgress: (e) => {
                 progress(e.lengthComputable, e.loaded, e.total);
               },

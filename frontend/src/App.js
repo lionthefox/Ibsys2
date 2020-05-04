@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './components/Header';
-import FileUpload from './components/FileUpload';
+import FileUpload from './components/Upload/FileUpload';
 
 import * as FilePond from 'filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
