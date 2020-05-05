@@ -884,12 +884,10 @@
         "timeneed": 360
       },
       {
-        "waitinglist": null,
         "id": 2,
         "timeneed": 0
       },
       {
-        "waitinglist": null,
         "id": 3,
         "timeneed": 0
       },
@@ -909,12 +907,10 @@
         "timeneed": 420
       },
       {
-        "waitinglist": null,
         "id": 6,
         "timeneed": 0
       },
       {
-        "waitinglist": null,
         "id": 7,
         "timeneed": 0
       },
@@ -934,37 +930,30 @@
         "timeneed": 90
       },
       {
-        "waitinglist": null,
         "id": 9,
         "timeneed": 0
       },
       {
-        "waitinglist": null,
         "id": 10,
         "timeneed": 0
       },
       {
-        "waitinglist": null,
         "id": 11,
         "timeneed": 0
       },
       {
-        "waitinglist": null,
         "id": 12,
         "timeneed": 0
       },
       {
-        "waitinglist": null,
         "id": 13,
         "timeneed": 0
       },
       {
-        "waitinglist": null,
         "id": 14,
         "timeneed": 0
       },
       {
-        "waitinglist": null,
         "id": 15,
         "timeneed": 0
       }
