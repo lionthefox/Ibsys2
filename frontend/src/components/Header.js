@@ -1,19 +1,27 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import FormControl from '@material-ui/core/FormControl';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import InputBase from '@material-ui/core/InputBase';
+import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import SettingsIcon from '@material-ui/icons/Settings';
+import HomeIcon from '@material-ui/icons/Home';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
-const useStyles = makeStyles(() => ({
+import appIcon from '../assets/bike.png';
+
+const useStyles = makeStyles((theme) => ({
   root: {
-    height: '6rem',
+    height: '10rem',
   },
   appBar: {
     height: '100%',
-    backgroundColor: '#fff !important',
+    backgroundColor: '#135444 !important',
     justifyContent: 'center',
+    color: '#fff !important',
   },
   toolBar: {
     height: '100%',
@@ -21,7 +29,21 @@ const useStyles = makeStyles(() => ({
   },
   title: {
     marginLeft: '1rem',
-    color: 'rgb(84, 84, 85)',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
+  },
+  appIcon: {
+    height: '8rem',
+    position: 'relative',
+    left: '-3rem',
+    [theme.breakpoints.down('sm')]: {
+      height: '5rem',
+    },
+    [theme.breakpoints.down('xs')]: {
+      marginLeft: '2rem',
+      height: '3rem',
+    },
   },
   appIconContainer: {
     display: 'flex',
@@ -30,10 +52,46 @@ const useStyles = makeStyles(() => ({
   settingsButton: {
     width: '5rem',
     height: '5rem',
+    color: '#fff !important',
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+  inputLabel: {
+    color: '#fff !important',
+  },
+  selectIcon: {
+    color: '#fff',
+    position: 'relative',
+    top: '-0.75rem',
+    left: '-2rem',
+  },
+  nativeSelect: {
+    marginBottom: '1.5rem',
   },
 }));
 
-const Header = () => {
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    borderRadius: 4,
+    width: '8rem',
+    position: 'relative',
+    color: '#fff',
+    border: '1px solid #fff',
+    fontSize: 16,
+    padding: '10px 26px 10px 12px',
+    '&:focus': {
+      borderRadius: 4,
+    },
+  },
+}))(InputBase);
+
+const Header = ({ language, setLanguage }) => {
   const classes = useStyles();
 
   return (
@@ -41,13 +99,37 @@ const Header = () => {
       <AppBar position='static' className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
           <div className={classes.appIconContainer}>
-            <Typography variant='h3' className={classes.title}>
-              IBSYS2 SCM-Tool
+            <IconButton className={classes.settingsButton}>
+              <ArrowBackIcon fontSize='large' />
+            </IconButton>
+            <Typography variant='h5' className={classes.title}>
+              Produktionsplanungstool
             </Typography>
           </div>
-          <IconButton className={classes.settingsButton}>
-            <SettingsIcon />
-          </IconButton>
+          <img src={appIcon} alt='' className={classes.appIcon} />
+          <div className={classes.appIconContainer}>
+            <FormControl className={classes.margin}>
+              <InputLabel classes={{ root: classes.inputLabel }}>
+                Language
+              </InputLabel>
+              <NativeSelect
+                classes={{
+                  root: classes.nativeSelect,
+                  icon: classes.selectIcon,
+                }}
+                id='demo-customized-select-native'
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                input={<BootstrapInput />}
+              >
+                <option value='Deutsch'>Deutsch</option>
+                <option value='English'>English</option>
+              </NativeSelect>
+            </FormControl>
+            <IconButton className={classes.settingsButton}>
+              <HomeIcon fontSize='large' />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
     </div>

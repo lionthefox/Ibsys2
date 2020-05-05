@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header';
-import FileUpload from './components/Upload/FileUpload';
+import Simulation from './components/Simulation';
 
 import * as FilePond from 'filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
@@ -13,10 +13,13 @@ FilePond.registerPlugin(FilePondPluginFileValidateType);
 FilePond.registerPlugin(FilePondPluginFileEncode);
 
 const App = () => {
+  const [language, setLanguage] = useState('English');
+  const changeLanguage = (val) => setLanguage(val);
+
   return (
     <>
-      <Header />
-      <FileUpload multipleFiles={false} url='/simulation' />
+      <Header language={language} setLanguage={changeLanguage} />
+      <Simulation language={language} />
     </>
   );
 };

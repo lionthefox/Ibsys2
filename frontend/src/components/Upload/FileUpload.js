@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const useStyles = makeStyles(() => ({
   uploadContainer: {
-    height: '42.95vh',
+    height: '30vh',
     width: '100vw',
     display: 'flex',
     flexDirection: 'column',
@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden',
   },
   fileImportContainer: {
-    minHeight: '24vh',
+    height: '24vh',
     width: '100vw',
     display: 'flex',
     justifyContent: 'center',
@@ -64,7 +64,7 @@ const UploadContainer = ({ children }) => {
   const classes = useStyles();
   const uploadString = 'Laden Sie hier Ihre Simulationsdatei hoch';
   return (
-    <div className='cssanimation sequence fadeInBottom'>
+    <>
       <div className={classes.uploadContainer}>
         <Typography variant='h4' className={classes.importTypography}>
           {uploadString}
@@ -76,7 +76,7 @@ const UploadContainer = ({ children }) => {
       <div className={classes.fileImportContainer}>
         <div className={classes.fileImport}>{children}</div>
       </div>
-    </div>
+    </>
   );
 };
 
