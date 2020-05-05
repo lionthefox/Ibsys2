@@ -9,13 +9,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import appIcon from '../assets/bike.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '10rem',
+    height: '8rem',
   },
   appBar: {
     height: '100%',
@@ -36,20 +35,16 @@ const useStyles = makeStyles((theme) => ({
   appIcon: {
     height: '8rem',
     position: 'relative',
-    left: '-3rem',
+    top: '-0.3rem',
     [theme.breakpoints.down('sm')]: {
       height: '5rem',
-    },
-    [theme.breakpoints.down('xs')]: {
-      marginLeft: '2rem',
-      height: '3rem',
     },
   },
   appIconContainer: {
     display: 'flex',
     alignItems: 'center',
   },
-  settingsButton: {
+  homeButton: {
     width: '5rem',
     height: '5rem',
     color: '#fff !important',
@@ -99,9 +94,6 @@ const Header = ({ language, setLanguage }) => {
       <AppBar position='static' className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
           <div className={classes.appIconContainer}>
-            <IconButton className={classes.settingsButton}>
-              <ArrowBackIcon fontSize='large' />
-            </IconButton>
             <Typography variant='h5' className={classes.title}>
               Produktionsplanungstool
             </Typography>
@@ -126,7 +118,7 @@ const Header = ({ language, setLanguage }) => {
                 <option value='English'>English</option>
               </NativeSelect>
             </FormControl>
-            <IconButton className={classes.settingsButton}>
+            <IconButton className={classes.homeButton}>
               <HomeIcon fontSize='large' />
             </IconButton>
           </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Simulation from './components/Simulation';
+import Stepper from './components/Stepper';
 
 import * as FilePond from 'filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
@@ -20,6 +21,7 @@ const App = () => {
     <>
       <Header language={language} setLanguage={changeLanguage} />
       <Simulation language={language} />
+      <Stepper />
     </>
   );
 };
