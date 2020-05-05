@@ -4,9 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import { FilePond } from 'react-filepond';
 import axios from 'axios';
 
-import simulationInput from '../../assets/examples/simulation_input';
-import xmlToJson from './XMLtoJSONConverter';
-
 const useStyles = makeStyles(() => ({
   uploadContainer: {
     height: '42.95vh',
@@ -124,57 +121,13 @@ const FileUpload = ({ multipleFiles, url }) => {
               decodedXML,
               'text/xml'
             );
-            const jsonObj = xmlToJson(parsedXML);
-            /* jsonObj.results.forecast = {
-              periode1: {
-                produkt1: 5,
-                produkt2: 5,
-                produkt3: 5,
-              },
-              periode2: {
-                produkt1: 5,
-                produkt2: 5,
-                produkt3: 5,
-              },
-              periode3: {
-                produkt1: 5,
-                produkt2: 5,
-                produkt3: 5,
-              },
-              periode4: {
-                produkt1: 5,
-                produkt2: 5,
-                produkt3: 5,
-              },
-            };
-            jsonObj.results.vertriebswunsch = {
-              produkt1: 5,
-              produkt2: 5,
-              produkt3: 5,
-              direktverkauf: {
-                produkt1: {
-                  menge: 5,
-                  preis: 5.5,
-                  konventionalstrafe: 0.0,
-                },
-                produkt2: {
-                  menge: 5,
-                  preis: 5.5,
-                  konventionalstrafe: 0.0,
-                },
-                produkt3: {
-                  menge: 5,
-                  preis: 5.5,
-                  konventionalstrafe: 0.0,
-                },
-              },
-            }; */
+            /* const jsonObj = xmlToJson(parsedXML); */
 
             axios({
               url: url,
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              data: jsonObj,
+              data: parsedXML,
               onUploadProgress: (e) => {
                 progress(e.lengthComputable, e.loaded, e.total);
               },

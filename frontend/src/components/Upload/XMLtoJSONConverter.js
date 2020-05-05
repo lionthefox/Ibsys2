@@ -1,4 +1,4 @@
-const xmlToJson = (xml) => {
+/* const xmlToJson = (xml) => {
   let obj = {};
 
   if (xml.nodeType === 1) {
@@ -36,4 +36,4 @@ const xmlToJson = (xml) => {
   return obj;
 };
 
-export default xmlToJson;
+export default xmlToJson; */
