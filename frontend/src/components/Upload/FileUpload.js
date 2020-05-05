@@ -125,6 +125,50 @@ const FileUpload = ({ multipleFiles, url }) => {
               'text/xml'
             );
             const jsonObj = xmlToJson(parsedXML);
+            /* jsonObj.results.forecast = {
+              periode1: {
+                produkt1: 5,
+                produkt2: 5,
+                produkt3: 5,
+              },
+              periode2: {
+                produkt1: 5,
+                produkt2: 5,
+                produkt3: 5,
+              },
+              periode3: {
+                produkt1: 5,
+                produkt2: 5,
+                produkt3: 5,
+              },
+              periode4: {
+                produkt1: 5,
+                produkt2: 5,
+                produkt3: 5,
+              },
+            };
+            jsonObj.results.vertriebswunsch = {
+              produkt1: 5,
+              produkt2: 5,
+              produkt3: 5,
+              direktverkauf: {
+                produkt1: {
+                  menge: 5,
+                  preis: 5.5,
+                  konventionalstrafe: 0.0,
+                },
+                produkt2: {
+                  menge: 5,
+                  preis: 5.5,
+                  konventionalstrafe: 0.0,
+                },
+                produkt3: {
+                  menge: 5,
+                  preis: 5.5,
+                  konventionalstrafe: 0.0,
+                },
+              },
+            }; */
 
             axios({
               url: url,
