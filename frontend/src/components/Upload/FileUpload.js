@@ -117,17 +117,12 @@ const FileUpload = ({ multipleFiles, url }) => {
               .getFile()
               .getFileEncodeBase64String();
             const decodedXML = atob(encodedXML);
-            const parsedXML = new DOMParser().parseFromString(
-              decodedXML,
-              'text/xml'
-            );
-            /* const jsonObj = xmlToJson(parsedXML); */
 
             axios({
               url: url,
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              data: parsedXML,
+              headers: { 'Content-Type': 'application/xml' },
+              data: decodedXML,
               onUploadProgress: (e) => {
                 progress(e.lengthComputable, e.loaded, e.total);
               },

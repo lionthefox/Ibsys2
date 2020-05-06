@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import Header from './components/Header';
-import Simulation from './components/Simulation';
-import Stepper from './components/Stepper';
+import React from 'react';
+
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { LocalizeProvider } from 'react-localize-redux';
+import Main from './Main';
 
 import * as FilePond from 'filepond';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
@@ -13,17 +14,12 @@ import 'filepond/dist/filepond.min.css';
 FilePond.registerPlugin(FilePondPluginFileValidateType);
 FilePond.registerPlugin(FilePondPluginFileEncode);
 
-const App = () => {
-  const [language, setLanguage] = useState('English');
-  const changeLanguage = (val) => setLanguage(val);
-
-  return (
-    <>
-      <Header language={language} setLanguage={changeLanguage} />
-      <Simulation language={language} />
-      <Stepper />
-    </>
-  );
-};
+const App = (props) => (
+  <LocalizeProvider>
+    <Router>
+      <Route path='/' component={Main} />
+    </Router>
+  </LocalizeProvider>
+);
 
 export default App;

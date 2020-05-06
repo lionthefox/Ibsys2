@@ -1,5 +1,6 @@
-import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import { Translate, withLocalize } from 'react-localize-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import FormControl from '@material-ui/core/FormControl';
@@ -12,7 +13,7 @@ import HomeIcon from '@material-ui/icons/Home';
 
 import appIcon from '../assets/bike.png';
 
-const useStyles = makeStyles((theme) => ({
+const styles = (theme) => ({
   root: {
     height: '8rem',
   },
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   nativeSelect: {
     marginBottom: '1.5rem',
   },
-}));
+});
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -86,46 +87,50 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(InputBase);
 
-const Header = ({ language, setLanguage }) => {
-  const classes = useStyles();
+const Header = ({ classes, language, setLanguage }) => (
+  <div className={classes.root}>
+    <AppBar position='static' className={classes.appBar}>
+      <Toolbar className={classes.toolBar}>
+        <div className={classes.appIconContainer}>
+          <Typography variant='h5' className={classes.title}>
+            Produktionsplanungstool
+          </Typography>
+        </div>
+        <img src={appIcon} alt='' className={classes.appIcon} />
+        <div className={classes.appIconContainer}>
+          <FormControl className={classes.margin}>
+            <InputLabel classes={{ root: classes.inputLabel }}>
+              Language
+            </InputLabel>
+            <NativeSelect
+              classes={{
+                root: classes.nativeSelect,
+                icon: classes.selectIcon,
+              }}
+              id='demo-customized-select-native'
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              input={<BootstrapInput />}
+            >
+              <Translate>
+                {({ translate }) => (
+                  <option value='de'>{translate('german')}</option>
+                )}
+              </Translate>
+              <Translate>
+                {({ translate }) => (
+                  <option value='en'>{translate('english')}</option>
+                )}
+              </Translate>
+            </NativeSelect>
+          </FormControl>
+          <IconButton className={classes.homeButton}>
+            <HomeIcon fontSize='large' />
+          </IconButton>
+        </div>
+      </Toolbar>
+    </AppBar>
+  </div>
+);
 
-  return (
-    <div className={classes.root}>
-      <AppBar position='static' className={classes.appBar}>
-        <Toolbar className={classes.toolBar}>
-          <div className={classes.appIconContainer}>
-            <Typography variant='h5' className={classes.title}>
-              Produktionsplanungstool
-            </Typography>
-          </div>
-          <img src={appIcon} alt='' className={classes.appIcon} />
-          <div className={classes.appIconContainer}>
-            <FormControl className={classes.margin}>
-              <InputLabel classes={{ root: classes.inputLabel }}>
-                Language
-              </InputLabel>
-              <NativeSelect
-                classes={{
-                  root: classes.nativeSelect,
-                  icon: classes.selectIcon,
-                }}
-                id='demo-customized-select-native'
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                input={<BootstrapInput />}
-              >
-                <option value='Deutsch'>Deutsch</option>
-                <option value='English'>English</option>
-              </NativeSelect>
-            </FormControl>
-            <IconButton className={classes.homeButton}>
-              <HomeIcon fontSize='large' />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-};
-
-export default Header;
+export default withStyles(styles)(Header);
