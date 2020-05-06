@@ -15,7 +15,9 @@ namespace Ibsys2.Services
         public IList<PersonalMaschinen> PersonalMaschinenStammdaten { get; set; }
         public IList<Arbeitsplatz> Arbeitsplätze { get; set; }
         public IList<StücklistenPosition> Stückliste { get; set; }
-        public IList<StücklistenAuflösung> StücklistenAuflösungen { get; set; } = new List<StücklistenAuflösung>();
+        public IList<StücklistenAuflösung> StücklistenAuflösungen { get; set; }
+        public Vertriebswunsch Vertriebswunsch { get; set; }
+        public Forecast Forecast { get; set; }
 
         public SimulationService(FileRepository fileRepository, StücklistenService stücklistenService)
         {
@@ -30,12 +32,16 @@ namespace Ibsys2.Services
             StücklistenAuflösungen = stücklistenService.Stücklistenauflösung(Stückliste, ArtikelStammdaten);
         }
 
-        public void Start(results results)
+        public void SetResults(results results)
         {
             LastPeriodResults = results;
         }
 
-        
+        public void Start(SimulationInput input)
+        {
+            Vertriebswunsch = input.Vertriebswunsch;
+            Forecast = input.Forecast;
+        }
 
         private void ParseStammdaten()
         {
