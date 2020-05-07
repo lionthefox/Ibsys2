@@ -26,8 +26,11 @@ namespace Ibsys2.Services
 
         public static int CalcProduktion(DispoEFPos dispoEfPos)
         {
-            return dispoEfPos.Vertrieb + dispoEfPos.AuftragUebernahme + dispoEfPos.Sicherheitsbestand -
-                   dispoEfPos.Lagerbestand - dispoEfPos.AuftraegeWarteschlange - dispoEfPos.AuftraegeBearbeitung;
+            int prodMenge = dispoEfPos.Vertrieb + dispoEfPos.AuftragUebernahme + dispoEfPos.Sicherheitsbestand -
+                            dispoEfPos.Lagerbestand - dispoEfPos.AuftraegeWarteschlange - dispoEfPos.AuftraegeBearbeitung;
+            if (prodMenge < 0)
+                prodMenge = 0;
+            return prodMenge;
         }
     }
 }

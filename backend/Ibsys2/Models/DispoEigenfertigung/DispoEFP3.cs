@@ -7,7 +7,7 @@ namespace Ibsys2.Models.DispoEigenfertigung
    public class DispoEFP3
     {
         public List<DispoEFPos> ListDispoEfPos {get; set;} = new List<DispoEFPos>();
-        public List<int> ArticleIds = new List<int>{2, 26, 56, 16, 17, 55, 5, 11, 54, 8, 14, 19};
+        public List<int> ArticleIds = new List<int>{3, 26, 31, 16, 17, 30, 6, 12, 29, 9, 15, 20};
 
         public DispoEFP3 (Vertriebswunsch vertriebswunsch, Forecast forecast, results lastPeriodResults){
 
