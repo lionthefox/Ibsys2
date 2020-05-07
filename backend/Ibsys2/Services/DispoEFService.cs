@@ -7,9 +7,9 @@ namespace Ibsys2.Services
 {
     public class DispoEFService
     {
-        public DispoEFP1 dispoEFP1;
-        public DispoEFP2 dispoEFP2;
-        public DispoEFP3 dispoEFP3;
+        public DispoEFP1 dispoEFP1 { get; set; }
+        public DispoEFP2 dispoEFP2 { get; set; }
+        public DispoEFP3 dispoEFP3 { get; set; }
         public DispoEFService(Vertriebswunsch vertriebswunsch, Forecast forecast, results lastPeriodResults,
             Direktverkauf direktverkauf, List<StücklistenAuflösung> stücklistenAuflösungen)
         {
