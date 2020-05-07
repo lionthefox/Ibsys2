@@ -6,34 +6,34 @@ namespace Ibsys2.Services
 {
     public class SimulationService
     {
-        private readonly FileRepository fileRepository;
-        private readonly StücklistenService stücklistenService;
-        private readonly DispoEfService dispoEfService;
+        private readonly FileRepository _fileRepository;
+        private readonly StuecklistenService _stuecklistenService;
+        private readonly DispoEfService _dispoEfService;
 
         public results LastPeriodResults { get; set; }
         public IList<Artikel> ArtikelStammdaten { get; set; }
         public IList<PersonalMaschinen> PersonalMaschinenStammdaten { get; set; }
-        public IList<Arbeitsplatz> Arbeitsplätze { get; set; }
-        public IList<StücklistenPosition> Stückliste { get; set; }
-        public IList<StücklistenAuflösung> StücklistenAuflösungen { get; set; }
+        public IList<Arbeitsplatz> Arbeitsplaetze { get; set; }
+        public IList<StuecklistenPosition> Stueckliste { get; set; }
+        public IList<StuecklistenAufloesung> StuecklistenAufloesungen { get; set; }
         public Vertriebswunsch Vertriebswunsch { get; set; }
         public Forecast Forecast { get; set; }
 
         public SimulationService(
             FileRepository fileRepository, 
-            StücklistenService stücklistenService,
+            StuecklistenService stuecklistenService,
             DispoEfService dispoEfService)
         {
-            this.fileRepository = fileRepository;
-            this.stücklistenService = stücklistenService;
-            this.dispoEfService = dispoEfService;
+            _fileRepository = fileRepository;
+            _stuecklistenService = stuecklistenService;
+            _dispoEfService = dispoEfService;
             Initialize();
         }
 
         private void Initialize()
         {
             ParseStammdaten();
-            StücklistenAuflösungen = stücklistenService.Stücklistenauflösung(Stückliste, ArtikelStammdaten);
+            StuecklistenAufloesungen = _stuecklistenService.Stuecklistenaufloesung(Stueckliste, ArtikelStammdaten);
         }
 
         public void SetResults(results results)
@@ -45,15 +45,15 @@ namespace Ibsys2.Services
         {
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
-            dispoEfService.Initialize(Vertriebswunsch, Forecast, LastPeriodResults);
+            _dispoEfService.Initialize(Vertriebswunsch, Forecast, LastPeriodResults);
         }
 
         private void ParseStammdaten()
         {
-            ArtikelStammdaten = fileRepository.ParseArtikelCsv();
-            PersonalMaschinenStammdaten = fileRepository.ParsePersonalMaschinenCsv();
-            Arbeitsplätze = fileRepository.ParseArbeitsplätzeCsv();
-            Stückliste = fileRepository.ParseStücklistenAuflösungCsv();
+            ArtikelStammdaten = _fileRepository.ParseArtikelCsv();
+            PersonalMaschinenStammdaten = _fileRepository.ParsePersonalMaschinenCsv();
+            Arbeitsplaetze = _fileRepository.ParseArbeitsplaetzeCsv();
+            Stueckliste = _fileRepository.ParseStuecklistenAufloesungCsv();
         }
     }
 }

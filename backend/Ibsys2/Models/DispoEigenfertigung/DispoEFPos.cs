@@ -3,7 +3,7 @@ namespace Ibsys2.Models.DispoEigenfertigung
 {
     public class DispoEFPos
     {   
-        public int article_id {get; set;}
+        public int ArticleId {get; set;}
         public int Vertrieb { get; set; }
         public int AuftragUebernahme { get; set; }
         public int Sicherheitsbestand { get; set; }

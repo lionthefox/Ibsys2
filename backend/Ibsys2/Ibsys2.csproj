@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\Arbeitsplätze.csv">
+    <None Update="Data\Arbeitsplaetze.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Data\Artikel.csv">
@@ -26,7 +26,7 @@
     <None Update="Data\PersonalMaschinen.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Data\Stücklisten_Auflösung.csv">
+    <None Update="Data\Stuecklisten_Aufloesung.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Models\XSD\input.xsd">

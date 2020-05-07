@@ -16,7 +16,7 @@ namespace Ibsys2.Services
     {
         private readonly ILogger<FileRepository> _logger;
 
-        private readonly string dataDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Data");
+        private readonly string _dataDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Data");
         
         public FileRepository(ILogger<FileRepository> logger)
         {
@@ -27,7 +27,7 @@ namespace Ibsys2.Services
         {
             try
             {
-                using var fileStream = new FileStream(Path.Combine(dataDirectory, "last_period_results.xml"), FileMode.Open);
+                using var fileStream = new FileStream(Path.Combine(_dataDirectory, "last_period_results.xml"), FileMode.Open);
                 var xmlSerializer = new XmlSerializer(typeof(results));
                 var results = xmlSerializer.Deserialize(fileStream) as results;
 
@@ -45,7 +45,7 @@ namespace Ibsys2.Services
         {
             try
             {
-                using var reader = new StreamReader(Path.Combine(dataDirectory,"Artikel.csv"));
+                using var reader = new StreamReader(Path.Combine(_dataDirectory,"Artikel.csv"));
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
                 return new List<Artikel>(csvReader.GetRecords<Artikel>().ToList());
             }
@@ -60,7 +60,7 @@ namespace Ibsys2.Services
         {
             try
             {
-                using var reader = new StreamReader(Path.Combine(dataDirectory,"PersonalMaschinen.csv"));
+                using var reader = new StreamReader(Path.Combine(_dataDirectory,"PersonalMaschinen.csv"));
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
                 return csvReader.GetRecords<PersonalMaschinen>().ToList();
             }
@@ -71,32 +71,32 @@ namespace Ibsys2.Services
             }
         }
 
-        public IList<StücklistenPosition> ParseStücklistenAuflösungCsv()
+        public IList<StuecklistenPosition> ParseStuecklistenAufloesungCsv()
         {
             try
             {
-                using var reader = new StreamReader(Path.Combine(dataDirectory, "Stücklisten_Auflösung.csv"));
+                using var reader = new StreamReader(Path.Combine(_dataDirectory, "Stuecklisten_Aufloesung.csv"));
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
-                return new List<StücklistenPosition>(csvReader.GetRecords<StücklistenPosition>().ToList());
+                return new List<StuecklistenPosition>(csvReader.GetRecords<StuecklistenPosition>().ToList());
             }
             catch (Exception exception)
             {
-                _logger.LogError("ParseStücklistenAuflösungCsv failed:", exception);
+                _logger.LogError("ParseStuecklistenAufloesungCsv failed:", exception);
                 return null;
             }
         }
 
-        public IList<Arbeitsplatz> ParseArbeitsplätzeCsv()
+        public IList<Arbeitsplatz> ParseArbeitsplaetzeCsv()
         {
             try
             {
-                using var reader = new StreamReader(Path.Combine(dataDirectory, "Arbeitsplätze.csv"));
+                using var reader = new StreamReader(Path.Combine(_dataDirectory, "Arbeitsplaetze.csv"));
                 using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
                 return new List<Arbeitsplatz>(csvReader.GetRecords<Arbeitsplatz>().ToList());
             }
             catch (Exception exception)
             {
-                _logger.LogError("ParseArbeitsplätzeCsv failed:", exception);
+                _logger.LogError("ParseArbeitsplaetzeCsv failed:", exception);
                 return null;
             }
         }

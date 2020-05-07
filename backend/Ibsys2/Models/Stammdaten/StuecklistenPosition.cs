@@ -3,7 +3,7 @@
 namespace Ibsys2.Models.Stammdaten
 {
     [DebuggerDisplay("MatNr = {Matnr}")]
-    public class StücklistenPosition
+    public class StuecklistenPosition
     {
         public int Matnr { get; set; }
         public int Arbeitsplatz { get; set; }
