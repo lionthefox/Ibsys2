@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Ibsys2.Models;
 using Ibsys2.Models.Stammdaten;
 
@@ -9,6 +8,7 @@ namespace Ibsys2.Services
     {
         private readonly FileRepository fileRepository;
         private readonly StücklistenService stücklistenService;
+        private readonly DispoEfService dispoEfService;
 
         public results LastPeriodResults { get; set; }
         public IList<Artikel> ArtikelStammdaten { get; set; }
@@ -19,10 +19,14 @@ namespace Ibsys2.Services
         public Vertriebswunsch Vertriebswunsch { get; set; }
         public Forecast Forecast { get; set; }
 
-        public SimulationService(FileRepository fileRepository, StücklistenService stücklistenService)
+        public SimulationService(
+            FileRepository fileRepository, 
+            StücklistenService stücklistenService,
+            DispoEfService dispoEfService)
         {
             this.fileRepository = fileRepository;
             this.stücklistenService = stücklistenService;
+            this.dispoEfService = dispoEfService;
             Initialize();
         }
 
@@ -41,6 +45,7 @@ namespace Ibsys2.Services
         {
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
+            dispoEfService.Initialize(Vertriebswunsch, Forecast, LastPeriodResults);
         }
 
         private void ParseStammdaten()

@@ -33,9 +33,4 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Models\DispoEigenfertigung\" />
-  </ItemGroup>
 </Project>
