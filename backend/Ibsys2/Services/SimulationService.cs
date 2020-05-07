@@ -41,6 +41,7 @@ namespace Ibsys2.Services
         {
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
+            
         }
 
         private void ParseStammdaten()

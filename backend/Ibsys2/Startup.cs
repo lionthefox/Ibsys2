@@ -23,6 +23,7 @@ namespace Ibsys2
       services.AddControllers();
       services.AddSingleton<FileRepository>();
       services.AddSingleton<SimulationService>();
+      services.AddSingleton<DispoEFService>();
       services.AddSingleton<StücklistenService>();
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest).AddXmlSerializerFormatters();
     }
