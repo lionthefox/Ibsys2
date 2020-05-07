@@ -45,7 +45,7 @@ namespace Ibsys2.Services
         {
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
-            _dispoEfService.Initialize(Vertriebswunsch, Forecast, LastPeriodResults);
+            _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults);
         }
 
         private void ParseStammdaten()

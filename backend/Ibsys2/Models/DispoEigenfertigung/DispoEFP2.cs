@@ -6,38 +6,47 @@ namespace Ibsys2.Models.DispoEigenfertigung
 {
   public class DispoEFP2
   {
+    private readonly List<int> _articleIds = new List<int> {2, 26, 56, 16, 17, 55, 5, 11, 54, 8, 14, 19};
     public List<DispoEFPos> ListDispoEfPos { get; set; } = new List<DispoEFPos>();
-    public List<int> ArticleIds = new List<int> {2, 26, 56, 16, 17, 55, 5, 11, 54, 8, 14, 19};
 
-    public DispoEFP2(Vertriebswunsch vertriebswunsch, Forecast forecast, results lastPeriodResults)
+    public DispoEFP2(Vertriebswunsch vertriebsWunsch, Forecast forecast, results lastPeriodResults)
     {
-      foreach (var articleId in ArticleIds)
+      foreach (var articleId in _articleIds)
       {
         var dispoEfPos = new DispoEFPos {ArticleId = articleId};
-        if (articleId == 2)
-          dispoEfPos.Vertrieb = vertriebswunsch.Produkt1 + vertriebswunsch.Direktverkauf.Produkt1.Menge;
-        else if (articleId == 26 || articleId == 56)
-          dispoEfPos.Vertrieb = ListDispoEfPos[0].Produktion;
-        else if (articleId == 16 || articleId == 17 || articleId == 55)
-          dispoEfPos.Vertrieb = ListDispoEfPos[2].Produktion;
-        else if (articleId == 5 || articleId == 11 || articleId == 54)
-          dispoEfPos.Vertrieb = ListDispoEfPos[5].Produktion;
-        else if (articleId == 8 || articleId == 14 || articleId == 19)
-          dispoEfPos.Vertrieb = ListDispoEfPos[8].Produktion;
+        switch (articleId)
+        {
+          case 2:
+            dispoEfPos.Vertrieb = vertriebsWunsch.Produkt1 + vertriebsWunsch.Direktverkauf.Produkt1.Menge;
+            dispoEfPos.AuftragUebernahme = 0;
+            break;
+          case 26:
+          case 56:
+            dispoEfPos.Vertrieb = ListDispoEfPos[0].Produktion;
 
-        if (articleId == 2)
-          dispoEfPos.AuftragUebernahme = 0;
-        if (articleId == 26 || articleId == 56)
-          dispoEfPos.AuftragUebernahme = ListDispoEfPos[0].AuftraegeWarteschlange;
-        else if (articleId == 16 || articleId == 17 || articleId == 55)
-          dispoEfPos.AuftragUebernahme = ListDispoEfPos[2].AuftraegeWarteschlange;
-        else if (articleId == 5 || articleId == 11 || articleId == 54)
-          dispoEfPos.AuftragUebernahme = ListDispoEfPos[5].AuftraegeWarteschlange;
-        else if (articleId == 8 || articleId == 14 || articleId == 19)
-          dispoEfPos.AuftragUebernahme = ListDispoEfPos[8].AuftraegeWarteschlange;
+            dispoEfPos.AuftragUebernahme = ListDispoEfPos[0].AuftraegeWarteschlange;
+            break;
+          case 16:
+          case 17:
+          case 55:
+            dispoEfPos.Vertrieb = ListDispoEfPos[2].Produktion;
+            dispoEfPos.AuftragUebernahme = ListDispoEfPos[2].AuftraegeWarteschlange;
+            break;
+          case 5:
+          case 11:
+          case 54:
+            dispoEfPos.Vertrieb = ListDispoEfPos[5].Produktion;
+            dispoEfPos.AuftragUebernahme = ListDispoEfPos[5].AuftraegeWarteschlange;
+            break;
+          case 8:
+          case 14:
+          case 19:
+            dispoEfPos.Vertrieb = ListDispoEfPos[8].Produktion;
+            dispoEfPos.AuftragUebernahme = ListDispoEfPos[8].AuftraegeWarteschlange;
+            break;
+        }
 
-        dispoEfPos.Sicherheitsbestand = CalcSicherheitsbestand(forecast, vertriebswunsch);
-
+        dispoEfPos.Sicherheitsbestand = CalcSicherheitsbestand(forecast, vertriebsWunsch);
         dispoEfPos.Lagerbestand = DispoEfService.GetLagerbestand(articleId, lastPeriodResults);
 
         // Muss noch erweitert werden
