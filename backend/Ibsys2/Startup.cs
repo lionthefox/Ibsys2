@@ -25,6 +25,7 @@ namespace Ibsys2
       services.AddSingleton<SimulationService>();
       services.AddSingleton<StuecklistenService>();
       services.AddSingleton<DispoEfService>();
+      services.AddSingleton<ErgebnisseVorperiodeService>();
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest).AddXmlSerializerFormatters();
     }
 

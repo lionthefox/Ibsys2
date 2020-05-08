@@ -9,6 +9,7 @@ namespace Ibsys2.Services
         private readonly FileRepository _fileRepository;
         private readonly StuecklistenService _stuecklistenService;
         private readonly DispoEfService _dispoEfService;
+        private readonly ErgebnisseVorperiodeService _ergebnisseVorperiodeService;
 
         public results LastPeriodResults { get; set; }
         public IList<Artikel> ArtikelStammdaten { get; set; }
@@ -22,11 +23,13 @@ namespace Ibsys2.Services
         public SimulationService(
             FileRepository fileRepository, 
             StuecklistenService stuecklistenService,
-            DispoEfService dispoEfService)
+            DispoEfService dispoEfService,
+            ErgebnisseVorperiodeService ergebnisseVorperiodeService)
         {
             _fileRepository = fileRepository;
             _stuecklistenService = stuecklistenService;
             _dispoEfService = dispoEfService;
+            _ergebnisseVorperiodeService = ergebnisseVorperiodeService;
             Initialize();
         }
 
@@ -46,6 +49,7 @@ namespace Ibsys2.Services
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
             _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults);
+            _ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten);
         }
 
         private void ParseStammdaten()
