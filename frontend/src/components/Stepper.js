@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -57,7 +58,20 @@ const useStyles = makeStyles((theme) => ({
       background: '#0f4336',
     },
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
+
+const paths = [
+  '/input',
+  '/forecast',
+  '/quantity_planning',
+  '/capacity_planning',
+  '/sequence_planning',
+  'order_planning',
+  '/result',
+];
 
 function getSteps(language) {
   return language === 'en'
@@ -81,22 +95,15 @@ function getSteps(language) {
       ];
 }
 
-const HorizontalStepper = ({ language }) => {
+const HorizontalStepper = ({
+  language,
+  activeStep,
+  handleNext,
+  handleBack,
+  handleReset,
+}) => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps(language);
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
 
   return (
     <div className={classes.root}>
@@ -119,9 +126,11 @@ const HorizontalStepper = ({ language }) => {
       <div className={classes.arrowContainer}>
         {activeStep === steps.length - 1 ? (
           <div className={classes.iconContainer}>
-            <IconButton className={classes.iconButton} onClick={handleReset}>
-              <ReplayIcon fontSize='large' />
-            </IconButton>
+            <Link to={paths[0]} className={classes.link}>
+              <IconButton className={classes.iconButton} onClick={handleReset}>
+                <ReplayIcon fontSize='large' />
+              </IconButton>
+            </Link>
             <span className={classes.verticalSpacer} />
             <span className={classes.iconLabel}>
               <Translate id='Stepper.restart' />
@@ -131,13 +140,18 @@ const HorizontalStepper = ({ language }) => {
           <div style={{ width: '100%' }}>
             <div className={classes.stepper}>
               <div className={classes.iconContainer}>
-                <IconButton
-                  className={classes.iconButton}
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
+                <Link
+                  to={activeStep ? paths[activeStep - 1] : paths[0]}
+                  className={classes.link}
                 >
-                  <ArrowBackIcon fontSize='large' />
-                </IconButton>
+                  <IconButton
+                    className={classes.iconButton}
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                  >
+                    <ArrowBackIcon fontSize='large' />
+                  </IconButton>
+                </Link>
                 <span className={classes.verticalSpacer} />
                 <span
                   className={
@@ -151,13 +165,18 @@ const HorizontalStepper = ({ language }) => {
               </div>
               <span className={classes.horizontalSpacer} />
               <div className={classes.iconContainer}>
-                <IconButton className={classes.iconButton} onClick={handleNext}>
-                  {activeStep === steps.length - 2 ? (
-                    <DoneIcon fontSize='large' />
-                  ) : (
-                    <ArrowForwardIcon fontSize='large' />
-                  )}
-                </IconButton>
+                <Link to={paths[activeStep + 1]} className={classes.link}>
+                  <IconButton
+                    className={classes.iconButton}
+                    onClick={handleNext}
+                  >
+                    {activeStep === steps.length - 2 ? (
+                      <DoneIcon fontSize='large' />
+                    ) : (
+                      <ArrowForwardIcon fontSize='large' />
+                    )}
+                  </IconButton>
+                </Link>
                 <span className={classes.verticalSpacer} />
                 {activeStep === steps.length - 2 ? (
                   <span className={classes.iconLabel}>

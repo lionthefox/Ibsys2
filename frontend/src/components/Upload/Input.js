@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { Translate } from 'react-localize-redux';
 
-import FileUpload from './Upload/FileUpload';
+import FileUpload from './FileUpload';
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -23,9 +24,12 @@ const useStyles = makeStyles(() => ({
       background: '#0f4336',
     },
   },
+  link: {
+    textDecoration: 'none',
+  },
 }));
 
-const Simulation = ({ language }) => {
+const Input = ({ language }) => {
   const classes = useStyles();
 
   return (
@@ -36,12 +40,14 @@ const Simulation = ({ language }) => {
         url='/simulation/results-input'
       />
       <div className={classes.container}>
-        <Button variant='contained' classes={{ root: classes.buttonRoot }}>
-          <Translate id='Simulation.start' />
-        </Button>
+        <Link to='/forecast' className={classes.link}>
+          <Button variant='contained' classes={{ root: classes.buttonRoot }}>
+            <Translate id='Input.start' />
+          </Button>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default Simulation;
+export default Input;

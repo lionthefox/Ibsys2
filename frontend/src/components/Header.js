@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Translate } from 'react-localize-redux';
 import AppBar from '@material-ui/core/AppBar';
@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 
 import appIcon from '../assets/bike.png';
+import { Link } from 'react-router-dom';
 
 const styles = (theme) => ({
   root: {
@@ -74,6 +75,9 @@ const styles = (theme) => ({
   nativeSelect: {
     marginBottom: '1.5rem',
   },
+  link: {
+    textDecoration: 'none',
+  },
 });
 
 const BootstrapInput = withStyles((theme) => ({
@@ -96,7 +100,7 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(InputBase);
 
-const Header = ({ classes, language, setLanguage }) => (
+const Header = ({ classes, language, setLanguage, handleReset }) => (
   <div className={classes.root}>
     <AppBar position='static' className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
@@ -141,9 +145,11 @@ const Header = ({ classes, language, setLanguage }) => (
               </Translate>
             </NativeSelect>
           </FormControl>
-          <IconButton className={classes.homeButton}>
-            <HomeIcon fontSize='large' />
-          </IconButton>
+          <Link to='/input' className={classes.link}>
+            <IconButton className={classes.homeButton} onClick={handleReset}>
+              <HomeIcon fontSize='large' />
+            </IconButton>
+          </Link>
         </div>
       </Toolbar>
     </AppBar>

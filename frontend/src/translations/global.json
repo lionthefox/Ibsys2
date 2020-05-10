@@ -4,7 +4,7 @@
     "german": ["German", "Deutsch"],
     "english": ["English", "Englisch"]
   },
-  "Simulation": {
+  "Input": {
     "start": ["Start Simulation", "Simulation starten"]
   },
   "FileUpload": {
