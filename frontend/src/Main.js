@@ -29,14 +29,15 @@ class Main extends Component {
   };
 
   render() {
+    const { activeLanguage } = this.state;
     return (
       <>
         <Header
-          language={this.state.activeLanguage}
+          language={activeLanguage}
           setLanguage={this.changeActiveLanguage}
         />
-        <Simulation language={this.state.activeLanguage} />
-        <Stepper />
+        <Simulation language={activeLanguage} />
+        <Stepper language={activeLanguage} />
       </>
     );
   }

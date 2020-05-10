@@ -1,6 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
+import { Translate } from 'react-localize-redux';
+
 import FileUpload from './Upload/FileUpload';
 
 const useStyles = makeStyles(() => ({
@@ -28,10 +30,14 @@ const Simulation = ({ language }) => {
 
   return (
     <div className='cssanimation sequence fadeInBottom'>
-      <FileUpload multipleFiles={false} url='/simulation' />
+      <FileUpload
+        language={language}
+        multipleFiles={false}
+        url='/simulation/results-input'
+      />
       <div className={classes.container}>
         <Button variant='contained' classes={{ root: classes.buttonRoot }}>
-          Simulation starten
+          <Translate id='Simulation.start' />
         </Button>
       </div>
     </div>

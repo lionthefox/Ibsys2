@@ -2,7 +2,13 @@ import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { FilePond } from 'react-filepond';
+import { Translate } from 'react-localize-redux';
 import axios from 'axios';
+
+import {
+  filePondLabels,
+  filePondLabelsEn,
+} from '../../translations/filePondLabels';
 
 const useStyles = makeStyles(() => ({
   uploadContainer: {
@@ -32,45 +38,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const filePondLabels = {
-  labelIdle:
-    'Ziehen Sie Ihre Datei hierhin oder <span class="filepond--label-action"> durchsuchen </span> Sie Ihren Computer',
-  labelInvalidField: 'Sie haben ungültige Dateien hinzugefügt',
-  labelFileWaitingForSize: 'Größe berechnen',
-  labelFileSizeNotAvailable: 'Größe konnte nicht berechnet werden',
-  labelFileLoading: 'Lädt',
-  labelFileLoadError: 'Fehler beim Laden',
-  labelFileProcessing: 'Lädt hoch',
-  labelFileProcessingComplete: 'Hochgeladen',
-  labelFileProcessingAborted: 'Hochladen abgebrochen',
-  labelFileProcessingError: 'Hochladen fehlgeschlagen',
-  labelFileProcessingRevertError: 'Rückgängig machen fehlgeschlagen',
-  labelFileRemoveError: 'Entfernen fehlgeschlagen',
-  labelTapToCancel: 'Abbrechen',
-  labelTapToRetry: 'Erneut versuchen',
-  labelTapToUndo: 'Datei entfernen',
-  labelButtonRemoveItem: 'Entfernen',
-  labelButtonAbortItemLoad: 'Abbrechen',
-  labelButtonRetryItemLoad: 'Erneut versuchen',
-  labelButtonAbortItemProcessing: 'Wird abgebrochen',
-  labelButtonUndoItemProcessing: 'Wird rückgängig gemacht',
-  labelButtonRetryItemProcessing: 'Wird erneut versucht',
-  labelButtonProcessItem: 'Hochladen',
-  labelFileTypeNotAllowed: 'Datentyp nicht erlaubt',
-  fileValidateTypeLabelExpectedTypes: 'nur .xml-Dateien erlaubt',
-};
-
 const UploadContainer = ({ children }) => {
   const classes = useStyles();
-  const uploadString = 'Laden Sie hier Ihre Simulationsdatei hoch';
   return (
     <>
       <div className={classes.uploadContainer}>
         <Typography variant='h4' className={classes.importTypography}>
-          {uploadString}
+          <Translate id='FileUpload.uploadString' />
         </Typography>
         <Typography variant='h5' className={classes.formatTypography}>
-          Format: .xml
+          <Translate id='FileUpload.format'>Format: .xml</Translate>
         </Typography>
       </div>
       <div className={classes.fileImportContainer}>
@@ -80,10 +57,11 @@ const UploadContainer = ({ children }) => {
   );
 };
 
-const FileUpload = ({ multipleFiles, url }) => {
+const FileUpload = ({ language, multipleFiles, url }) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
   const dropZone = useRef(null);
+  const labels = language === 'en' ? filePondLabelsEn : filePondLabels;
 
   return (
     <UploadContainer>
@@ -144,7 +122,7 @@ const FileUpload = ({ multipleFiles, url }) => {
               });
           },
         }}
-        {...filePondLabels}
+        {...labels}
       />
     </UploadContainer>
   );

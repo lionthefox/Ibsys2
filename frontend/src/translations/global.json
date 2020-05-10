@@ -1,4 +1,23 @@
 {
-  "german": ["German", "Deutsch"],
-  "english": ["English", "Englisch"]
+  "Header": {
+    "title": ["Supply Chain Management Tool", "Produktionsplanungstool"],
+    "german": ["German", "Deutsch"],
+    "english": ["English", "Englisch"]
+  },
+  "Simulation": {
+    "start": ["Start Simulation", "Simulation starten"]
+  },
+  "FileUpload": {
+    "uploadString": [
+      "Upload your file here",
+      "Laden Sie hier Ihre Simulationsdatei hoch"
+    ],
+    "format": ["Format: .xml", "Format: .xml"]
+  },
+  "Stepper": {
+    "finish": ["Finish", "Fertigstellen"],
+    "next": ["Next", "Weiter"],
+    "back": ["Back", "Zurück"],
+    "restart": ["Restart Simulation", "Simulation neustarten"]
+  }
 }

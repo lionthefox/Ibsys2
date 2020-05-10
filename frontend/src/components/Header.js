@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Translate, withLocalize } from 'react-localize-redux';
+import { Translate } from 'react-localize-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import FormControl from '@material-ui/core/FormControl';
@@ -40,6 +40,15 @@ const styles = (theme) => ({
     [theme.breakpoints.down('sm')]: {
       height: '5rem',
     },
+  },
+  appIconEn: {
+    height: '8rem',
+    position: 'relative',
+    top: '-0.3rem',
+    [theme.breakpoints.down('sm')]: {
+      height: '5rem',
+    },
+    left: '-2.45rem',
   },
   appIconContainer: {
     display: 'flex',
@@ -92,11 +101,19 @@ const Header = ({ classes, language, setLanguage }) => (
     <AppBar position='static' className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
         <div className={classes.appIconContainer}>
-          <Typography variant='h5' className={classes.title}>
-            Produktionsplanungstool
-          </Typography>
+          <Translate>
+            {({ translate }) => (
+              <Typography variant='h5' className={classes.title}>
+                {translate('Header.title')}
+              </Typography>
+            )}
+          </Translate>
         </div>
-        <img src={appIcon} alt='' className={classes.appIcon} />
+        <img
+          src={appIcon}
+          alt=''
+          className={language === 'en' ? classes.appIconEn : classes.appIcon}
+        />
         <div className={classes.appIconContainer}>
           <FormControl className={classes.margin}>
             <InputLabel classes={{ root: classes.inputLabel }}>
@@ -114,12 +131,12 @@ const Header = ({ classes, language, setLanguage }) => (
             >
               <Translate>
                 {({ translate }) => (
-                  <option value='de'>{translate('german')}</option>
+                  <option value='de'>{translate('Header.german')}</option>
                 )}
               </Translate>
               <Translate>
                 {({ translate }) => (
-                  <option value='en'>{translate('english')}</option>
+                  <option value='en'>{translate('Header.english')}</option>
                 )}
               </Translate>
             </NativeSelect>

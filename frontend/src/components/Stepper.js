@@ -4,6 +4,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import IconButton from '@material-ui/core/IconButton';
+import { Translate } from 'react-localize-redux';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -58,22 +59,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function getSteps() {
-  return [
-    'Simulationsdaten hochladen',
-    'Forecast & Vertriebswunsch',
-    'Disposition Eigenfertigung',
-    'Bestellungen',
-    'Fertigungsaufträge',
-    'Arbeitszeiten',
-    'Ergebnis',
-  ];
+function getSteps(language) {
+  return language === 'en'
+    ? [
+        'Upload your data',
+        'Forecast, Sell Wish & Direct Sales',
+        'Quantity Planning',
+        'Capacity Planning',
+        'Sequence Planning',
+        'Order Planning',
+        'Result',
+      ]
+    : [
+        'Simulationsdaten hochladen',
+        'Forecast, Vertriebswunsch & Direkter Verkauf',
+        'Mengenplanung',
+        'Kapazitätsplanung',
+        'Reihenfolgenplanung',
+        'Bestellmengenplanung',
+        'Ergebnis',
+      ];
 }
 
-const HorizontalStepper = () => {
+const HorizontalStepper = ({ language }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const steps = getSteps();
+  const steps = getSteps(language);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -112,7 +123,9 @@ const HorizontalStepper = () => {
               <ReplayIcon fontSize='large' />
             </IconButton>
             <span className={classes.verticalSpacer} />
-            <span className={classes.iconLabel}>Simulation neustarten</span>
+            <span className={classes.iconLabel}>
+              <Translate id='Stepper.restart' />
+            </span>
           </div>
         ) : (
           <div style={{ width: '100%' }}>
@@ -133,7 +146,7 @@ const HorizontalStepper = () => {
                       : classes.iconLabel
                   }
                 >
-                  Zurück
+                  <Translate id='Stepper.back' />
                 </span>
               </div>
               <span className={classes.horizontalSpacer} />
@@ -147,9 +160,13 @@ const HorizontalStepper = () => {
                 </IconButton>
                 <span className={classes.verticalSpacer} />
                 {activeStep === steps.length - 2 ? (
-                  <span className={classes.iconLabel}>Fertigstellen</span>
+                  <span className={classes.iconLabel}>
+                    <Translate id='Stepper.finish' />
+                  </span>
                 ) : (
-                  <span className={classes.iconLabel}>Weiter</span>
+                  <span className={classes.iconLabel}>
+                    <Translate id='Stepper.next' />
+                  </span>
                 )}
               </div>
             </div>
