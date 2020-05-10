@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using Ibsys2.Models.Stammdaten;
+using Ibsys2.Models.Stueckliste;
 
 namespace Ibsys2.Models.ErgebnisseVorperiode
 {
   public class WartelisteArbeitsplatz
   {
-    public IList<WarteListePos> ArbeitsplatzWarteliste = new List<WarteListePos>();
+    public IList<AuftraegeWarteschlange> ArbeitsplatzWartelisteAuftraege = new List<AuftraegeWarteschlange>();
     public int Arbeitszeit { get; set; }
     public int Arbeitsplatz { get; set; }
     public int Ruestzeit { get; set; }
@@ -21,7 +22,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
         Arbeitsplatz = item.id;
         foreach (var teil in item.waitinglist)
         {
-          var warteListeTeil = new WarteListePos
+          var warteListeTeil = new AuftraegeWarteschlange
           {
             Arbeitsplatz = arbeitsplatzId,
             Fertigungsauftrag = teil.order,
@@ -32,12 +33,32 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
             Zeitbedarf = teil.timeneed,
             Ruestzeit = GetRuestzeit(arbeitsplatzId, teil.item, artikelStammdaten)
           };
-          ArbeitsplatzWarteliste.Add(warteListeTeil);
+          ArbeitsplatzWartelisteAuftraege.Add(warteListeTeil);
         }
       }
     }
 
-    public int GetRuestzeit(int arbeitsplatzId, int matNr, IList<Artikel> artikelStammdaten)
+    public WartelisteArbeitsplatz(int arbeitsplatz, AuftraegeWarteschlange auftragVorgaenger, IList<Artikel> artikelStammdaten)
+    {
+      Arbeitsplatz = arbeitsplatz;
+      Arbeitszeit = 0;
+      Ruestzeit = 0;
+      var auftrag = new AuftraegeWarteschlange
+      {
+        Arbeitsplatz = arbeitsplatz,
+        Fertigungsauftrag = auftragVorgaenger.Fertigungsauftrag,
+        ErstesLos = auftragVorgaenger.ErstesLos,
+        LetztesLos = auftragVorgaenger.LetztesLos,
+        Periode = auftragVorgaenger.Periode,
+        Teil = auftragVorgaenger.Teil,
+        Zeitbedarf = getZeitbedarf(arbeitsplatz, auftragVorgaenger.Teil, auftragVorgaenger.Menge, artikelStammdaten),
+        Ruestzeit = GetRuestzeit(arbeitsplatz, auftragVorgaenger.Teil, artikelStammdaten)
+      };
+      ArbeitsplatzWartelisteAuftraege.Add(auftrag);
+    }
+    
+
+    public static int GetRuestzeit(int arbeitsplatzId, int matNr, IList<Artikel> artikelStammdaten)
     {
       foreach (var artikel in artikelStammdaten)
       {
@@ -77,6 +98,48 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
         }
       }
 
+      return 0;
+    }
+
+    public static int getZeitbedarf(int arbeitsplatzId, int matNr, int menge, IList<Artikel> artikelStammdaten)
+    {
+      foreach (var artikel in artikelStammdaten)
+      {
+        if (artikel.Artikelnummer == matNr)
+        {
+          switch (arbeitsplatzId)
+          {
+            case 1:
+              return artikel.BearbeitungszeitPlatz1 * menge ?? 0;
+            case 2:
+              return artikel.BearbeitungszeitPlatz2 * menge ?? 0;
+            case 3:
+              return artikel.BearbeitungszeitPlatz3 * menge ?? 0;
+            case 4:
+              return artikel.BearbeitungszeitPlatz4 * menge ?? 0;
+            case 6:
+              return artikel.BearbeitungszeitPlatz6 * menge ?? 0;
+            case 7:
+              return artikel.BearbeitungszeitPlatz7 * menge ?? 0;
+            case 8:
+              return artikel.BearbeitungszeitPlatz8 * menge ?? 0;
+            case 9:
+              return artikel.BearbeitungszeitPlatz9 * menge ?? 0;
+            case 10:
+              return artikel.BearbeitungszeitPlatz10 * menge ?? 0;
+            case 11:
+              return artikel.BearbeitungszeitPlatz11 * menge ?? 0;
+            case 12:
+              return artikel.BearbeitungszeitPlatz12 * menge ?? 0;
+            case 13:
+              return artikel.BearbeitungszeitPlatz13 * menge ?? 0;
+            case 14:
+              return artikel.BearbeitungszeitPlatz14 * menge ?? 0;
+            case 15:
+              return artikel.BearbeitungszeitPlatz15 * menge ?? 0;
+          }
+        }
+      }
       return 0;
     }
   }

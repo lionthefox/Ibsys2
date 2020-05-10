@@ -4,7 +4,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
 {
     public class InBearbeitung
     {
-        public IList<WarteListePos> AuftraegeInBearbeitung { get; set; }
+        public IList<AuftraegeWarteschlange> AuftraegeInBearbeitung { get; set; }
         
         public InBearbeitung(results lastPeriodResults) {
             foreach (var item in lastPeriodResults.ordersinwork)
@@ -12,7 +12,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
               if (item.amount == 0) 
                 continue;
 
-              var auInBearbeitung = new WarteListePos
+              var auInBearbeitung = new AuftraegeWarteschlange
                 {
                   Arbeitsplatz = item.id,
                   Fertigungsauftrag = item.order,

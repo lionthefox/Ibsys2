@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using Ibsys2.Models;
 using Ibsys2.Models.ErgebnisseVorperiode;
+using Ibsys2.Models.Stueckliste;
 
 namespace Ibsys2.Services
 {
@@ -10,9 +11,10 @@ namespace Ibsys2.Services
         public WartelisteArbeitsplaetze WartelisteArbeitsplaetze { get; set; }
         public InBearbeitung InBearbeitung { get; set; }
         
-        public void GetErgebnisse(results lastPeriodResults, IList<Artikel> artikelStammdaten)
+        public void GetErgebnisse(results lastPeriodResults, IList<Artikel> artikelStammdaten, IList<ArbeitsplatzNachfolger> arbeitsplatzNachfolger)
         {
-            
+            InBearbeitung = new InBearbeitung(lastPeriodResults);
+            WartelisteArbeitsplaetze = new WartelisteArbeitsplaetze(lastPeriodResults, artikelStammdaten, arbeitsplatzNachfolger, InBearbeitung);
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace Ibsys2.Models.ErgebnisseVorperiode
 {
-    public class WarteListePos
+    public class AuftraegeWarteschlange
     {
         public int Arbeitsplatz { get; set; }
         public int Periode { get; set; }
