@@ -4,7 +4,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
 {
     public class InBearbeitung
     {
-        public IList<AuftraegeWarteschlange> AuftraegeInBearbeitung { get; set; }
+        public IList<AuftraegeWarteschlange> AuftraegeInBearbeitung { get; set; } = new List<AuftraegeWarteschlange>();
         
         public InBearbeitung(results lastPeriodResults) {
             foreach (var item in lastPeriodResults.ordersinwork)
@@ -21,7 +21,8 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
                   Periode = item.period,
                   Teil = item.item,
                   Zeitbedarf = item.timeneed,
-                  Ruestzeit = 0
+                  Ruestzeit = 0,
+                  Menge = item.amount
                 };
                 AuftraegeInBearbeitung.Add(auInBearbeitung);
             }       

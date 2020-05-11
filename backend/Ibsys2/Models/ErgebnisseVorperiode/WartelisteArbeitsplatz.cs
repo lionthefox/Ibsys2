@@ -13,14 +13,16 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
 
     public WartelisteArbeitsplatz(int arbeitsplatzId, results lastPeriodResults, IList<Artikel> artikelStammdaten)
     {
-      foreach (var item in lastPeriodResults.waitinglistworkstations)
+      foreach (var arbeitsplatz in lastPeriodResults.waitinglistworkstations)
       {
-        if (item.id != arbeitsplatzId)
+        if (arbeitsplatz.id != arbeitsplatzId)
           continue;
 
-        Arbeitszeit = item.timeneed;
-        Arbeitsplatz = item.id;
-        foreach (var teil in item.waitinglist)
+        Arbeitszeit = arbeitsplatz.timeneed;
+        Arbeitsplatz = arbeitsplatz.id;
+            if (arbeitsplatz.waitinglist == null)
+                continue;
+        foreach (var teil in arbeitsplatz.waitinglist)
         {
           var warteListeTeil = new AuftraegeWarteschlange
           {
