@@ -5,5 +5,7 @@
     public int MatNr { get; set; }
     public int Anzahl { get; set; }
     public int Arbeitsplatz { get; set; }
+    
+    public TeilTyp Typ { get; set; }
   }
 }
