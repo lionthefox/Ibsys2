@@ -11,10 +11,13 @@ namespace Ibsys2.Services
         public WartelisteArbeitsplaetze WartelisteArbeitsplaetze { get; set; }
         public InBearbeitung InBearbeitung { get; set; }
         
-        public void GetErgebnisse(results lastPeriodResults, IList<Artikel> artikelStammdaten, IList<ArbeitsplatzNachfolger> arbeitsplatzNachfolger)
+        public BenoetigteTeile BenoetigteTeile { get; set; }
+        
+        public void GetErgebnisse(results lastPeriodResults, IList<Artikel> artikelStammdaten, IList<ArbeitsplatzNachfolger> arbeitsplatzNachfolger, IList<StuecklistenAufloesung> stuecklistenAufloesung)
         {
             InBearbeitung = new InBearbeitung(lastPeriodResults);
             WartelisteArbeitsplaetze = new WartelisteArbeitsplaetze(lastPeriodResults, artikelStammdaten, arbeitsplatzNachfolger, InBearbeitung);
+            BenoetigteTeile = new BenoetigteTeile(WartelisteArbeitsplaetze, stuecklistenAufloesung, artikelStammdaten);
         }
     }
 }

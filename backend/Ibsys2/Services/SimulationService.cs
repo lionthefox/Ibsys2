@@ -59,7 +59,7 @@ namespace Ibsys2.Services
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
             _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults);
-            _ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen);
+            _ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen, StuecklistenAufloesungen);
         }
 
         private void ParseStammdaten()
