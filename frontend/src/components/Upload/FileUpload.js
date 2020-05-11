@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { FilePond } from 'react-filepond';
 import { Translate } from 'react-localize-redux';
+import Alert from '@material-ui/lab/Alert';
+
 import axios from 'axios';
 
 import {
@@ -12,8 +14,8 @@ import {
 
 const useStyles = makeStyles(() => ({
   uploadContainer: {
-    height: '30vh',
-    width: '100vw',
+    width: '100%',
+    marginTop: '8rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -21,8 +23,8 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden',
   },
   fileImportContainer: {
-    height: '24vh',
-    width: '100vw',
+    height: '18vh',
+    width: '100%',
     display: 'flex',
     justifyContent: 'center',
   },
@@ -35,6 +37,7 @@ const useStyles = makeStyles(() => ({
   formatTypography: {
     marginLeft: '1px',
     color: 'gray',
+    marginBottom: '5rem',
   },
 }));
 
@@ -57,7 +60,13 @@ const UploadContainer = ({ children }) => {
   );
 };
 
-const FileUpload = ({ language, multipleFiles, url }) => {
+const FileUpload = ({
+  language,
+  multipleFiles,
+  url,
+  setResults,
+  setDisabled,
+}) => {
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
   const dropZone = useRef(null);
@@ -67,6 +76,7 @@ const FileUpload = ({ language, multipleFiles, url }) => {
     <UploadContainer>
       {showErrorMessage && errorMessage ? (
         <div
+          className='cssanimation sequence fadeInBottom'
           style={{
             width: '100%',
             textAlign: 'center',
@@ -75,7 +85,9 @@ const FileUpload = ({ language, multipleFiles, url }) => {
             paddingBottom: '1rem',
           }}
         >
-          {errorMessage.status}: {errorMessage.statusText}
+          <Alert severity='error'>
+            {errorMessage.status}: {errorMessage.statusText}
+          </Alert>
         </div>
       ) : null}
       <FilePond
@@ -109,7 +121,9 @@ const FileUpload = ({ language, multipleFiles, url }) => {
                 console.log(response);
                 setShowErrorMessage(false);
                 if (response.status >= 200 && response.status < 300) {
-                  load(response.responseText);
+                  load(response);
+                  setResults(response.data);
+                  setDisabled(false);
                 } else {
                   error('Upload fehlgeschlagen');
                 }
@@ -118,6 +132,7 @@ const FileUpload = ({ language, multipleFiles, url }) => {
                 console.log(errorMessage.response);
                 setErrorMessage(errorMessage.response);
                 setShowErrorMessage(true);
+                setTimeout(() => setShowErrorMessage(false), 5000);
                 error('Upload fehlgeschlagen');
               });
           },
