@@ -234,9 +234,9 @@ public partial class resultsWarehousestockArticle {
     
     private int idField;
     
-    private ushort amountField;
+    private int amountField;
     
-    private ushort startamountField;
+    private int startamountField;
     
     private decimal pctField;
     
@@ -257,7 +257,7 @@ public partial class resultsWarehousestockArticle {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort amount {
+    public int amount {
         get {
             return this.amountField;
         }
@@ -268,7 +268,7 @@ public partial class resultsWarehousestockArticle {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort startamount {
+    public int startamount {
         get {
             return this.startamountField;
         }
@@ -327,9 +327,9 @@ public partial class resultsOrder {
     
     private int articleField;
     
-    private ushort amountField;
+    private int amountField;
     
-    private ushort timeField;
+    private int timeField;
     
     private decimal materialcostsField;
     
@@ -385,7 +385,7 @@ public partial class resultsOrder {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort amount {
+    public int amount {
         get {
             return this.amountField;
         }
@@ -396,7 +396,7 @@ public partial class resultsOrder {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort time {
+    public int time {
         get {
             return this.timeField;
         }
@@ -466,7 +466,7 @@ public partial class resultsOrder1 {
     
     private int articleField;
     
-    private ushort amountField;
+    private int amountField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -514,7 +514,7 @@ public partial class resultsOrder1 {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort amount {
+    public int amount {
         get {
             return this.amountField;
         }
@@ -570,7 +570,7 @@ public partial class resultsIdletimecostsWorkplace {
     
     private int setupeventsField;
     
-    private ushort idletimeField;
+    private int idletimeField;
     
     private decimal wageidletimecostsField;
     
@@ -602,7 +602,7 @@ public partial class resultsIdletimecostsWorkplace {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort idletime {
+    public int idletime {
         get {
             return this.idletimeField;
         }
@@ -655,7 +655,7 @@ public partial class resultsIdletimecostsSum {
     
     private int setupeventsField;
     
-    private ushort idletimeField;
+    private int idletimeField;
     
     private decimal wageidletimecostsField;
     
@@ -676,7 +676,7 @@ public partial class resultsIdletimecostsSum {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort idletime {
+    public int idletime {
         get {
             return this.idletimeField;
         }
@@ -731,7 +731,7 @@ public partial class resultsWorkplace {
     
     private int idField;
     
-    private ushort timeneedField;
+    private int timeneedField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("waitinglist")]
@@ -757,7 +757,7 @@ public partial class resultsWorkplace {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort timeneed {
+    public int timeneed {
         get {
             return this.timeneedField;
         }
@@ -787,7 +787,7 @@ public partial class resultsWorkplaceWaitinglist {
     
     private int amountField;
     
-    private ushort timeneedField;
+    private int timeneedField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -857,7 +857,7 @@ public partial class resultsWorkplaceWaitinglist {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort timeneed {
+    public int timeneed {
         get {
             return this.timeneedField;
         }
@@ -1200,7 +1200,7 @@ public partial class resultsOrderBatch {
     
     private int amountField;
     
-    private ushort cycletimeField;
+    private int cycletimeField;
     
     private decimal costField;
     
@@ -1228,7 +1228,7 @@ public partial class resultsOrderBatch {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort cycletime {
+    public int cycletime {
         get {
             return this.cycletimeField;
         }
@@ -1313,7 +1313,7 @@ public partial class resultsCycletimesOrder {
     
     private string finishtimeField;
     
-    private ushort cycletimeminField;
+    private int cycletimeminField;
     
     private decimal cycletimefactorField;
     
@@ -1363,7 +1363,7 @@ public partial class resultsCycletimesOrder {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort cycletimemin {
+    public int cycletimemin {
         get {
             return this.cycletimeminField;
         }
@@ -1626,7 +1626,7 @@ public partial class resultsResultGeneral {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsResultGeneralCapacity {
     
-    private ushort currentField;
+    private int currentField;
     
     private decimal averageField;
     
@@ -1634,7 +1634,7 @@ public partial class resultsResultGeneralCapacity {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort current {
+    public int current {
         get {
             return this.currentField;
         }
@@ -1674,7 +1674,7 @@ public partial class resultsResultGeneralCapacity {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsResultGeneralPossiblecapacity {
     
-    private ushort currentField;
+    private int currentField;
     
     private decimal averageField;
     
@@ -1682,7 +1682,7 @@ public partial class resultsResultGeneralPossiblecapacity {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort current {
+    public int current {
         get {
             return this.currentField;
         }
@@ -1770,7 +1770,7 @@ public partial class resultsResultGeneralRelpossiblenormalcapacity {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsResultGeneralProductivetime {
     
-    private ushort currentField;
+    private int currentField;
     
     private decimal averageField;
     
@@ -1778,7 +1778,7 @@ public partial class resultsResultGeneralProductivetime {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort current {
+    public int current {
         get {
             return this.currentField;
         }
@@ -1866,15 +1866,15 @@ public partial class resultsResultGeneralEffiency {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsResultGeneralSellwish {
     
-    private ushort currentField;
+    private int currentField;
     
     private decimal averageField;
     
-    private ushort allField;
+    private int allField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort current {
+    public int current {
         get {
             return this.currentField;
         }
@@ -1896,7 +1896,7 @@ public partial class resultsResultGeneralSellwish {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort all {
+    public int all {
         get {
             return this.allField;
         }
@@ -1914,15 +1914,15 @@ public partial class resultsResultGeneralSellwish {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsResultGeneralSalesquantity {
     
-    private ushort currentField;
+    private int currentField;
     
     private decimal averageField;
     
-    private ushort allField;
+    private int allField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort current {
+    public int current {
         get {
             return this.currentField;
         }
@@ -1944,7 +1944,7 @@ public partial class resultsResultGeneralSalesquantity {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort all {
+    public int all {
         get {
             return this.allField;
         }
@@ -2010,15 +2010,15 @@ public partial class resultsResultGeneralDeliveryreliability {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsResultGeneralIdletime {
     
-    private ushort currentField;
+    private int currentField;
     
     private decimal averageField;
     
-    private ushort allField;
+    private int allField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort current {
+    public int current {
         get {
             return this.currentField;
         }
@@ -2040,7 +2040,7 @@ public partial class resultsResultGeneralIdletime {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public ushort all {
+    public int all {
         get {
             return this.allField;
         }

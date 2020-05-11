@@ -14,14 +14,17 @@ import ReplayIcon from '@material-ui/icons/Replay';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    background: '#fff',
     width: '100%',
     position: 'fixed',
-    bottom: '2rem',
+    bottom: '0px',
   },
   arrowContainer: {
     width: '100%',
+    background: '#fff',
     display: 'flex',
     justifyContent: 'center',
+    paddingBottom: '2rem',
   },
   stepIcon: {
     color: '#135444 !important',
@@ -61,11 +64,16 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: 'none',
   },
+  alertContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }));
 
 const paths = [
   '/input',
-  '/forecast',
+  '/production',
   '/quantity_planning',
   '/capacity_planning',
   '/sequence_planning',
@@ -77,7 +85,7 @@ function getSteps(language) {
   return language === 'en'
     ? [
         'Upload your data',
-        'Forecast, Sell Wish & Direct Sales',
+        'Production',
         'Quantity Planning',
         'Capacity Planning',
         'Sequence Planning',
@@ -86,7 +94,7 @@ function getSteps(language) {
       ]
     : [
         'Simulationsdaten hochladen',
-        'Forecast, Vertriebswunsch & Direkter Verkauf',
+        'Produktion',
         'Mengenplanung',
         'Kapazitätsplanung',
         'Reihenfolgenplanung',
@@ -98,11 +106,13 @@ function getSteps(language) {
 const HorizontalStepper = ({
   language,
   activeStep,
+  lastPeriodResults,
   handleNext,
   handleBack,
   handleReset,
 }) => {
   const classes = useStyles();
+
   const steps = getSteps(language);
 
   return (
