@@ -31,6 +31,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
             ErstesLos = teil.firstbatch,
             LetztesLos = teil.lastbatch,
             Periode = teil.period,
+            Menge = teil.amount,
             Teil = teil.item,
             Zeitbedarf = teil.timeneed,
             Ruestzeit = GetRuestzeit(arbeitsplatzId, teil.item, artikelStammdaten)
@@ -53,6 +54,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
         LetztesLos = auftragVorgaenger.LetztesLos,
         Periode = auftragVorgaenger.Periode,
         Teil = auftragVorgaenger.Teil,
+        Menge = auftragVorgaenger.Menge,
         Zeitbedarf = getZeitbedarf(arbeitsplatz, auftragVorgaenger.Teil, auftragVorgaenger.Menge, artikelStammdaten),
         Ruestzeit = GetRuestzeit(arbeitsplatz, auftragVorgaenger.Teil, artikelStammdaten)
       };

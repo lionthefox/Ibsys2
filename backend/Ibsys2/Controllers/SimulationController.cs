@@ -57,7 +57,7 @@ namespace Ibsys2.Controllers
       }
       catch (Exception exception)
       {
-        _logger.LogError("Simulation failed:", exception);
+        _logger.LogError(exception, exception.Message);
         return null;
       }
     }

@@ -19,7 +19,6 @@ namespace Ibsys2.Services
         public IList<Arbeitsplatz> Arbeitsplaetze { get; set; }
         public IList<StuecklistenPosition> Stueckliste { get; set; }
         public IList<StuecklistenAufloesung> StuecklistenAufloesungen { get; set; }
-        
         public IList<ArbeitsplatzNachfolger> ArbeitsplatzAufloesungen { get; set; }
         
         public Vertriebswunsch Vertriebswunsch { get; set; }
@@ -48,7 +47,7 @@ namespace Ibsys2.Services
             ArbeitsplatzAufloesungen =
                 _arbeitsplatzAufloesenService.ArbeitsplatzAuflösen(Arbeitsplaetze);
         }
-
+        
         public void SetResults(results results)
         {
             LastPeriodResults = results;

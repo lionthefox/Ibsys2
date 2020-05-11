@@ -16,15 +16,23 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
         {
             foreach (var item in lastPeriodResults.waitinglistworkstations)
             {
-                ArbeitsplatzWarteListe.Add(new WartelisteArbeitsplatz(item.id, lastPeriodResults, artikelStammdaten));
+                if(item.waitinglist != null)
+                    ArbeitsplatzWarteListe.Add(new WartelisteArbeitsplatz(item.id, lastPeriodResults, artikelStammdaten));
             }
             // Für die Arbeitsplätze in der WarteListe
+            IList<WartelisteArbeitsplatz> warteliste = new List<WartelisteArbeitsplatz>();
             foreach (var element in ArbeitsplatzWarteListe)
+            {
+                warteliste.Add(element);
+            }
+            foreach (var element in warteliste)
             {
                 foreach (var auftrag in element.ArbeitsplatzWartelisteAuftraege)
                 {
                     var arbeitsplatz = arbeitsplaetzeNachfolger.FirstOrDefault(x =>
                         x.Matnr == auftrag.Teil && x.Platz == element.Arbeitsplatz);
+                    if (arbeitsplatz.Nachfolger.Count == 0)
+                        continue;
                     foreach (var nachfolger in arbeitsplatz.Nachfolger)
                     {
                         var existingArbeitsplatz =
