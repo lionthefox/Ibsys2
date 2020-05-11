@@ -12,7 +12,7 @@ namespace Ibsys2.Services
         private readonly DispoEfService _dispoEfService;
         private readonly ErgebnisseVorperiodeService _ergebnisseVorperiodeService;
         private readonly ArbeitsplatzAufloesenService _arbeitsplatzAufloesenService;
-
+        private readonly KapazitaetService _kapazitaetService;
         public results LastPeriodResults { get; set; }
         public IList<Artikel> ArtikelStammdaten { get; set; }
         public IList<PersonalMaschinen> PersonalMaschinenStammdaten { get; set; }
@@ -30,13 +30,15 @@ namespace Ibsys2.Services
             StuecklistenService stuecklistenService,
             DispoEfService dispoEfService,
             ErgebnisseVorperiodeService ergebnisseVorperiodeService,
-            ArbeitsplatzAufloesenService arbeitsplatzAufloesenService)
+            ArbeitsplatzAufloesenService arbeitsplatzAufloesenService,
+            KapazitaetService kapazitaetService )
         {
             _fileRepository = fileRepository;
             _stuecklistenService = stuecklistenService;
             _dispoEfService = dispoEfService;
             _ergebnisseVorperiodeService = ergebnisseVorperiodeService;
             _arbeitsplatzAufloesenService = arbeitsplatzAufloesenService;
+            _kapazitaetService = kapazitaetService;
             
             Initialize();
         }
