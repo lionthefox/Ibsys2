@@ -5,7 +5,11 @@
     "english": ["English", "Englisch"]
   },
   "Input": {
-    "start": ["Start Simulation", "Simulation starten"]
+    "start": ["Start Simulation", "Simulation starten"],
+    "alert": [
+      "You have to upload the results from your last period to start the simulation.",
+      "Sie müssen die Ergebnisse der letzten Periode hochladen, um die Simulation zu starten."
+    ]
   },
   "FileUpload": {
     "uploadString": [
@@ -19,5 +23,18 @@
     "next": ["Next", "Weiter"],
     "back": ["Back", "Zurück"],
     "restart": ["Restart Simulation", "Simulation neustarten"]
+  },
+  "Production": {
+    "forecast": ["Forecast", "Prognose"],
+    "sell_wish": ["Sell Wish", "Vertriebswunsch"],
+    "direct_sales": ["Direct Sales", "Direktverkäufe"],
+    "product": ["Product", "Produkt"],
+    "amount": ["Amount", "Menge"],
+    "child_bike": ["Child Bike", "Kinderfahrrad"],
+    "woman_bike": ["Woman Bike", "Damenfahrrad"],
+    "man_bike": ["Man Bike", "Herrenfahrrad"],
+    "price": ["Price", "Preis"],
+    "penalty": ["Penalty", "Konventionalstrafe"],
+    "stock": ["Stock", "Bestand"]
   }
 }
