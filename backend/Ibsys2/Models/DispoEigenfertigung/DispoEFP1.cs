@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ibsys2.Services;
 
 namespace Ibsys2.Models.DispoEigenfertigung
@@ -9,7 +10,7 @@ namespace Ibsys2.Models.DispoEigenfertigung
     private readonly List<int> _articleIds = new List<int> {1, 26, 51, 16, 17, 50, 4, 10, 49, 7, 13, 18};
     public List<DispoEFPos> ListDispoEfPos { get; set; } = new List<DispoEFPos>();
 
-    public DispoEFP1(Vertriebswunsch vertriebsWunsch, Forecast forecast, results lastPeriodResults)
+    public DispoEFP1(Vertriebswunsch vertriebsWunsch, Forecast forecast, results lastPeriodResults, IList<DispoEFPos> updatedDispo = null)
     {
       foreach (var articleId in _articleIds)
       {
@@ -46,7 +47,7 @@ namespace Ibsys2.Models.DispoEigenfertigung
             break;
         }
 
-        dispoEfPos.Sicherheitsbestand = CalcSicherheitsbestand(forecast, vertriebsWunsch);
+        dispoEfPos.Sicherheitsbestand = updatedDispo?.FirstOrDefault(x => x.ArticleId == articleId)?.Sicherheitsbestand ?? CalcSicherheitsbestand(forecast, vertriebsWunsch);
         dispoEfPos.Lagerbestand = DispoEfService.GetLagerbestand(articleId, lastPeriodResults);
 
         // Muss noch erweitert werden

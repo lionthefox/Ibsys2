@@ -16,7 +16,11 @@ import { Link } from 'react-router-dom';
 
 const styles = (theme) => ({
   root: {
+    position: 'fixed',
+    top: 0,
+    width: '100%',
     height: '8rem',
+    zIndex: 1000,
   },
   appBar: {
     height: '100%',
@@ -35,21 +39,22 @@ const styles = (theme) => ({
     },
   },
   appIcon: {
-    height: '8rem',
+    height: '4rem',
     position: 'relative',
     top: '-0.3rem',
+    marginRight: '1rem',
     [theme.breakpoints.down('sm')]: {
       height: '5rem',
     },
   },
   appIconEn: {
-    height: '8rem',
+    height: '4rem',
     position: 'relative',
     top: '-0.3rem',
+    marginRight: '1rem',
     [theme.breakpoints.down('sm')]: {
       height: '5rem',
     },
-    left: '-2.45rem',
   },
   appIconContainer: {
     display: 'flex',
@@ -105,6 +110,11 @@ const Header = ({ classes, language, setLanguage, handleReset }) => (
     <AppBar position='static' className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
         <div className={classes.appIconContainer}>
+          <img
+            src={appIcon}
+            alt=''
+            className={language === 'en' ? classes.appIconEn : classes.appIcon}
+          />
           <Translate>
             {({ translate }) => (
               <Typography variant='h5' className={classes.title}>
@@ -113,11 +123,6 @@ const Header = ({ classes, language, setLanguage, handleReset }) => (
             )}
           </Translate>
         </div>
-        <img
-          src={appIcon}
-          alt=''
-          className={language === 'en' ? classes.appIconEn : classes.appIcon}
-        />
         <div className={classes.appIconContainer}>
           <FormControl className={classes.margin}>
             <InputLabel classes={{ root: classes.inputLabel }}>

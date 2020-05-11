@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Ibsys2.Models;
+using Ibsys2.Models.DispoEigenfertigung;
 using Ibsys2.Models.Stammdaten;
 using Ibsys2.Models.Stueckliste;
 
@@ -44,8 +45,7 @@ namespace Ibsys2.Services
         {
             ParseStammdaten();
             StuecklistenAufloesungen = _stuecklistenService.Stuecklistenaufloesung(Stueckliste, ArtikelStammdaten);
-            ArbeitsplatzAufloesungen =
-                _arbeitsplatzAufloesenService.ArbeitsplatzAuflösen(Arbeitsplaetze);
+            ArbeitsplatzAufloesungen = _arbeitsplatzAufloesenService.ArbeitsplatzAuflösen(Arbeitsplaetze);
         }
         
         public void SetResults(results results)
@@ -53,13 +53,15 @@ namespace Ibsys2.Services
             LastPeriodResults = results;
         }
 
-        public void Start(SimulationInput input)
+        public DispoEigenfertigungen Start(SimulationInput input)
         {
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
-            _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults);
-            _ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen, StuecklistenAufloesungen);
+            //_ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen, StuecklistenAufloesungen);
+
+            return _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults);
         }
+
 
         private void ParseStammdaten()
         {
