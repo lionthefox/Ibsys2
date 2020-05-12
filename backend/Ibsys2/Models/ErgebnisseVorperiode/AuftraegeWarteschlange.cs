@@ -2,6 +2,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
 {
     public class AuftraegeWarteschlange
     {
+        public bool BasisAuftrag { get; set; }
         public int Arbeitsplatz { get; set; }
         public int Periode { get; set; }
         public int Fertigungsauftrag { get; set; }

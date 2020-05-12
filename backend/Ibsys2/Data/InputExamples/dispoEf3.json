@@ -1,0 +1,122 @@
+[
+        {
+            "articleId": 3,
+            "vertrieb": 100,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 50,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 100
+        },
+        {
+            "articleId": 26,
+            "vertrieb": 100,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 240,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 0
+        },
+        {
+            "articleId": 31,
+            "vertrieb": 100,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 50,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 100
+        },
+        {
+            "articleId": 16,
+            "vertrieb": 100,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 224,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 0
+        },
+        {
+            "articleId": 17,
+            "vertrieb": 100,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 254,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 0
+        },
+        {
+            "articleId": 30,
+            "vertrieb": 100,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 50,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 100
+        },
+        {
+            "articleId": 6,
+            "vertrieb": 100,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 75,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 75
+        },
+        {
+            "articleId": 12,
+            "vertrieb": 100,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 75,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 75
+        },
+        {
+            "articleId": 29,
+            "vertrieb": 100,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 75,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 75
+        },
+        {
+            "articleId": 9,
+            "vertrieb": 75,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 75,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 50
+        },
+        {
+            "articleId": 15,
+            "vertrieb": 75,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 75,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 50
+        },
+        {
+            "articleId": 20,
+            "vertrieb": 75,
+            "auftragUebernahme": 0,
+            "sicherheitsbestand": 50,
+            "lagerbestand": 75,
+            "auftraegeWarteschlange": 0,
+            "auftraegeBearbeitung": 0,
+            "produktion": 50
+        }
+    ]

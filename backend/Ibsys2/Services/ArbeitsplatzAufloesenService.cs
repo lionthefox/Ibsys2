@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ibsys2.Models;
@@ -14,26 +15,26 @@ namespace Ibsys2.Services
     {
       Arbeitsplaetze = arbeitsplaetze;
       var aufloesung = new List<ArbeitsplatzNachfolger>();
-      foreach (var position in arbeitsplaetze)
+      foreach (var Arbeitsplatz in arbeitsplaetze)
       {
         // Falls für die Arbeitsplatz, Materialnummerkombination noch kein Eintrag vorhanden ist.
-        var existingItem = aufloesung.FirstOrDefault(x => x.Platz == position.Platz && x.Matnr == position.Matnr);
+        var existingItem = aufloesung.FirstOrDefault(x => x.Platz == Arbeitsplatz.Platz && x.Matnr == Arbeitsplatz.Matnr);
         if (existingItem == null)
         {
           var stücklistenAufloesung = new ArbeitsplatzNachfolger
           {
-            Platz = position.Platz,
-            Matnr = position.Matnr,
+            Platz = Arbeitsplatz.Platz,
+            Matnr = Arbeitsplatz.Matnr,
             Nachfolger = new List<int>()
           };
-          GetNachfolger(stücklistenAufloesung.Nachfolger, position);
+          GetNachfolger(stücklistenAufloesung.Nachfolger, Arbeitsplatz);
           aufloesung.Add(stücklistenAufloesung);
         }
 
         // Falls für dise Arbeitsplatz-Materialnummerkombination schon ein Eintrag exisitiert.
         else
         {
-          GetNachfolger(existingItem.Nachfolger, position);
+          GetNachfolger(existingItem.Nachfolger, Arbeitsplatz);
         }
       }
 
@@ -44,14 +45,18 @@ namespace Ibsys2.Services
     {
       // füge den Nachfolgearbeitsplatz den Nachfolgern hinzu
       var existingArbeitsplatz = nachfolger.FirstOrDefault(x => x == arbeitsplatz.Nachfolger);
-      nachfolger.Add(existingArbeitsplatz);
+      if (existingArbeitsplatz == 0 && arbeitsplatz.Nachfolger.HasValue)
+        nachfolger.Add(arbeitsplatz.Nachfolger.Value);
+      else
+        return;
       
-
       //Iteriere erneut über die Arbeitsplätze
       foreach (var position in Arbeitsplaetze)
       {
         if (position.Platz == arbeitsplatz.Nachfolger)
           GetNachfolger(nachfolger, position);
+        else if (position.Nachfolger == null)
+          return;
       }
     }
     }
