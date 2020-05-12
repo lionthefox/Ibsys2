@@ -43,7 +43,7 @@ const Input = ({ language, setLastPeriodResults, handleNext }) => {
       <FileUpload
         language={language}
         multipleFiles={false}
-        url='/api/simulation/results-input'
+        url='/simulation/results-input'
         setResults={setResults}
         setDisabled={setDisabled}
       />
