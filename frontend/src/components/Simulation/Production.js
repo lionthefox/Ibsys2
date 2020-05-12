@@ -4,6 +4,27 @@ import TextField from '@material-ui/core/TextField';
 import { Translate } from 'react-localize-redux';
 
 import ContainedTabs from '../ui_components/ContainedTabs';
+import { getNestedObjectProperty } from '../../utils/nestedObjectProps';
+import { getFloatValue } from '../../utils/getValue';
+
+const Input = withStyles({
+  root: {
+    marginBottom: '10px',
+    width: '10rem',
+
+    '& label.Mui-focused': {
+      color: '#135444',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#135444',
+    },
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: '#135444',
+      },
+    },
+  },
+})(TextField);
 
 const styles = {
   wrapper: {
@@ -15,51 +36,94 @@ const styles = {
   root: {
     display: 'flex',
     justifyContent: 'space-around',
+    marginTop: '2rem',
   },
   columnContainer: {
     display: 'flex',
     flexDirection: 'column',
+    marginRight: '1rem',
   },
-  inputField: {
-    marginBottom: '10px',
+  textContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginRight: '2rem',
+    marginLeft: '2rem',
   },
   headerLabel: {
-    fontWeight: 1000,
-    marginBottom: '1rem',
+    marginBottom: '1.5rem',
+    textAlign: 'center',
+    fontSize: '18px',
   },
   value: {
     display: 'flex',
-    height: '3rem',
+    height: '25%',
     alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: '3px',
   },
 };
 
-const Production = ({ classes, lastPeriodResults }) => {
-  const [index, setIndex] = useState(0);
+const Form = ({
+  classes,
+  simulationInput,
+  setSimulationInput,
+  label,
+  values,
+}) => {
+  const inputProps = {
+    type: 'number',
+    variant: 'outlined',
+  };
 
-  const Form = ({ label }) => (
+  const getInputValue = (val) => String(val).replace('^0+', '');
+
+  return (
     <div className={classes.columnContainer}>
       {label ? <div className={classes.headerLabel}>{label}</div> : null}
-      <TextField
-        className={classes.inputField}
-        type='number'
-        variant='outlined'
+      <Input
+        {...inputProps}
+        value={
+          getInputValue(getNestedObjectProperty(simulationInput, values[0])) ||
+          0
+        }
+        onChange={(e) => {
+          setSimulationInput(values[0], getFloatValue(e.target.value));
+        }}
       />
-      <TextField
-        className={classes.inputField}
-        type='number'
-        variant='outlined'
+      <Input
+        {...inputProps}
+        value={
+          getInputValue(getNestedObjectProperty(simulationInput, values[1])) ||
+          0
+        }
+        onChange={(e) =>
+          setSimulationInput(values[1], getFloatValue(e.target.value))
+        }
       />
-      <TextField
-        className={classes.inputField}
-        type='number'
-        variant='outlined'
+      <Input
+        {...inputProps}
+        value={
+          getInputValue(getNestedObjectProperty(simulationInput, values[2])) ||
+          0
+        }
+        onChange={(e) =>
+          setSimulationInput(values[2], getFloatValue(e.target.value))
+        }
       />
     </div>
   );
+};
+
+const Production = ({
+  classes,
+  simulationInput,
+  setSimulationInput,
+  lastPeriodResults,
+}) => {
+  const [index, setIndex] = useState(0);
 
   const Text = ({ label, prop, text }) => (
-    <div className={classes.columnContainer}>
+    <div className={classes.textContainer}>
       {label ? <div className={classes.headerLabel}>{label}</div> : null}
       {prop ? (
         <>
@@ -96,6 +160,12 @@ const Production = ({ classes, lastPeriodResults }) => {
   );
 
   const getComponent = () => {
+    const formProps = {
+      classes,
+      simulationInput,
+      setSimulationInput,
+    };
+
     switch (index) {
       case 0:
         return (
@@ -109,16 +179,40 @@ const Production = ({ classes, lastPeriodResults }) => {
               ]}
             />
             <Form
+              {...formProps}
               label={lastPeriodResults ? lastPeriodResults.period + 1 : 0}
+              values={[
+                ['forecast', 'periode1', 'produkt1'],
+                ['forecast', 'periode1', 'produkt2'],
+                ['forecast', 'periode1', 'produkt3'],
+              ]}
             />
             <Form
+              {...formProps}
               label={lastPeriodResults ? lastPeriodResults.period + 2 : 0}
+              values={[
+                ['forecast', 'periode2', 'produkt1'],
+                ['forecast', 'periode2', 'produkt2'],
+                ['forecast', 'periode2', 'produkt3'],
+              ]}
             />
             <Form
+              {...formProps}
               label={lastPeriodResults ? lastPeriodResults.period + 3 : 0}
+              values={[
+                ['forecast', 'periode3', 'produkt1'],
+                ['forecast', 'periode3', 'produkt2'],
+                ['forecast', 'periode3', 'produkt3'],
+              ]}
             />
             <Form
+              {...formProps}
               label={lastPeriodResults ? lastPeriodResults.period + 4 : 0}
+              values={[
+                ['forecast', 'periode4', 'produkt1'],
+                ['forecast', 'periode4', 'produkt2'],
+                ['forecast', 'periode4', 'produkt3'],
+              ]}
             />
           </div>
         );
@@ -133,7 +227,15 @@ const Production = ({ classes, lastPeriodResults }) => {
                 <Translate id='Production.man_bike' />,
               ]}
             />
-            <Form label={<Translate id='Production.amount' />} />
+            <Form
+              {...formProps}
+              label={<Translate id='Production.amount' />}
+              values={[
+                ['vertriebswunsch', 'produkt1'],
+                ['vertriebswunsch', 'produkt2'],
+                ['vertriebswunsch', 'produkt3'],
+              ]}
+            />
           </div>
         );
       case 2:
@@ -147,9 +249,48 @@ const Production = ({ classes, lastPeriodResults }) => {
                 <Translate id='Production.man_bike' />,
               ]}
             />
-            <Form label={<Translate id='Production.amount' />} />
-            <Form label={<Translate id='Production.price' />} />
-            <Form label={<Translate id='Production.penalty' />} />
+            <Form
+              {...formProps}
+              label={<Translate id='Production.amount' />}
+              values={[
+                ['vertriebswunsch', 'direktverkauf', 'produkt1', 'menge'],
+                ['vertriebswunsch', 'direktverkauf', 'produkt2', 'menge'],
+                ['vertriebswunsch', 'direktverkauf', 'produkt3', 'menge'],
+              ]}
+            />
+            <Form
+              {...formProps}
+              label={<Translate id='Production.price' />}
+              values={[
+                ['vertriebswunsch', 'direktverkauf', 'produkt1', 'preis'],
+                ['vertriebswunsch', 'direktverkauf', 'produkt2', 'preis'],
+                ['vertriebswunsch', 'direktverkauf', 'produkt3', 'preis'],
+              ]}
+            />
+            <Form
+              {...formProps}
+              label={<Translate id='Production.penalty' />}
+              values={[
+                [
+                  'vertriebswunsch',
+                  'direktverkauf',
+                  'produkt1',
+                  'konventionalstrafe',
+                ],
+                [
+                  'vertriebswunsch',
+                  'direktverkauf',
+                  'produkt2',
+                  'konventionalstrafe',
+                ],
+                [
+                  'vertriebswunsch',
+                  'direktverkauf',
+                  'produkt3',
+                  'konventionalstrafe',
+                ],
+              ]}
+            />
             <Text label={<Translate id='Production.stock' />} prop='amount' />
           </div>
         );

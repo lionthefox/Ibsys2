@@ -106,7 +106,6 @@ function getSteps(language) {
 const HorizontalStepper = ({
   language,
   activeStep,
-  lastPeriodResults,
   handleNext,
   handleBack,
   handleReset,
