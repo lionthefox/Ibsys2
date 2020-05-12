@@ -31,8 +31,10 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
             ErstesLos = teil.firstbatch,
             LetztesLos = teil.lastbatch,
             Periode = teil.period,
+            Menge = teil.amount,
             Teil = teil.item,
             Zeitbedarf = teil.timeneed,
+            BasisAuftrag = true,
             Ruestzeit = GetRuestzeit(arbeitsplatzId, teil.item, artikelStammdaten)
           };
           ArbeitsplatzWartelisteAuftraege.Add(warteListeTeil);
@@ -43,8 +45,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
     public WartelisteArbeitsplatz(int arbeitsplatz, AuftraegeWarteschlange auftragVorgaenger, IList<Artikel> artikelStammdaten)
     {
       Arbeitsplatz = arbeitsplatz;
-      Arbeitszeit = 0;
-      Ruestzeit = 0;
+
       var auftrag = new AuftraegeWarteschlange
       {
         Arbeitsplatz = arbeitsplatz,
@@ -53,9 +54,13 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
         LetztesLos = auftragVorgaenger.LetztesLos,
         Periode = auftragVorgaenger.Periode,
         Teil = auftragVorgaenger.Teil,
+        Menge = auftragVorgaenger.Menge,
+        BasisAuftrag = false,
         Zeitbedarf = getZeitbedarf(arbeitsplatz, auftragVorgaenger.Teil, auftragVorgaenger.Menge, artikelStammdaten),
         Ruestzeit = GetRuestzeit(arbeitsplatz, auftragVorgaenger.Teil, artikelStammdaten)
       };
+      Arbeitszeit = auftrag.Zeitbedarf;
+      Ruestzeit = auftrag.Ruestzeit;
       ArbeitsplatzWartelisteAuftraege.Add(auftrag);
     }
     
@@ -99,7 +104,6 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
           }
         }
       }
-
       return 0;
     }
 

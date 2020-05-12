@@ -49,7 +49,7 @@ namespace Ibsys2.Services
             StuecklistenAufloesungen = _stuecklistenService.Stuecklistenaufloesung(Stueckliste, ArtikelStammdaten);
             ArbeitsplatzAufloesungen = _arbeitsplatzAufloesenService.ArbeitsplatzAuflösen(Arbeitsplaetze);
         }
-
+        
         public void SetResults(results results)
         {
             LastPeriodResults = results;
@@ -59,9 +59,9 @@ namespace Ibsys2.Services
         {
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
-            //_ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen, StuecklistenAufloesungen);
+            _ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen, StuecklistenAufloesungen);
 
-            return _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults);
+            return _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults, _ergebnisseVorperiodeService);
         }
 
         public void Kapaplan(DispoEigenfertigungen dispoEigenfertigungen)

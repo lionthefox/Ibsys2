@@ -14,17 +14,29 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
         public WartelisteArbeitsplaetze(results lastPeriodResults, IList<Artikel> artikelStammdaten,
             IList<ArbeitsplatzNachfolger> arbeitsplaetzeNachfolger, InBearbeitung auftraegeInBearbeitung)
         {
+            // Aufträge in der Warteschlange als "Basisaufträge" anlegen
             foreach (var item in lastPeriodResults.waitinglistworkstations)
             {
-                ArbeitsplatzWarteListe.Add(new WartelisteArbeitsplatz(item.id, lastPeriodResults, artikelStammdaten));
+                if(item.waitinglist != null)
+                    ArbeitsplatzWarteListe.Add(new WartelisteArbeitsplatz(item.id, lastPeriodResults, artikelStammdaten));
             }
+            // Aufträge in der Warteschlange wegen Materialmangel als "Basisauftrag" setzen
+
+
             // Für die Arbeitsplätze in der WarteListe
+            IList<WartelisteArbeitsplatz> warteliste = new List<WartelisteArbeitsplatz>();
             foreach (var element in ArbeitsplatzWarteListe)
+            {
+                warteliste.Add(element);
+            }
+            foreach (var element in warteliste)
             {
                 foreach (var auftrag in element.ArbeitsplatzWartelisteAuftraege)
                 {
                     var arbeitsplatz = arbeitsplaetzeNachfolger.FirstOrDefault(x =>
                         x.Matnr == auftrag.Teil && x.Platz == element.Arbeitsplatz);
+                    if (arbeitsplatz.Nachfolger.Count == 0)
+                        continue;
                     foreach (var nachfolger in arbeitsplatz.Nachfolger)
                     {
                         var existingArbeitsplatz =
@@ -44,6 +56,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
                                     artikelStammdaten);
                             auftragNachfolger.Zeitbedarf = WartelisteArbeitsplatz.getZeitbedarf(nachfolger,
                                 auftrag.Teil, auftrag.Menge, artikelStammdaten);
+                            auftragNachfolger.BasisAuftrag = false;
                             existingArbeitsplatz.ArbeitsplatzWartelisteAuftraege.Add(auftragNachfolger);
                             element.Arbeitszeit += auftragNachfolger.Zeitbedarf;
                             element.Ruestzeit += auftragNachfolger.Ruestzeit;

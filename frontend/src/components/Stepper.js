@@ -77,7 +77,7 @@ const paths = [
   '/quantity_planning',
   '/capacity_planning',
   '/sequence_planning',
-  'order_planning',
+  '/order_planning',
   '/result',
 ];
 

@@ -16,6 +16,7 @@ const styles = {
     marginBottom: '10px',
   },
   headerLabel: {
+    fontWeight: 1000,
     marginBottom: '1rem',
   },
   value: {

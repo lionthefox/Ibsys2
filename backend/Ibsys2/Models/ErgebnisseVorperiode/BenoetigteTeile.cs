@@ -9,7 +9,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
 {
     public class BenoetigteTeile
     {
-        public List<Teil> Teilliste { get; set; }
+        public IList<Teil> Teilliste { get; set; } = new List<Teil>();
 
         public BenoetigteTeile(WartelisteArbeitsplaetze wartelisteArbeitsplaetze, IList<StuecklistenAufloesung> stuecklistenAufloesung, IList<Artikel> artikelStammdaten)
         {
@@ -19,19 +19,15 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
                 {
                     var benoetigteTeile = stuecklistenAufloesung.FirstOrDefault(x =>
                         x.Arbeitsplatz == arbeitsplatz.Arbeitsplatz && x.MatNr == auftrag.Teil);
+                    if (benoetigteTeile == null)
+                        continue;
                     foreach (var teil in benoetigteTeile.BenoetigteTeile)
                     {
-                        TeilTyp typ =
-                            artikelStammdaten.FirstOrDefault(artikel => artikel.Artikelnummer == teil.MatNr)?.Typ == 'K'
-                                ? TeilTyp.Kauf
-                                : TeilTyp.Eigenferigung;
-                        
-                        Teilliste.Add( new Teil
-                        {
+                        Teilliste.Add(new Teil() {
                             Anzahl = teil.Anzahl * auftrag.Menge,
                             Arbeitsplatz = arbeitsplatz.Arbeitsplatz,
                             MatNr = teil.MatNr,
-                            Typ = typ
+                            Typ = teil.Typ
                         });
                     }
                 }

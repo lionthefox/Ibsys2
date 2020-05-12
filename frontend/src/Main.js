@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { withLocalize } from 'react-localize-redux';
+import { withLocalize, Translate } from 'react-localize-redux';
 import { Route, Redirect } from 'react-router-dom';
 import globalTranslations from './translations/global.json';
 
@@ -17,8 +17,40 @@ import Stepper from './components/Stepper';
 const AnimationWrapper = ({ children }) => (
   <div
     className='cssanimation sequence fadeInBottom'
-    style={{ paddingTop: '13rem', paddingBottom: '15rem' }}
+    style={{ paddingTop: '10rem', paddingBottom: '15rem' }}
   >
+    {children}
+  </div>
+);
+
+const HeadlineWrapper = ({ headlineComponent, children }) => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '100%',
+    }}
+  >
+    <div
+      style={{
+        textAlign: 'center',
+        fontSize: '2rem',
+        fontWeight: 1000,
+        marginBottom: '1rem',
+      }}
+    >
+      {headlineComponent || ''}
+    </div>
+    <div
+      id='horizontal_line'
+      style={{
+        width: '90%',
+        borderBottom: '3px solid #135444',
+        marginBottom: '2rem',
+      }}
+    ></div>
     {children}
   </div>
 );
@@ -88,7 +120,11 @@ class Main extends Component {
           path='/production'
           component={() => (
             <AnimationWrapper>
-              <Production lastPeriodResults={lastPeriodResults} />
+              <HeadlineWrapper
+                headlineComponent={<Translate id='Headline.production' />}
+              >
+                <Production lastPeriodResults={lastPeriodResults} />
+              </HeadlineWrapper>
             </AnimationWrapper>
           )}
         />
@@ -97,7 +133,13 @@ class Main extends Component {
           path='/quantity_planning'
           component={() => (
             <AnimationWrapper>
-              <QuantityPlanning />
+              <HeadlineWrapper
+                headlineComponent={
+                  <Translate id='Headline.quantity_planning' />
+                }
+              >
+                <QuantityPlanning />
+              </HeadlineWrapper>
             </AnimationWrapper>
           )}
         />
@@ -106,7 +148,13 @@ class Main extends Component {
           path='/capacity_planning'
           component={() => (
             <AnimationWrapper>
-              <CapacityPlanning />
+              <HeadlineWrapper
+                headlineComponent={
+                  <Translate id='Headline.capacity_planning' />
+                }
+              >
+                <CapacityPlanning />
+              </HeadlineWrapper>
             </AnimationWrapper>
           )}
         />
@@ -115,7 +163,13 @@ class Main extends Component {
           path='/sequence_planning'
           component={() => (
             <AnimationWrapper>
-              <SequencePlanning />
+              <HeadlineWrapper
+                headlineComponent={
+                  <Translate id='Headline.sequence_planning' />
+                }
+              >
+                <SequencePlanning />
+              </HeadlineWrapper>
             </AnimationWrapper>
           )}
         />
@@ -124,7 +178,11 @@ class Main extends Component {
           path='/order_planning'
           component={() => (
             <AnimationWrapper>
-              <OrderPlanning />
+              <HeadlineWrapper
+                headlineComponent={<Translate id='Headline.order_planning' />}
+              >
+                <OrderPlanning />
+              </HeadlineWrapper>
             </AnimationWrapper>
           )}
         />
@@ -133,7 +191,11 @@ class Main extends Component {
           path='/result'
           component={() => (
             <AnimationWrapper>
-              <Result />
+              <HeadlineWrapper
+                headlineComponent={<Translate id='Headline.result' />}
+              >
+                <Result />
+              </HeadlineWrapper>
             </AnimationWrapper>
           )}
         />
