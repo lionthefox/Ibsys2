@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Translate } from 'react-localize-redux';
 
+import ContainedTabs from '../ui_components/ContainedTabs';
+
 const styles = {
+  wrapper: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
   root: {
     display: 'flex',
     justifyContent: 'space-around',
@@ -27,6 +35,8 @@ const styles = {
 };
 
 const Production = ({ classes, lastPeriodResults }) => {
+  const [index, setIndex] = useState(0);
+
   const Form = ({ label }) => (
     <div className={classes.columnContainer}>
       {label ? <div className={classes.headerLabel}>{label}</div> : null}
@@ -85,46 +95,84 @@ const Production = ({ classes, lastPeriodResults }) => {
     </div>
   );
 
+  const getComponent = () => {
+    switch (index) {
+      case 0:
+        return (
+          <div className={classes.root}>
+            <Text
+              label={<Translate id='Production.product' />}
+              text={[
+                <Translate id='Production.child_bike' />,
+                <Translate id='Production.woman_bike' />,
+                <Translate id='Production.man_bike' />,
+              ]}
+            />
+            <Form
+              label={lastPeriodResults ? lastPeriodResults.period + 1 : 0}
+            />
+            <Form
+              label={lastPeriodResults ? lastPeriodResults.period + 2 : 0}
+            />
+            <Form
+              label={lastPeriodResults ? lastPeriodResults.period + 3 : 0}
+            />
+            <Form
+              label={lastPeriodResults ? lastPeriodResults.period + 4 : 0}
+            />
+          </div>
+        );
+      case 1:
+        return (
+          <div className={classes.root}>
+            <Text
+              label={<Translate id='Production.product' />}
+              text={[
+                <Translate id='Production.child_bike' />,
+                <Translate id='Production.woman_bike' />,
+                <Translate id='Production.man_bike' />,
+              ]}
+            />
+            <Form label={<Translate id='Production.amount' />} />
+          </div>
+        );
+      case 2:
+        return (
+          <div className={classes.root}>
+            <Text
+              label={<Translate id='Production.product' />}
+              text={[
+                <Translate id='Production.child_bike' />,
+                <Translate id='Production.woman_bike' />,
+                <Translate id='Production.man_bike' />,
+              ]}
+            />
+            <Form label={<Translate id='Production.amount' />} />
+            <Form label={<Translate id='Production.price' />} />
+            <Form label={<Translate id='Production.penalty' />} />
+            <Text label={<Translate id='Production.stock' />} prop='amount' />
+          </div>
+        );
+      default:
+        return <div>Production</div>;
+    }
+  };
+
   return (
-    <form noValidate autoComplete='off'>
-      <div className={classes.root}>
-        <Text
-          label={<Translate id='Production.product' />}
-          text={[
-            <Translate id='Production.child_bike' />,
-            <Translate id='Production.woman_bike' />,
-            <Translate id='Production.man_bike' />,
-          ]}
-        />
-        <Form label={lastPeriodResults ? lastPeriodResults.period + 1 : 0} />
-        <Form label={lastPeriodResults ? lastPeriodResults.period + 2 : 0} />
-        <Form label={lastPeriodResults ? lastPeriodResults.period + 3 : 0} />
-        <Form label={lastPeriodResults ? lastPeriodResults.period + 4 : 0} />
-        <Text
-          label={<Translate id='Production.product' />}
-          text={[
-            <Translate id='Production.child_bike' />,
-            <Translate id='Production.woman_bike' />,
-            <Translate id='Production.man_bike' />,
-          ]}
-        />
-        <Form label={<Translate id='Production.amount' />} />
-      </div>
-      <div className={classes.root}>
-        <Text
-          label={<Translate id='Production.product' />}
-          text={[
-            <Translate id='Production.child_bike' />,
-            <Translate id='Production.woman_bike' />,
-            <Translate id='Production.man_bike' />,
-          ]}
-        />
-        <Form label={<Translate id='Production.amount' />} />
-        <Form label={<Translate id='Production.price' />} />
-        <Form label={<Translate id='Production.penalty' />} />
-        <Text label={<Translate id='Production.stock' />} prop='amount' />
-      </div>
-    </form>
+    <div className={classes.wrapper}>
+      <ContainedTabs
+        tabs={[
+          { label: <Translate id='Production.forecast' /> },
+          { label: <Translate id='Production.sell_wish' /> },
+          { label: <Translate id='Production.direct_sales' /> },
+        ]}
+        value={index}
+        onChange={(e, i) => setIndex(i)}
+      />
+      <form noValidate autoComplete='off'>
+        {getComponent()}
+      </form>
+    </div>
   );
 };
 

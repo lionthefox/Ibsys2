@@ -4,7 +4,7 @@ import { withLocalize, Translate } from 'react-localize-redux';
 import { Route, Redirect } from 'react-router-dom';
 import globalTranslations from './translations/global.json';
 
-import Header from './components/Header';
+import Header from './components/navigation/Header';
 import Input from './components/Upload/Input';
 import Production from './components/Simulation/Production';
 import QuantityPlanning from './components/Simulation/QuantityPlanning';
@@ -12,7 +12,7 @@ import CapacityPlanning from './components/Simulation/CapacityPlanning';
 import SequencePlanning from './components/Simulation/SequencePlanning';
 import OrderPlanning from './components/Simulation/OrderPlanning';
 import Result from './components/Simulation/Result';
-import Stepper from './components/Stepper';
+import Stepper from './components/navigation/Stepper';
 
 const AnimationWrapper = ({ children }) => (
   <div
