@@ -23,6 +23,30 @@ const AnimationWrapper = ({ children }) => (
   </div>
 );
 
+const HeadlineWrapper = ({ children }) => (
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      height: '5rem',
+    }}
+  >
+    <div
+      style={{
+        width: '90%',
+        borderBottom: '3px solid #135444',
+        height: '80%',
+        textAlign: 'center',
+        fontSize: '3rem',
+        fontWeight: 1000,
+      }}
+    >
+      CapacityPlanning
+    </div>
+  </div>
+);
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -97,7 +121,9 @@ class Main extends Component {
           path='/quantity_planning'
           component={() => (
             <AnimationWrapper>
-              <QuantityPlanning />
+              <HeadlineWrapper>
+                <QuantityPlanning />
+              </HeadlineWrapper>
             </AnimationWrapper>
           )}
         />
