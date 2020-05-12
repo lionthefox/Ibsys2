@@ -21,17 +21,17 @@ namespace Ibsys2.Services
         public IList<StuecklistenPosition> Stueckliste { get; set; }
         public IList<StuecklistenAufloesung> StuecklistenAufloesungen { get; set; }
         public IList<ArbeitsplatzNachfolger> ArbeitsplatzAufloesungen { get; set; }
-        
+
         public Vertriebswunsch Vertriebswunsch { get; set; }
         public Forecast Forecast { get; set; }
 
         public SimulationService(
-            FileRepository fileRepository, 
+            FileRepository fileRepository,
             StuecklistenService stuecklistenService,
             DispoEfService dispoEfService,
             ErgebnisseVorperiodeService ergebnisseVorperiodeService,
             ArbeitsplatzAufloesenService arbeitsplatzAufloesenService,
-            KapazitaetService kapazitaetService )
+            KapazitaetService kapazitaetService)
         {
             _fileRepository = fileRepository;
             _stuecklistenService = stuecklistenService;
@@ -39,7 +39,7 @@ namespace Ibsys2.Services
             _ergebnisseVorperiodeService = ergebnisseVorperiodeService;
             _arbeitsplatzAufloesenService = arbeitsplatzAufloesenService;
             _kapazitaetService = kapazitaetService;
-            
+
             Initialize();
         }
 
@@ -64,6 +64,10 @@ namespace Ibsys2.Services
             return _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults);
         }
 
+        public void Kapaplan(DispoEigenfertigungen dispoEigenfertigungen)
+        {
+            _kapazitaetService.clalcKapaPlan(dispoEigenfertigungen, ArtikelStammdaten);
+        }
 
         private void ParseStammdaten()
         {
