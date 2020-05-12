@@ -53,5 +53,13 @@
     "@storybook/preset-create-react-app": "^2.1.2",
     "@storybook/react": "^5.3.18",
     "react-localize-redux": "^3.5.3"
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:5000",
+      "pathRewrite": {
+        "^/api": "/"
+      }
+    }
   }
 }
