@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 
-import appIcon from '../assets/bike.png';
+import appIcon from '../../assets/bike.png';
 import { Link } from 'react-router-dom';
 
 const styles = (theme) => ({
