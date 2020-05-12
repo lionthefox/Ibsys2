@@ -13,7 +13,7 @@ namespace Ibsys2.Services
         private readonly DispoEfService _dispoEfService;
         private readonly ErgebnisseVorperiodeService _ergebnisseVorperiodeService;
         private readonly ArbeitsplatzAufloesenService _arbeitsplatzAufloesenService;
-
+        private readonly KapazitaetService _kapazitaetService;
         public results LastPeriodResults { get; set; }
         public IList<Artikel> ArtikelStammdaten { get; set; }
         public IList<PersonalMaschinen> PersonalMaschinenStammdaten { get; set; }
@@ -21,23 +21,25 @@ namespace Ibsys2.Services
         public IList<StuecklistenPosition> Stueckliste { get; set; }
         public IList<StuecklistenAufloesung> StuecklistenAufloesungen { get; set; }
         public IList<ArbeitsplatzNachfolger> ArbeitsplatzAufloesungen { get; set; }
-        
+
         public Vertriebswunsch Vertriebswunsch { get; set; }
         public Forecast Forecast { get; set; }
 
         public SimulationService(
-            FileRepository fileRepository, 
+            FileRepository fileRepository,
             StuecklistenService stuecklistenService,
             DispoEfService dispoEfService,
             ErgebnisseVorperiodeService ergebnisseVorperiodeService,
-            ArbeitsplatzAufloesenService arbeitsplatzAufloesenService)
+            ArbeitsplatzAufloesenService arbeitsplatzAufloesenService,
+            KapazitaetService kapazitaetService)
         {
             _fileRepository = fileRepository;
             _stuecklistenService = stuecklistenService;
             _dispoEfService = dispoEfService;
             _ergebnisseVorperiodeService = ergebnisseVorperiodeService;
             _arbeitsplatzAufloesenService = arbeitsplatzAufloesenService;
-            
+            _kapazitaetService = kapazitaetService;
+
             Initialize();
         }
 
@@ -62,6 +64,10 @@ namespace Ibsys2.Services
             return _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults, _ergebnisseVorperiodeService);
         }
 
+        public void Kapaplan(DispoEigenfertigungen dispoEigenfertigungen)
+        {
+            _kapazitaetService.clalcKapaPlan(dispoEigenfertigungen, ArtikelStammdaten);
+        }
 
         private void ParseStammdaten()
         {

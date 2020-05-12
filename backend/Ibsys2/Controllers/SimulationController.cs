@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
+using Ibsys2.Models.KapazitaetsPlan;
 using Ibsys2.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -54,6 +55,7 @@ namespace Ibsys2.Controllers
                     throw new Exception("Upload LastPeriodResults first!");
 
                 var dispoEigenfertigungen = _simulationService.Start(input);
+                _simulationService.Kapaplan(dispoEigenfertigungen);
                 _logger.LogInformation("Simulation successful");
                 return dispoEigenfertigungen;
             }
