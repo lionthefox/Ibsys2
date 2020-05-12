@@ -4,6 +4,7 @@ using System.ComponentModel.Design;
 using System.Linq;
 using Ibsys2.Models;
 using Ibsys2.Models.ErgebnisseVorperiode;
+using Ibsys2.Models.Stammdaten;
 using Ibsys2.Models.Stueckliste;
 
 namespace Ibsys2.Services
@@ -15,11 +16,11 @@ namespace Ibsys2.Services
         
         public BenoetigteTeile BenoetigteTeile { get; set; }
         
-        public void GetErgebnisse(results lastPeriodResults, IList<Artikel> artikelStammdaten, IList<ArbeitsplatzNachfolger> arbeitsplatzNachfolger, IList<StuecklistenAufloesung> stuecklistenAufloesung)
+        public void GetErgebnisse(results lastPeriodResults, IList<Artikel> artikelStammdaten, IList<ArbeitsplatzNachfolger> arbeitsplatzNachfolger, IList<StuecklistenPosition> stueckliste)
         {
             InBearbeitung = new InBearbeitung(lastPeriodResults);
-            WartelisteArbeitsplaetze = new WartelisteArbeitsplaetze(lastPeriodResults, artikelStammdaten, arbeitsplatzNachfolger, InBearbeitung);
-            BenoetigteTeile = new BenoetigteTeile(WartelisteArbeitsplaetze, stuecklistenAufloesung, artikelStammdaten);
+            WartelisteArbeitsplaetze = new WartelisteArbeitsplaetze(lastPeriodResults, artikelStammdaten, arbeitsplatzNachfolger, InBearbeitung, stueckliste);
+            BenoetigteTeile = new BenoetigteTeile(WartelisteArbeitsplaetze, arbeitsplatzNachfolger, artikelStammdaten, stueckliste);
         }
     }
 }

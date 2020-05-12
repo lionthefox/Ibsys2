@@ -8,7 +8,7 @@ namespace Ibsys2.Services
 {
   public class StuecklistenService
   {
-    private IList<StuecklistenPosition> Stueckliste { get; set; }
+    public IList<StuecklistenPosition> Stueckliste { get; set; }
 
     public List<StuecklistenAufloesung> Stuecklistenaufloesung(IList<StuecklistenPosition> stueckliste, IList<Artikel> artikelStammdaten)
     {
