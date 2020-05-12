@@ -4,6 +4,14 @@
     "german": ["German", "Deutsch"],
     "english": ["English", "Englisch"]
   },
+  "Headline": {
+    "production": ["Production", "Produktion"],
+    "quantity_planning": ["Quantity Planning", "Mengenplanung"],
+    "capacity_planning": ["Capacity Planning", "Kapazitätsplanung"],
+    "sequence_planning": ["Sequence Planning", "Reihenfolgenplanung"],
+    "order_planning": ["Order Planning", "Bestellmengenplanung"],
+    "result": ["Result", "Ergebnis"]
+  },
   "Input": {
     "start": ["Start Simulation", "Simulation starten"],
     "alert": [
