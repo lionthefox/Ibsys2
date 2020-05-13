@@ -28,6 +28,11 @@
     "order_planning": ["Order Planning", "Bestellmengenplanung"],
     "result": ["Result", "Ergebnis"]
   },
+  "Bike": {
+    "child_bike": ["Child Bike", "Kinderfahrrad"],
+    "woman_bike": ["Woman Bike", "Damenfahrrad"],
+    "man_bike": ["Man Bike", "Herrenfahrrad"]
+  },
   "Input": {
     "start": ["Start Simulation", "Simulation starten"],
     "alert": [
@@ -54,11 +59,9 @@
     "direct_sales": ["Direct Sales", "Direktverkäufe"],
     "product": ["Product", "Produkt"],
     "amount": ["Amount", "Menge"],
-    "child_bike": ["Child Bike", "Kinderfahrrad"],
-    "woman_bike": ["Woman Bike", "Damenfahrrad"],
-    "man_bike": ["Man Bike", "Herrenfahrrad"],
     "price": ["Price", "Preis"],
     "penalty": ["Penalty", "Konventionalstrafe"],
     "stock": ["Stock", "Bestand"]
-  }
+  },
+  "QuantityPlanning": {}
 }

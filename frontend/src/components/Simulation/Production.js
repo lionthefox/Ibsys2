@@ -1,30 +1,10 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import { Translate } from 'react-localize-redux';
 
 import ContainedTabs from '../ui_components/ContainedTabs';
-import { getNestedObjectProperty } from '../../utils/nestedObjectProps';
-import { getFloatValue } from '../../utils/getValue';
-
-const Input = withStyles({
-  root: {
-    marginBottom: '10px',
-    width: '10rem',
-
-    '& label.Mui-focused': {
-      color: '#135444',
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: '#135444',
-    },
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: '#135444',
-      },
-    },
-  },
-})(TextField);
+import Form from '../ui_components/Form';
+import Text from '../ui_components/Text';
 
 const styles = {
   wrapper: {
@@ -63,39 +43,6 @@ const styles = {
   },
 };
 
-const Form = ({
-  classes,
-  simulationInput,
-  setSimulationInput,
-  label,
-  values,
-}) => {
-  const inputProps = {
-    type: 'number',
-    variant: 'outlined',
-  };
-
-  const getInputValue = (val) => String(val).replace('^0+', '');
-
-  return (
-    <div className={classes.columnContainer}>
-      {label ? <div className={classes.headerLabel}>{label}</div> : null}
-      {values.map((val, index) => (
-        <Input
-          key={`Production_input_${label || 'label'}_${index}`}
-          {...inputProps}
-          value={
-            getInputValue(getNestedObjectProperty(simulationInput, val)) || 0
-          }
-          onChange={(e) => {
-            setSimulationInput(val, getFloatValue(e.target.value));
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
 const Production = ({
   classes,
   simulationInput,
@@ -104,38 +51,11 @@ const Production = ({
 }) => {
   const [index, setIndex] = useState(0);
 
-  const Text = ({ label, prop, text }) => {
-    const elements = [];
-    if (prop) {
-      for (let i = 1; i <= 3; i++) {
-        elements.push(
-          <div className={classes.value}>
-            {lastPeriodResults
-              ? lastPeriodResults.warehousestock.article.map((art) => {
-                  if (art.id === i) return art[prop] || 0;
-                })
-              : 0}
-          </div>
-        );
-      }
-    } else if (text) {
-      text.map((val) =>
-        elements.push(<div className={classes.value}>{val}</div>)
-      );
-    }
-    return (
-      <div className={classes.textContainer}>
-        {label ? <div className={classes.headerLabel}>{label}</div> : null}
-        <>{elements}</>
-      </div>
-    );
-  };
-
   const getComponent = () => {
     const formProps = {
       classes,
-      simulationInput,
-      setSimulationInput,
+      obj: simulationInput,
+      setObjState: setSimulationInput,
     };
 
     switch (index) {
@@ -143,11 +63,12 @@ const Production = ({
         return (
           <div className={classes.root}>
             <Text
+              classes={classes}
               label={<Translate id='Production.product' />}
               text={[
-                <Translate id='Production.child_bike' />,
-                <Translate id='Production.woman_bike' />,
-                <Translate id='Production.man_bike' />,
+                <Translate id='Bike.child_bike' />,
+                <Translate id='Bike.woman_bike' />,
+                <Translate id='Bike.man_bike' />,
               ]}
             />
             <Form
@@ -192,11 +113,12 @@ const Production = ({
         return (
           <div className={classes.root}>
             <Text
+              classes={classes}
               label={<Translate id='Production.product' />}
               text={[
-                <Translate id='Production.child_bike' />,
-                <Translate id='Production.woman_bike' />,
-                <Translate id='Production.man_bike' />,
+                <Translate id='Bike.child_bike' />,
+                <Translate id='Bike.woman_bike' />,
+                <Translate id='Bike.man_bike' />,
               ]}
             />
             <Form
@@ -214,11 +136,12 @@ const Production = ({
         return (
           <div className={classes.root}>
             <Text
+              classes={classes}
               label={<Translate id='Production.product' />}
               text={[
-                <Translate id='Production.child_bike' />,
-                <Translate id='Production.woman_bike' />,
-                <Translate id='Production.man_bike' />,
+                <Translate id='Bike.child_bike' />,
+                <Translate id='Bike.woman_bike' />,
+                <Translate id='Bike.man_bike' />,
               ]}
             />
             <Form
@@ -263,7 +186,14 @@ const Production = ({
                 ],
               ]}
             />
-            <Text label={<Translate id='Production.stock' />} prop='amount' />
+            <Text
+              classes={classes}
+              obj={lastPeriodResults.warehousestock.article}
+              idProp='id'
+              idArray={[1, 2, 3]}
+              label={<Translate id='Production.stock' />}
+              prop='amount'
+            />
           </div>
         );
       default:
