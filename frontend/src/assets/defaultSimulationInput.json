@@ -1,0 +1,46 @@
+{
+  "forecast": {
+    "periode1": {
+      "produkt1": 0,
+      "produkt2": 0,
+      "produkt3": 0
+    },
+    "periode2": {
+      "produkt1": 0,
+      "produkt2": 0,
+      "produkt3": 0
+    },
+    "periode3": {
+      "produkt1": 0,
+      "produkt2": 0,
+      "produkt3": 0
+    },
+    "periode4": {
+      "produkt1": 0,
+      "produkt2": 0,
+      "produkt3": 0
+    }
+  },
+  "vertriebswunsch": {
+    "produkt1": 0,
+    "produkt2": 0,
+    "produkt3": 0,
+    "direktverkauf": {
+      "produkt1": {
+        "menge": 0,
+        "preis": 0.0,
+        "konventionalstrafe": 0.0
+      },
+      "produkt2": {
+        "menge": 0,
+        "preis": 0.0,
+        "konventionalstrafe": 0.0
+      },
+      "produkt3": {
+        "menge": 0,
+        "preis": 0.0,
+        "konventionalstrafe": 0.0
+      }
+    }
+  }
+}

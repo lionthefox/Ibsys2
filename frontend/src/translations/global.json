@@ -7,12 +7,16 @@
   "Main": {
     "error": {
       "serverError": [
-        "ServerError - Unfortunately your input couldn't be processed.",
-        "ServerError - Leider konnte Ihre Eingabe nicht verarbeitet werden."
+        "Server Error - Unfortunately your input couldn't be processed.",
+        "Server Error - Leider konnte Ihre Eingabe nicht verarbeitet werden."
       ],
       "uploadError": [
-        "UploadError - Unfortunately your input couldn't be processed. The server is currently not available.",
-        "UploadError - Leider konnte Ihre Eingabe nicht verarbeitet werden. Der Server ist momentan nicht erreichbar."
+        "Upload Error - Unfortunately your input couldn't be processed. The server is currently not available.",
+        "Error beim Hochladen - Leider konnte Ihre Eingabe nicht verarbeitet werden. Der Server ist momentan nicht erreichbar."
+      ],
+      "noContent": [
+        "No Content - Unfortunately the server didn't receive any content. Please restart the simulation.",
+        "Keine Daten - Leider konnte der Server keine Daten empfangen. Bitte starten Sie die Simulation neu. "
       ]
     }
   },

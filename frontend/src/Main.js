@@ -4,6 +4,7 @@ import { withLocalize, Translate } from 'react-localize-redux';
 import { Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import globalTranslations from './translations/global.json';
+import defaultSimulationInput from './assets/defaultSimulationInput.json';
 
 import Header from './components/navigation/Header';
 import Input from './components/Upload/Input';
@@ -81,61 +82,23 @@ class Main extends Component {
     });
   }
 
-  state = {
-    activeLanguage: 'en',
-    activeStep: 0,
-    lastPeriodResults: undefined,
-    simulationInput: {
-      forecast: {
-        periode1: {
-          produkt1: 0,
-          produkt2: 0,
-          produkt3: 0,
-        },
-        periode2: {
-          produkt1: 0,
-          produkt2: 0,
-          produkt3: 0,
-        },
-        periode3: {
-          produkt1: 0,
-          produkt2: 0,
-          produkt3: 0,
-        },
-        periode4: {
-          produkt1: 0,
-          produkt2: 0,
-          produkt3: 0,
-        },
-      },
-      vertriebswunsch: {
-        produkt1: 0,
-        produkt2: 0,
-        produkt3: 0,
-        direktverkauf: {
-          produkt1: {
-            menge: 0,
-            preis: 0.0,
-            konventionalstrafe: 0.0,
-          },
-          produkt2: {
-            menge: 0,
-            preis: 0.0,
-            konventionalstrafe: 0.0,
-          },
-          produkt3: {
-            menge: 0,
-            preis: 0.0,
-            konventionalstrafe: 0.0,
-          },
-        },
-      },
-    },
-    simulationData: undefined,
-    showError: false,
-    errorMessageId: undefined,
-    errorMessage: undefined,
+  getDefaultState = (language) => {
+    const simulationInputString = JSON.stringify(defaultSimulationInput);
+    const simulationInput = JSON.parse(simulationInputString);
+    const state = {
+      activeLanguage: language,
+      activeStep: 0,
+      lastPeriodResults: undefined,
+      simulationInput: { ...simulationInput },
+      simulationData: undefined,
+      showError: false,
+      errorMessageId: undefined,
+      errorMessage: undefined,
+    };
+    return state;
   };
+
+  state = this.getDefaultState('en');
 
   changeActiveLanguage = (val) => {
     this.setState({ activeLanguage: val });
@@ -166,10 +129,15 @@ class Main extends Component {
       })
         .then(function (response) {
           if (response.status >= 200 && response.status < 300) {
-            setError(false, undefined, undefined);
-            newState.simulationData = response.data;
-            setSimulationData(newState);
-            history.push(paths[activeStep + 1]);
+            if (response.status === 204) {
+              setError(true, 'Main.error.noContent', response);
+              setTimeout(() => setError(false, undefined, undefined), 10000);
+            } else {
+              setError(false, undefined, undefined);
+              newState.simulationData = response.data;
+              setSimulationData(newState);
+              history.push(paths[activeStep + 1]);
+            }
           } else {
             setError(true, 'Main.error.serverError', response);
             setTimeout(() => setError(false, undefined, undefined), 10000);
@@ -192,15 +160,18 @@ class Main extends Component {
 
   handleBack = () => {
     const { history } = this.props;
-    const { activeStep } = this.state;
+    const { activeStep, activeLanguage } = this.state;
 
-    this.setState((prevState) => {
-      return { activeStep: prevState.activeStep - 1 };
-    });
+    this.setState((prevState) =>
+      prevState.activeStep - 1 === 0
+        ? this.getDefaultState(activeLanguage)
+        : { activeStep: prevState.activeStep - 1 }
+    );
     history.push(activeStep ? paths[activeStep - 1] : paths[0]);
   };
 
-  handleReset = () => this.setState({ activeStep: 0 });
+  handleReset = () =>
+    this.setState(this.getDefaultState(this.state.activeLanguage));
 
   setLastPeriodResults = (val) => this.setState({ lastPeriodResults: val });
 
