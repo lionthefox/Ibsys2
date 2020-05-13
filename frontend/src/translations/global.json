@@ -4,6 +4,18 @@
     "german": ["German", "Deutsch"],
     "english": ["English", "Englisch"]
   },
+  "Main": {
+    "error": {
+      "serverError": [
+        "ServerError - Unfortunately your input couldn't be processed.",
+        "ServerError - Leider konnte Ihre Eingabe nicht verarbeitet werden."
+      ],
+      "uploadError": [
+        "UploadError - Unfortunately your input couldn't be processed. The server is currently not available.",
+        "UploadError - Leider konnte Ihre Eingabe nicht verarbeitet werden. Der Server ist momentan nicht erreichbar."
+      ]
+    }
+  },
   "Headline": {
     "production": ["Production", "Produktion"],
     "quantity_planning": ["Quantity Planning", "Mengenplanung"],
@@ -15,7 +27,7 @@
   "Input": {
     "start": ["Start Simulation", "Simulation starten"],
     "alert": [
-      "You have to upload the results from your last period to start the simulation.",
+      "You have to upload the results of your last period to start the simulation.",
       "Sie müssen die Ergebnisse der letzten Periode hochladen, um die Simulation zu starten."
     ]
   },

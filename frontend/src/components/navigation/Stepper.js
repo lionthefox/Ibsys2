@@ -6,6 +6,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import IconButton from '@material-ui/core/IconButton';
 import { Translate } from 'react-localize-redux';
+import Alert from '@material-ui/lab/Alert';
 
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -71,16 +72,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const paths = [
-  '/input',
-  '/production',
-  '/quantity_planning',
-  '/capacity_planning',
-  '/sequence_planning',
-  '/order_planning',
-  '/result',
-];
-
 function getSteps(language) {
   return language === 'en'
     ? [
@@ -104,11 +95,15 @@ function getSteps(language) {
 }
 
 const HorizontalStepper = ({
+  paths,
   language,
   activeStep,
   handleNext,
   handleBack,
   handleReset,
+  showError,
+  errorMessageId,
+  errorMessage,
 }) => {
   const classes = useStyles();
 
@@ -116,6 +111,29 @@ const HorizontalStepper = ({
 
   return (
     <div className={classes.root}>
+      {showError ? (
+        <div
+          style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+        >
+          <div
+            className='cssanimation sequence fadeInBottom'
+            style={{
+              width: '80%',
+              textAlign: 'center',
+              fontSize: '1rem',
+              color: 'red',
+              paddingBottom: '1rem',
+            }}
+          >
+            <Alert severity='error'>
+              <Translate id={errorMessageId} />{' '}
+              {errorMessage
+                ? ` (${errorMessage.status}: ${errorMessage.statusText})`
+                : null}
+            </Alert>
+          </div>
+        </div>
+      ) : null}
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
@@ -149,18 +167,13 @@ const HorizontalStepper = ({
           <div style={{ width: '100%' }}>
             <div className={classes.stepper}>
               <div className={classes.iconContainer}>
-                <Link
-                  to={activeStep ? paths[activeStep - 1] : paths[0]}
-                  className={classes.link}
+                <IconButton
+                  className={classes.iconButton}
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
                 >
-                  <IconButton
-                    className={classes.iconButton}
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                  >
-                    <ArrowBackIcon fontSize='large' />
-                  </IconButton>
-                </Link>
+                  <ArrowBackIcon fontSize='large' />
+                </IconButton>
                 <span className={classes.verticalSpacer} />
                 <span
                   className={
@@ -174,18 +187,13 @@ const HorizontalStepper = ({
               </div>
               <span className={classes.horizontalSpacer} />
               <div className={classes.iconContainer}>
-                <Link to={paths[activeStep + 1]} className={classes.link}>
-                  <IconButton
-                    className={classes.iconButton}
-                    onClick={handleNext}
-                  >
-                    {activeStep === steps.length - 2 ? (
-                      <DoneIcon fontSize='large' />
-                    ) : (
-                      <ArrowForwardIcon fontSize='large' />
-                    )}
-                  </IconButton>
-                </Link>
+                <IconButton className={classes.iconButton} onClick={handleNext}>
+                  {activeStep === steps.length - 2 ? (
+                    <DoneIcon fontSize='large' />
+                  ) : (
+                    <ArrowForwardIcon fontSize='large' />
+                  )}
+                </IconButton>
                 <span className={classes.verticalSpacer} />
                 {activeStep === steps.length - 2 ? (
                   <span className={classes.iconLabel}>

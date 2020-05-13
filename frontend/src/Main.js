@@ -17,6 +17,16 @@ import Stepper from './components/navigation/Stepper';
 
 import { setNestedObjectProperty } from './utils/nestedObjectProps';
 
+const paths = [
+  '/input',
+  '/production',
+  '/quantity_planning',
+  '/capacity_planning',
+  '/sequence_planning',
+  '/order_planning',
+  '/result',
+];
+
 const AnimationWrapper = ({ children }) => (
   <div
     className='cssanimation sequence fadeInBottom'
@@ -122,6 +132,9 @@ class Main extends Component {
       },
     },
     simulationData: undefined,
+    showError: false,
+    errorMessageId: undefined,
+    errorMessage: undefined,
   };
 
   changeActiveLanguage = (val) => {
@@ -131,9 +144,17 @@ class Main extends Component {
 
   setSimulationData = (val) => this.setState(val);
 
+  setError = (error, errorMessageId, errorMessage) =>
+    this.setState({
+      showError: error,
+      errorMessageId: errorMessageId,
+      errorMessage: errorMessage,
+    });
+
   handleNext = () => {
+    const { history } = this.props;
     const { simulationInput, activeStep } = this.state;
-    const { setSimulationData } = this;
+    const { setSimulationData, setError } = this;
 
     let newState = { activeStep: activeStep + 1 };
     if (activeStep === 1) {
@@ -144,29 +165,41 @@ class Main extends Component {
         data: simulationInput,
       })
         .then(function (response) {
-          console.log(response);
           if (response.status >= 200 && response.status < 300) {
+            setError(false, undefined, undefined);
             newState.simulationData = response.data;
-            console.log(newState);
             setSimulationData(newState);
+            history.push(paths[activeStep + 1]);
           } else {
-            alert(response.status, 'Servererror');
+            setError(true, 'Main.error.serverError', response);
+            setTimeout(() => setError(false, undefined, undefined), 10000);
           }
         })
         .catch(function (errorMessage) {
-          console.log(errorMessage.response);
-          alert('Upload fehlgeschlagen');
+          const response = errorMessage.response;
+          let translateId = 'Main.error.serverError';
+          if (response.status >= 500) {
+            translateId = 'Main.error.uploadError';
+          }
+          setError(true, translateId, response);
+          setTimeout(() => setError(false, undefined, undefined), 10000);
         });
     } else {
-      console.log(newState);
       this.setState(newState);
+      history.push(paths[activeStep + 1]);
     }
   };
 
-  handleBack = () =>
+  handleBack = () => {
+    const { history } = this.props;
+    const { activeStep } = this.state;
+
     this.setState((prevState) => {
       return { activeStep: prevState.activeStep - 1 };
     });
+    history.push(activeStep ? paths[activeStep - 1] : paths[0]);
+  };
+
   handleReset = () => this.setState({ activeStep: 0 });
 
   setLastPeriodResults = (val) => this.setState({ lastPeriodResults: val });
@@ -178,7 +211,6 @@ class Main extends Component {
         keyArray,
         val
       );
-      console.log(this.state.simulationInput);
       return { simulationInput: newSimulationInput };
     });
 
@@ -189,7 +221,32 @@ class Main extends Component {
       lastPeriodResults,
       simulationInput,
       simulationData,
+      showError,
+      errorMessageId,
+      errorMessage,
     } = this.state;
+
+    const inputProps = {
+      language: activeLanguage,
+      setLastPeriodResults: this.setLastPeriodResults,
+      handleNext: this.handleNext,
+      showError,
+      errorMessageId,
+      errorMessage,
+      setError: this.setError,
+    };
+
+    const stepperProps = {
+      paths,
+      activeStep,
+      language: activeLanguage,
+      handleNext: this.handleNext,
+      handleBack: this.handleBack,
+      handleReset: this.handleReset,
+      showError,
+      errorMessageId,
+      errorMessage,
+    };
 
     return (
       <>
@@ -202,13 +259,9 @@ class Main extends Component {
         <Route
           exact
           path='/input'
-          component={() => (
+          render={() => (
             <AnimationWrapper>
-              <Input
-                language={activeLanguage}
-                setLastPeriodResults={this.setLastPeriodResults}
-                handleNext={this.handleNext}
-              />
+              <Input {...inputProps} />
             </AnimationWrapper>
           )}
         />
@@ -300,15 +353,7 @@ class Main extends Component {
             </AnimationWrapper>
           )}
         />
-        {activeStep !== 0 ? (
-          <Stepper
-            activeStep={activeStep}
-            language={activeLanguage}
-            handleNext={this.handleNext}
-            handleBack={this.handleBack}
-            handleReset={this.handleReset}
-          />
-        ) : null}
+        {activeStep !== 0 ? <Stepper {...stepperProps} /> : null}
       </>
     );
   }

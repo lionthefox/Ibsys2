@@ -66,15 +66,17 @@ const FileUpload = ({
   url,
   setResults,
   setDisabled,
+  showError,
+  errorMessageId,
+  errorMessage,
+  setError,
 }) => {
-  const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [errorMessage, setErrorMessage] = useState();
   const dropZone = useRef(null);
   const labels = language === 'en' ? filePondLabelsEn : filePondLabels;
 
   return (
     <UploadContainer>
-      {showErrorMessage && errorMessage ? (
+      {showError ? (
         <div
           className='cssanimation sequence fadeInBottom'
           style={{
@@ -86,7 +88,10 @@ const FileUpload = ({
           }}
         >
           <Alert severity='error'>
-            {errorMessage.status}: {errorMessage.statusText}
+            <Translate id={errorMessageId} />{' '}
+            {errorMessage
+              ? ` (${errorMessage.status}: ${errorMessage.statusText})`
+              : null}
           </Alert>
         </div>
       ) : null}
@@ -119,21 +124,29 @@ const FileUpload = ({
             })
               .then(function (response) {
                 console.log(response);
-                setShowErrorMessage(false);
                 if (response.status >= 200 && response.status < 300) {
                   load(response);
+                  setError(false, undefined, undefined);
                   setResults(response.data);
                   setDisabled(false);
                 } else {
                   error('Upload fehlgeschlagen');
+                  setError(true, 'Main.error.serverError', response);
+                  setTimeout(
+                    () => setError(false, undefined, undefined),
+                    10000
+                  );
                 }
               })
               .catch(function (errorMessage) {
-                console.log(errorMessage.response);
-                setErrorMessage(errorMessage.response);
-                setShowErrorMessage(true);
-                setTimeout(() => setShowErrorMessage(false), 5000);
                 error('Upload fehlgeschlagen');
+                const response = errorMessage.response;
+                let translateId = 'Main.error.serverError';
+                if (response.status >= 500) {
+                  translateId = 'Main.error.uploadError';
+                }
+                setError(true, translateId, response);
+                setTimeout(() => setError(false, undefined, undefined), 10000);
               });
           },
         }}
