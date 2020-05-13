@@ -232,7 +232,9 @@ class Main extends Component {
           path='/input'
           render={() => (
             <AnimationWrapper>
-              <Input {...inputProps} />
+              <div style={{ height: '30vh' }}>
+                <Input {...inputProps} />
+              </div>
             </AnimationWrapper>
           )}
         />

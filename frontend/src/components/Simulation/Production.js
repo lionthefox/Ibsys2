@@ -80,36 +80,18 @@ const Form = ({
   return (
     <div className={classes.columnContainer}>
       {label ? <div className={classes.headerLabel}>{label}</div> : null}
-      <Input
-        {...inputProps}
-        value={
-          getInputValue(getNestedObjectProperty(simulationInput, values[0])) ||
-          0
-        }
-        onChange={(e) => {
-          setSimulationInput(values[0], getFloatValue(e.target.value));
-        }}
-      />
-      <Input
-        {...inputProps}
-        value={
-          getInputValue(getNestedObjectProperty(simulationInput, values[1])) ||
-          0
-        }
-        onChange={(e) =>
-          setSimulationInput(values[1], getFloatValue(e.target.value))
-        }
-      />
-      <Input
-        {...inputProps}
-        value={
-          getInputValue(getNestedObjectProperty(simulationInput, values[2])) ||
-          0
-        }
-        onChange={(e) =>
-          setSimulationInput(values[2], getFloatValue(e.target.value))
-        }
-      />
+      {values.map((val, index) => (
+        <Input
+          key={`Production_input_${label || 'label'}_${index}`}
+          {...inputProps}
+          value={
+            getInputValue(getNestedObjectProperty(simulationInput, val)) || 0
+          }
+          onChange={(e) => {
+            setSimulationInput(val, getFloatValue(e.target.value));
+          }}
+        />
+      ))}
     </div>
   );
 };
@@ -122,42 +104,32 @@ const Production = ({
 }) => {
   const [index, setIndex] = useState(0);
 
-  const Text = ({ label, prop, text }) => (
-    <div className={classes.textContainer}>
-      {label ? <div className={classes.headerLabel}>{label}</div> : null}
-      {prop ? (
-        <>
+  const Text = ({ label, prop, text }) => {
+    const elements = [];
+    if (prop) {
+      for (let i = 1; i <= 3; i++) {
+        elements.push(
           <div className={classes.value}>
             {lastPeriodResults
               ? lastPeriodResults.warehousestock.article.map((art) => {
-                  if (art.id === 1) return art[prop] || 0;
+                  if (art.id === i) return art[prop] || 0;
                 })
               : 0}
           </div>
-          <div className={classes.value}>
-            {lastPeriodResults
-              ? lastPeriodResults.warehousestock.article.map((art) => {
-                  if (art.id === 2) return art[prop] || 0;
-                })
-              : 0}
-          </div>
-          <div className={classes.value}>
-            {lastPeriodResults
-              ? lastPeriodResults.warehousestock.article.map((art) => {
-                  if (art.id === 3) return art[prop] || 0;
-                })
-              : 0}
-          </div>
-        </>
-      ) : text ? (
-        <>
-          <div className={classes.value}>{text[0]}</div>
-          <div className={classes.value}>{text[1]}</div>
-          <div className={classes.value}>{text[2]}</div>
-        </>
-      ) : null}
-    </div>
-  );
+        );
+      }
+    } else if (text) {
+      text.map((val) =>
+        elements.push(<div className={classes.value}>{val}</div>)
+      );
+    }
+    return (
+      <div className={classes.textContainer}>
+        {label ? <div className={classes.headerLabel}>{label}</div> : null}
+        <>{elements}</>
+      </div>
+    );
+  };
 
   const getComponent = () => {
     const formProps = {
