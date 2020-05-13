@@ -15,7 +15,12 @@ namespace Ibsys2.Models.DispoEigenfertigung
     {
       foreach (var articleId in _articleIds)
       {
-        var dispoEfPos = new DispoEFPos {ArticleId = articleId, Name = artikelStammdaten.FirstOrDefault(x => x.Artikelnummer == articleId)?.Bezeichnung };
+        var dispoEfPos = new DispoEFPos
+        {
+          ArticleId = articleId,
+          Name = artikelStammdaten.FirstOrDefault(x => x.Artikelnummer == articleId)?.Bezeichnung,
+          NameEng = artikelStammdaten.FirstOrDefault(x => x.Artikelnummer == articleId)?.NameEng
+        };
         switch (articleId)
         {
           case 3:

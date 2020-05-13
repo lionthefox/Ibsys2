@@ -54,10 +54,10 @@ namespace Ibsys2.Controllers
                 if (_simulationService.LastPeriodResults == null)
                     throw new Exception("Upload LastPeriodResults first!");
 
-                var dispoEigenfertigungen = _simulationService.Start(input);
-                _simulationService.Kapaplan(dispoEigenfertigungen);
+                _simulationService.Start(input);
+                _simulationService.Kapaplan(_simulationService.DispoEigenfertigungen);
                 _logger.LogInformation("Simulation successful");
-                return dispoEigenfertigungen;
+                return _simulationService.DispoEigenfertigungen;
             }
             catch (Exception exception)
             {

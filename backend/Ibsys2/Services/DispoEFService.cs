@@ -31,7 +31,7 @@ namespace Ibsys2.Services
                     decimal menge = auftrag.Menge / 3;
                     int roundedMenge = Convert.ToInt32(Math.Round(menge, 0, MidpointRounding.AwayFromZero));
                     var dispoPosP1 = DispoEfP1
-                        .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
+                        .ListDispoEfPos.First(x => x.ArticleId == auftrag.Teil);
                     dispoPosP1.AuftraegeBearbeitung = roundedMenge;
                     var dispoPosP2 = DispoEfP2
                         .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
