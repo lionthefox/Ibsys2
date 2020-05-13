@@ -129,34 +129,39 @@ class Main extends Component {
     this.props.setActiveLanguage(val);
   };
 
-  handleNext = () =>
-    this.setState((prevState) => {
-      if (prevState.activeStep === 1) {
-        axios({
-          url: '/simulation/start',
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          data: prevState.simulationInput,
+  setSimulationData = (val) => this.setState(val);
+
+  handleNext = () => {
+    const { simulationInput, activeStep } = this.state;
+    const { setSimulationData } = this;
+
+    let newState = { activeStep: activeStep + 1 };
+    if (activeStep === 1) {
+      axios({
+        url: '/simulation/start',
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: simulationInput,
+      })
+        .then(function (response) {
+          console.log(response);
+          if (response.status >= 200 && response.status < 300) {
+            newState.simulationData = response.data;
+            console.log(newState);
+            setSimulationData(newState);
+          } else {
+            alert(response.status, 'Servererror');
+          }
         })
-          .then(function (response) {
-            console.log(response);
-            if (response.status >= 200 && response.status < 300) {
-              return {
-                activeStep: prevState.activeStep + 1,
-                simulationData: response.data,
-              };
-            } else {
-              alert(response.status, 'Servererror');
-            }
-          })
-          .catch(function (errorMessage) {
-            console.log(errorMessage.response);
-            alert('Upload fehlgeschlagen');
-          });
-      } else {
-        return { activeStep: prevState.activeStep + 1 };
-      }
-    });
+        .catch(function (errorMessage) {
+          console.log(errorMessage.response);
+          alert('Upload fehlgeschlagen');
+        });
+    } else {
+      console.log(newState);
+      this.setState(newState);
+    }
+  };
 
   handleBack = () =>
     this.setState((prevState) => {
