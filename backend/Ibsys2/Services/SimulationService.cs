@@ -61,7 +61,7 @@ namespace Ibsys2.Services
             Forecast = input.Forecast;
             _ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen, Stueckliste);
 
-            return _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults, _ergebnisseVorperiodeService);
+            return _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults, _ergebnisseVorperiodeService, ArtikelStammdaten);
         }
 
         public void Kapaplan(DispoEigenfertigungen dispoEigenfertigungen)

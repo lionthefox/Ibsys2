@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
@@ -12,92 +14,92 @@ namespace Ibsys2.Services
     public DispoEFP2 DispoEfP2 { get; set; }
     public DispoEFP3 DispoEfP3 { get; set; }
 
-    public DispoEigenfertigungen GetEfDispo(Vertriebswunsch vertriebWunsch, Forecast forecast, results lastPeriodResults, ErgebnisseVorperiodeService ergebnisseVorperiodeService)
+    public DispoEigenfertigungen GetEfDispo(Vertriebswunsch vertriebWunsch, Forecast forecast, results lastPeriodResults, ErgebnisseVorperiodeService ergebnisseVorperiodeService, IList<Artikel> artikelStammdaten)
     {
-        DispoEfP1 = new DispoEFP1(vertriebWunsch, forecast, lastPeriodResults);
-        DispoEfP2 = new DispoEFP2(vertriebWunsch, forecast, lastPeriodResults);
-        DispoEfP3 = new DispoEFP3(vertriebWunsch, forecast, lastPeriodResults);
+        DispoEfP1 = new DispoEFP1(vertriebWunsch, forecast, lastPeriodResults, artikelStammdaten);
+        DispoEfP2 = new DispoEFP2(vertriebWunsch, forecast, lastPeriodResults, artikelStammdaten);
+        DispoEfP3 = new DispoEFP3(vertriebWunsch, forecast, lastPeriodResults, artikelStammdaten);
       
       // Aufträge in Bearbeitung in die Dispo-Eigenfertigung übertragen
         foreach (var auftrag in ergebnisseVorperiodeService.InBearbeitung.AuftraegeInBearbeitung)
         {
-        switch (auftrag.Teil)
-        {
-            case 26:
-            case 16:
-            case 17:
-                decimal menge = auftrag.Menge / 3;
-                int roundedMenge = Convert.ToInt32(Math.Round(menge, 0, MidpointRounding.AwayFromZero));
-                var dispoPosP1 = DispoEfP1
-                    .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                dispoPosP1.AuftraegeBearbeitung = roundedMenge;
-                var dispoPosP2 = DispoEfP2
-                    .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                dispoPosP2.AuftraegeBearbeitung = roundedMenge;
-                var dispoPosP3 = DispoEfP3
-                    .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                dispoPosP3.AuftraegeBearbeitung = roundedMenge;
-                break;
-            default:
-                var dispoPos = DispoEfP1
-                    .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                if (dispoPos == null)
-                    dispoPos = DispoEfP2
+            switch (auftrag.Teil)
+            {
+                case 26:
+                case 16:
+                case 17:
+                    decimal menge = auftrag.Menge / 3;
+                    int roundedMenge = Convert.ToInt32(Math.Round(menge, 0, MidpointRounding.AwayFromZero));
+                    var dispoPosP1 = DispoEfP1
                         .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                if (dispoPos == null)
-                    dispoPos = DispoEfP3
+                    dispoPosP1.AuftraegeBearbeitung = roundedMenge;
+                    var dispoPosP2 = DispoEfP2
                         .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                dispoPos.AuftraegeBearbeitung = auftrag.Menge;
-                break;
-        }
+                    dispoPosP2.AuftraegeBearbeitung = roundedMenge;
+                    var dispoPosP3 = DispoEfP3
+                        .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
+                    dispoPosP3.AuftraegeBearbeitung = roundedMenge;
+                    break;
+                default:
+                    var dispoPos = DispoEfP1
+                        .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
+                    if (dispoPos == null)
+                        dispoPos = DispoEfP2
+                            .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
+                    if (dispoPos == null)
+                        dispoPos = DispoEfP3
+                            .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
+                    dispoPos.AuftraegeBearbeitung = auftrag.Menge;
+                    break;
+            }
         }
 
         // Aufträge in der Warteschlange in die Dispo-Eigenfertigung übertragen
         foreach (var arbeitsplatz in ergebnisseVorperiodeService.WartelisteArbeitsplaetze.ArbeitsplatzWarteListe)
         {
-        foreach (var auftrag in arbeitsplatz.ArbeitsplatzWartelisteAuftraege)
-        {
-            if (auftrag.BasisAuftrag)
+            foreach (var auftrag in arbeitsplatz.ArbeitsplatzWartelisteAuftraege)
             {
-                switch (auftrag.Teil)
+                if (auftrag.BasisAuftrag)
                 {
-                    case 26:
-                    case 16:
-                    case 17:
-                        decimal menge = auftrag.Menge / 3;
-                        int roundedMenge = Convert.ToInt32(Math.Round(menge, 0, MidpointRounding.AwayFromZero));
-                        var dispoPosP1 = DispoEfP1
-                            .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                        dispoPosP1.AuftraegeWarteschlange = roundedMenge;
-                        var dispoPosP2 = DispoEfP2
-                            .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                        dispoPosP2.AuftraegeWarteschlange = roundedMenge;
-                        var dispoPosP3 = DispoEfP3
-                            .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                        dispoPosP3.AuftraegeWarteschlange = roundedMenge;
-                        break;
-                    default:
-                        var dispoPos = DispoEfP1
-                            .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                        if (dispoPos == null)
-                            dispoPos = DispoEfP2
+                    switch (auftrag.Teil)
+                    {
+                        case 26:
+                        case 16:
+                        case 17:
+                            decimal menge = auftrag.Menge / 3;
+                            int roundedMenge = Convert.ToInt32(Math.Round(menge, 0, MidpointRounding.AwayFromZero));
+                            var dispoPosP1 = DispoEfP1
                                 .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                        if (dispoPos == null)
-                            dispoPos = DispoEfP3
+                            dispoPosP1.AuftraegeWarteschlange = roundedMenge;
+                            var dispoPosP2 = DispoEfP2
                                 .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                        dispoPos.AuftraegeWarteschlange = auftrag.Menge;
-                        break;
+                            dispoPosP2.AuftraegeWarteschlange = roundedMenge;
+                            var dispoPosP3 = DispoEfP3
+                                .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
+                            dispoPosP3.AuftraegeWarteschlange = roundedMenge;
+                            break;
+                        default:
+                            var dispoPos = DispoEfP1
+                                .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
+                            if (dispoPos == null)
+                                dispoPos = DispoEfP2
+                                    .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
+                            if (dispoPos == null)
+                                dispoPos = DispoEfP3
+                                    .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
+                            dispoPos.AuftraegeWarteschlange = auftrag.Menge;
+                            break;
+                    }
                 }
             }
         }
-        }
 
-      return new DispoEigenfertigungen
-      {
-          P1 = DispoEfP1.ListDispoEfPos,
-          P2 = DispoEfP2.ListDispoEfPos,
-          P3 = DispoEfP3.ListDispoEfPos
-      };
+        return new DispoEigenfertigungen
+        {
+            P1 = DispoEfP1.ListDispoEfPos,
+            P2 = DispoEfP2.ListDispoEfPos,
+            P3 = DispoEfP3.ListDispoEfPos
+        };
     }
 
     public static int GetLagerbestand(int articleId, results lastPeriodResults)

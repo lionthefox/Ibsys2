@@ -75,6 +75,7 @@ namespace Ibsys2.Controllers
                     _simulationService.Vertriebswunsch, 
                     _simulationService.Forecast,
                     _simulationService.LastPeriodResults,
+                    _simulationService.ArtikelStammdaten,
                     input
                     ).ListDispoEfPos;
             }
@@ -94,6 +95,7 @@ namespace Ibsys2.Controllers
                     _simulationService.Vertriebswunsch,
                     _simulationService.Forecast,
                     _simulationService.LastPeriodResults,
+                    _simulationService.ArtikelStammdaten,
                     input
                     ).ListDispoEfPos;
             }
@@ -113,6 +115,7 @@ namespace Ibsys2.Controllers
                     _simulationService.Vertriebswunsch, 
                     _simulationService.Forecast,
                     _simulationService.LastPeriodResults,
+                    _simulationService.ArtikelStammdaten,
                     input
                     ).ListDispoEfPos;
             }
