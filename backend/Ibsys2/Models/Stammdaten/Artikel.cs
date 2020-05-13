@@ -6,6 +6,7 @@ namespace Ibsys2.Models
         public int Artikelnummer { get; set; }
         public char Typ { get; set; }
         public string Bezeichnung { get; set; }
+        public string NameEng { get; set; }
         public string Verwendung { get; set; }
         public int Startmenge { get; set; }
         public decimal? Startpreis { get; set; }
