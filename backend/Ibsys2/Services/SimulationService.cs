@@ -15,6 +15,7 @@ namespace Ibsys2.Services
         private readonly ErgebnisseVorperiodeService _ergebnisseVorperiodeService;
         private readonly ArbeitsplatzAufloesenService _arbeitsplatzAufloesenService;
         private readonly KapazitaetService _kapazitaetService;
+        private readonly KaufdispoService _kaufdispoService;
         public results LastPeriodResults { get; set; }
         public IList<Artikel> ArtikelStammdaten { get; set; }
         public IList<PersonalMaschinen> PersonalMaschinenStammdaten { get; set; }
@@ -23,7 +24,7 @@ namespace Ibsys2.Services
         public IList<StuecklistenAufloesung> StuecklistenAufloesungen { get; set; }
         public IList<ArbeitsplatzNachfolger> ArbeitsplatzAufloesungen { get; set; }
         public DispoEigenfertigungen DispoEigenfertigungen { get; set; }
-        
+        public IList<Lieferdaten> Kaufteilbestellungen { get; set; }
         public IList<KapazitaetsPlan> KapazitaetsPlaene { get; set; }
 
     public Vertriebswunsch Vertriebswunsch { get; set; }
@@ -35,7 +36,8 @@ namespace Ibsys2.Services
             DispoEfService dispoEfService,
             ErgebnisseVorperiodeService ergebnisseVorperiodeService,
             ArbeitsplatzAufloesenService arbeitsplatzAufloesenService,
-            KapazitaetService kapazitaetService)
+            KapazitaetService kapazitaetService,
+            KaufdispoService kaufdispoService)
         {
             _fileRepository = fileRepository;
             _stuecklistenService = stuecklistenService;
@@ -43,6 +45,7 @@ namespace Ibsys2.Services
             _ergebnisseVorperiodeService = ergebnisseVorperiodeService;
             _arbeitsplatzAufloesenService = arbeitsplatzAufloesenService;
             _kapazitaetService = kapazitaetService;
+            _kaufdispoService = kaufdispoService;
 
             Initialize();
         }
@@ -72,6 +75,11 @@ namespace Ibsys2.Services
         public void Kapaplan(DispoEigenfertigungen dispoEigenfertigungen)
         {
            KapazitaetsPlaene = _kapazitaetService.clalcKapaPlan(dispoEigenfertigungen, ArtikelStammdaten);
+        }
+
+        public void KaufDispo()
+        {
+            _kaufdispoService.GetKaufDispo(Kaufteilbestellungen, Forecast, Vertriebswunsch, _ergebnisseVorperiodeService, LastPeriodResults);
         }
 
         private void ParseStammdaten()
