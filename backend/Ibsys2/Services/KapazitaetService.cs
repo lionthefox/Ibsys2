@@ -4,6 +4,7 @@ using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
 using Ibsys2.Models.ErgebnisseVorperiode;
 using Ibsys2.Models.KapazitaetsPlan;
+using Ibsys2.Models.Stammdaten;
 
 namespace Ibsys2.Services
 {
@@ -24,12 +25,13 @@ namespace Ibsys2.Services
             }
         }
 
-        public void clalcKapaPlan(DispoEigenfertigungen dispoEigenfertigungen, IList<Artikel> artikelStammdaten)
+        public IList<KapazitaetsPlan> clalcKapaPlan(DispoEigenfertigungen dispoEigenfertigungen,
+            IList<Artikel> artikelStammdaten)
         {
-            resetKapaPlan();
-            calcKapaZeit(dispoEigenfertigungen.P1, artikelStammdaten);
-            calcKapaZeit(dispoEigenfertigungen.P2, artikelStammdaten);
-            calcKapaZeit(dispoEigenfertigungen.P3, artikelStammdaten);
+            ResetKapaPlan();
+            CalcKapaZeit(dispoEigenfertigungen.P1, artikelStammdaten);
+            CalcKapaZeit(dispoEigenfertigungen.P2, artikelStammdaten);
+            CalcKapaZeit(dispoEigenfertigungen.P3, artikelStammdaten);
             foreach (var kapazitaetsPlan in KapazitaetsPlaene)
             {
                 kapazitaetsPlan.calcSchiten();
@@ -40,33 +42,59 @@ namespace Ibsys2.Services
                 // Console.Out.WriteLine("Schichten: " + kapazitaetsPlan.AnzSchicht + " Überstunden " +
                 // kapazitaetsPlan.Ubermin);
             }
+
+            return KapazitaetsPlaene;
         }
 
-        private void calcKapaZeit(IList<DispoEFPos> dispoEf, IList<Artikel> artikelStammdaten)
+        private void CalcKapaZeit(IList<DispoEFPos> dispoEf, IList<Artikel> artikelStammdaten)
         {
             foreach (var kapazitaetsPlan in KapazitaetsPlaene)
             {
                 foreach (var efPos in dispoEf)
                 {
-                    if (efPos.Produktion == 0)
-                        continue;
-                    kapazitaetsPlan.KapaBedarf = kapazitaetsPlan.KapaBedarf + WartelisteArbeitsplatz.getZeitbedarf(
-                        kapazitaetsPlan.ArbeitsplatzID, efPos.ArticleId,
-                        efPos.Produktion, artikelStammdaten);
-                    kapazitaetsPlan.Ruestzeit = kapazitaetsPlan.Ruestzeit + WartelisteArbeitsplatz.GetRuestzeit(
-                        kapazitaetsPlan.ArbeitsplatzID, efPos.ArticleId, artikelStammdaten);
+                    if (efPos.Produktion > 0)
+                    {
+                        kapazitaetsPlan.KapaProduktion = kapazitaetsPlan.KapaProduktion + WartelisteArbeitsplatz.getZeitbedarf(
+                            kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
+                            efPos.Produktion, artikelStammdaten);
+                        kapazitaetsPlan.RuestzeitProduktion = kapazitaetsPlan.RuestzeitProduktion + WartelisteArbeitsplatz.GetRuestzeit(
+                            kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
+                            artikelStammdaten);
+                    }
+
+                    if (efPos.AuftraegeBearbeitung > 0)
+                    {
+                        kapazitaetsPlan.KapafBearbeitung += WartelisteArbeitsplatz.getZeitbedarf(
+                            kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
+                            efPos.AuftraegeBearbeitung, artikelStammdaten);
+                        kapazitaetsPlan.RuestzeitBearbeitung += WartelisteArbeitsplatz.GetRuestzeit(
+                            kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
+                            artikelStammdaten);
+                    }
+
+                    if (efPos.AuftraegeWarteschlange <= 0) continue;
+                    kapazitaetsPlan.KapaWarteschlange += WartelisteArbeitsplatz.getZeitbedarf(
+                        kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
+                        efPos.AuftraegeBearbeitung, artikelStammdaten);
+                    kapazitaetsPlan.RuestzeitWarteschlange += WartelisteArbeitsplatz.GetRuestzeit(
+                        kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
+                        artikelStammdaten);
                 }
             }
         }
 
-        private void resetKapaPlan()
+        private void ResetKapaPlan()
         {
             foreach (var kapazitaetsPlan in KapazitaetsPlaene)
             {
-                kapazitaetsPlan.KapaBedarf = 0;
-                kapazitaetsPlan.Ruestzeit = 0;
-                kapazitaetsPlan.KapaBedarfVorperiode = 0;
-                kapazitaetsPlan.RuestzeitVorperiode = 0;
+                kapazitaetsPlan.KapaProduktion = 0;
+                kapazitaetsPlan.RuestzeitProduktion = 0;
+                
+                kapazitaetsPlan.KapafBearbeitung = 0;
+                kapazitaetsPlan.RuestzeitBearbeitung = 0;
+                
+                kapazitaetsPlan.KapaWarteschlange = 0;
+                kapazitaetsPlan.RuestzeitWarteschlange = 0;
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
+using Ibsys2.Models.KapazitaetsPlan;
 using Ibsys2.Models.Stammdaten;
 using Ibsys2.Models.Stueckliste;
 
@@ -21,6 +22,8 @@ namespace Ibsys2.Services
         public IList<StuecklistenPosition> Stueckliste { get; set; }
         public IList<StuecklistenAufloesung> StuecklistenAufloesungen { get; set; }
         public IList<ArbeitsplatzNachfolger> ArbeitsplatzAufloesungen { get; set; }
+        
+        public IList<KapazitaetsPlan> KapazitaetsPlaene { get; set; }
 
         public Vertriebswunsch Vertriebswunsch { get; set; }
         public Forecast Forecast { get; set; }
@@ -66,7 +69,7 @@ namespace Ibsys2.Services
 
         public void Kapaplan(DispoEigenfertigungen dispoEigenfertigungen)
         {
-            _kapazitaetService.clalcKapaPlan(dispoEigenfertigungen, ArtikelStammdaten);
+           KapazitaetsPlaene = _kapazitaetService.clalcKapaPlan(dispoEigenfertigungen, ArtikelStammdaten);
         }
 
         private void ParseStammdaten()
