@@ -105,7 +105,7 @@ class Main extends Component {
     this.props.setActiveLanguage(val);
   };
 
-  setSimulationData = (val) => this.setState(val);
+  setNewState = (val) => this.setState(val);
 
   setError = (error, errorMessageId, errorMessage) =>
     this.setState({
@@ -117,7 +117,7 @@ class Main extends Component {
   handleNext = () => {
     const { history } = this.props;
     const { simulationInput, activeStep } = this.state;
-    const { setSimulationData, setError } = this;
+    const { setNewState, setError } = this;
 
     let newState = { activeStep: activeStep + 1 };
     if (activeStep === 1) {
@@ -135,7 +135,7 @@ class Main extends Component {
             } else {
               setError(false, undefined, undefined);
               newState.simulationData = response.data;
-              setSimulationData(newState);
+              setNewState(newState);
               history.push(paths[activeStep + 1]);
             }
           } else {
@@ -185,6 +185,15 @@ class Main extends Component {
       return { simulationInput: newSimulationInput };
     });
 
+  setSimulationData = (keyArray, val) =>
+    this.setState((prevState) => {
+      const newSimulationInput = setNestedObjectProperty(
+        prevState.simulationData,
+        keyArray,
+        val
+      );
+    });
+
   render() {
     const {
       activeLanguage,
@@ -232,7 +241,9 @@ class Main extends Component {
           path='/input'
           render={() => (
             <AnimationWrapper>
-              <Input {...inputProps} />
+              <div style={{ height: '30vh' }}>
+                <Input {...inputProps} />
+              </div>
             </AnimationWrapper>
           )}
         />
@@ -263,7 +274,10 @@ class Main extends Component {
                   <Translate id='Headline.quantity_planning' />
                 }
               >
-                <QuantityPlanning simulationData={simulationData} />
+                <QuantityPlanning
+                  simulationData={simulationData}
+                  setSimulationData={this.setSimulationData}
+                />
               </HeadlineWrapper>
             </AnimationWrapper>
           )}
