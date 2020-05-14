@@ -35,12 +35,6 @@ namespace Ibsys2.Services
             foreach (var kapazitaetsPlan in KapazitaetsPlaene)
             {
                 kapazitaetsPlan.calcSchiten();
-                // Console.Out.WriteLine("Arbeitsplatz: " + kapazitaetsPlan.ArbeitsplatzID + " MaschZeit " +
-                // kapazitaetsPlan.KapaBedarf);
-                // Console.Out.WriteLine("Arbeitsplatz: " + kapazitaetsPlan.ArbeitsplatzID + " Rüstzeit " +
-                // kapazitaetsPlan.Ruestzeit);
-                // Console.Out.WriteLine("Schichten: " + kapazitaetsPlan.AnzSchicht + " Überstunden " +
-                // kapazitaetsPlan.Ubermin);
             }
 
             return KapazitaetsPlaene;
