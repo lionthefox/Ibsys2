@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { FilePond } from 'react-filepond';
@@ -142,7 +142,7 @@ const FileUpload = ({
                 error('Upload fehlgeschlagen');
                 const response = errorMessage.response;
                 let translateId = 'Main.error.serverError';
-                if (response.status >= 500) {
+                if (response && response.status >= 500) {
                   translateId = 'Main.error.uploadError';
                 }
                 setError(true, translateId, response);

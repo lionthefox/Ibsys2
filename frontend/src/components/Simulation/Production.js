@@ -18,29 +18,6 @@ const styles = {
     justifyContent: 'space-around',
     marginTop: '2rem',
   },
-  columnContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginRight: '1rem',
-  },
-  textContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginRight: '2rem',
-    marginLeft: '2rem',
-  },
-  headerLabel: {
-    marginBottom: '1.5rem',
-    textAlign: 'center',
-    fontSize: '18px',
-  },
-  value: {
-    display: 'flex',
-    height: '25%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '3px',
-  },
 };
 
 const Production = ({
@@ -53,7 +30,6 @@ const Production = ({
 
   const getComponent = () => {
     const formProps = {
-      classes,
       obj: simulationInput,
       setObjState: setSimulationInput,
     };
@@ -63,7 +39,6 @@ const Production = ({
         return (
           <div className={classes.root}>
             <Text
-              classes={classes}
               label={<Translate id='Production.product' />}
               text={[
                 <Translate id='Bike.child_bike' />,
@@ -113,7 +88,6 @@ const Production = ({
         return (
           <div className={classes.root}>
             <Text
-              classes={classes}
               label={<Translate id='Production.product' />}
               text={[
                 <Translate id='Bike.child_bike' />,
@@ -136,7 +110,6 @@ const Production = ({
         return (
           <div className={classes.root}>
             <Text
-              classes={classes}
               label={<Translate id='Production.product' />}
               text={[
                 <Translate id='Bike.child_bike' />,
@@ -187,7 +160,6 @@ const Production = ({
               ]}
             />
             <Text
-              classes={classes}
               obj={lastPeriodResults.warehousestock.article}
               idProp='id'
               idArray={[1, 2, 3]}

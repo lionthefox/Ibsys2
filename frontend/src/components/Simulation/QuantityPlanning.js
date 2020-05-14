@@ -18,65 +18,66 @@ const styles = {
     justifyContent: 'space-around',
     marginTop: '2rem',
   },
-  columnContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginRight: '1rem',
-  },
-  textContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginRight: '2rem',
-    marginLeft: '2rem',
-  },
-  headerLabel: {
-    marginBottom: '1.5rem',
-    textAlign: 'center',
-    fontSize: '18px',
-  },
-  value: {
-    display: 'flex',
-    height: '25%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: '3px',
-  },
 };
 
-const QuantityPlanning = ({ classes, simulationData, setSimulationData }) => {
+const QuantityPlanning = ({
+  classes,
+  simulationData,
+  setSimulationData,
+  activeLanguage,
+}) => {
   const [index, setIndex] = useState(0);
 
   console.log(simulationData);
+  const products = ['p1', 'p2', 'p3'];
 
-  const getComponent = () => {
+  const getComponent = (productIndex) => {
+    const elements = [];
     const formProps = {
-      classes,
-      simulationData,
-      setSimulationData,
+      obj:
+        (simulationData && simulationData[products[productIndex]]) || undefined,
+      setObj: setSimulationData,
     };
 
-    switch (index) {
-      case 0:
-        return (
-          <div className={classes.root}>
-            <div>Hi</div>
-          </div>
-        );
-      case 1:
-        return (
-          <div className={classes.root}>
-            <div>Second</div>
-          </div>
-        );
-      case 2:
-        return (
-          <div className={classes.root}>
-            <div>Third</div>
-          </div>
-        );
-      default:
-        return <div>QuantityPlanning</div>;
+    if (simulationData) {
+      let keys = [];
+      Object.keys(simulationData[products[productIndex]][0]).map((key) =>
+        keys.push(key)
+      );
+      keys = keys.filter((val) => {
+        if (val === 'vertrieb' || val === 'auftragUebernahme') return false;
+        if (activeLanguage === 'en') {
+          return val !== 'name';
+        } else {
+          return val !== 'nameEng';
+        }
+      });
+
+      keys.map((artKey) =>
+        artKey === 'sicherheitsbestand'
+          ? elements.push(
+              <Form
+                key={`quantity_planning_form_${productIndex}_${artKey}`}
+                {...formProps}
+                label={<Translate id={`QuantityPlanning.${artKey}`} />}
+                prop='sicherheitsbestand'
+              />
+            )
+          : elements.push(
+              <Text
+                key={`quantity_planning_text_${productIndex}_${artKey}`}
+                obj={simulationData[products[productIndex]]}
+                idProp='articleId'
+                label={<Translate id={`QuantityPlanning.${artKey}`} />}
+                prop={artKey}
+              />
+            )
+      );
     }
+
+    return (
+      <div className={classes.root}>{simulationData ? elements : null}</div>
+    );
   };
 
   return (
@@ -91,7 +92,7 @@ const QuantityPlanning = ({ classes, simulationData, setSimulationData }) => {
         onChange={(e, i) => setIndex(i)}
       />
       <form noValidate autoComplete='off'>
-        {getComponent()}
+        {getComponent(index)}
       </form>
     </div>
   );

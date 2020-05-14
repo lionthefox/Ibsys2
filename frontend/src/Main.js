@@ -146,7 +146,7 @@ class Main extends Component {
         .catch(function (errorMessage) {
           const response = errorMessage.response;
           let translateId = 'Main.error.serverError';
-          if (response.status >= 500) {
+          if (response && response.status >= 500) {
             translateId = 'Main.error.uploadError';
           }
           setError(true, translateId, response);
@@ -187,11 +187,12 @@ class Main extends Component {
 
   setSimulationData = (keyArray, val) =>
     this.setState((prevState) => {
-      const newSimulationInput = setNestedObjectProperty(
+      const newSimulationData = setNestedObjectProperty(
         prevState.simulationData,
         keyArray,
         val
       );
+      return { simulationData: newSimulationData };
     });
 
   render() {
@@ -275,6 +276,7 @@ class Main extends Component {
                 }
               >
                 <QuantityPlanning
+                  activeLanguage={activeLanguage}
                   simulationData={simulationData}
                   setSimulationData={this.setSimulationData}
                 />

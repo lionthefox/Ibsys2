@@ -29,9 +29,9 @@
     "result": ["Result", "Ergebnis"]
   },
   "Bike": {
-    "child_bike": ["Child Bike", "Kinderfahrrad"],
-    "woman_bike": ["Woman Bike", "Damenfahrrad"],
-    "man_bike": ["Man Bike", "Herrenfahrrad"]
+    "child_bike": ["Children's Bike", "Kinderfahrrad"],
+    "woman_bike": ["Ladies Bike", "Damenfahrrad"],
+    "man_bike": ["Men's Bike", "Herrenfahrrad"]
   },
   "Input": {
     "start": ["Start Simulation", "Simulation starten"],
@@ -63,5 +63,17 @@
     "penalty": ["Penalty", "Konventionalstrafe"],
     "stock": ["Stock", "Bestand"]
   },
-  "QuantityPlanning": {}
+  "QuantityPlanning": {
+    "articleId": ["ID", "ID"],
+    "name": ["Name", "Name"],
+    "nameEng": ["Name", "Name"],
+    "lagerbestand": ["Current Stock", "Aktueller Lagerbestand"],
+    "sicherheitsbestand": ["Safety Stock", "Sicherheitsbestand"],
+    "auftraegeWarteschlange": [
+      "Products in Queue",
+      "Produkte in der Warteschlange"
+    ],
+    "auftraegeBearbeitung": ["Products in Work", "Produkte in Bearbeitung"],
+    "produktion": ["Production Amount", "Produktionsmenge"]
+  }
 }
