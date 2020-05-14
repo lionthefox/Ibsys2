@@ -22,10 +22,11 @@ namespace Ibsys2.Services
         public IList<StuecklistenPosition> Stueckliste { get; set; }
         public IList<StuecklistenAufloesung> StuecklistenAufloesungen { get; set; }
         public IList<ArbeitsplatzNachfolger> ArbeitsplatzAufloesungen { get; set; }
+        public DispoEigenfertigungen DispoEigenfertigungen { get; set; }
         
         public IList<KapazitaetsPlan> KapazitaetsPlaene { get; set; }
 
-        public Vertriebswunsch Vertriebswunsch { get; set; }
+    public Vertriebswunsch Vertriebswunsch { get; set; }
         public Forecast Forecast { get; set; }
 
         public SimulationService(
@@ -58,14 +59,15 @@ namespace Ibsys2.Services
             LastPeriodResults = results;
         }
 
-        public DispoEigenfertigungen Start(SimulationInput input)
+        public void Start(SimulationInput input)
         {
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
             _ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen, Stueckliste);
 
-            return _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults, _ergebnisseVorperiodeService);
+            DispoEigenfertigungen = _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults, _ergebnisseVorperiodeService, ArtikelStammdaten);
         }
+
 
         public void Kapaplan(DispoEigenfertigungen dispoEigenfertigungen)
         {

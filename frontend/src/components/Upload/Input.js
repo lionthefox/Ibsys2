@@ -33,20 +33,33 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Input = ({ language, setLastPeriodResults, handleNext }) => {
+const Input = ({
+  language,
+  setLastPeriodResults,
+  handleNext,
+  showError,
+  errorMessageId,
+  errorMessage,
+  setError,
+}) => {
   const classes = useStyles();
   const [disabled, setDisabled] = useState(true);
   const [results, setResults] = useState(undefined);
+  const fileUploadProps = {
+    language,
+    multipleFiles: false,
+    url: '/simulation/results-input',
+    setResults,
+    setDisabled,
+    showError,
+    errorMessageId,
+    errorMessage,
+    setError,
+  };
 
   return (
     <>
-      <FileUpload
-        language={language}
-        multipleFiles={false}
-        url='/simulation/results-input'
-        setResults={setResults}
-        setDisabled={setDisabled}
-      />
+      <FileUpload {...fileUploadProps} />
       <div className={classes.container}>
         {disabled ? (
           <Tooltip

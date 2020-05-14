@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { withLocalize, Translate } from 'react-localize-redux';
 import { Route, Redirect } from 'react-router-dom';
+import axios from 'axios';
 import globalTranslations from './translations/global.json';
+import defaultSimulationInput from './assets/defaultSimulationInput.json';
 
 import Header from './components/navigation/Header';
 import Input from './components/Upload/Input';
@@ -13,6 +15,18 @@ import SequencePlanning from './components/Simulation/SequencePlanning';
 import OrderPlanning from './components/Simulation/OrderPlanning';
 import Result from './components/Simulation/Result';
 import Stepper from './components/navigation/Stepper';
+
+import { setNestedObjectProperty } from './utils/nestedObjectProps';
+
+const paths = [
+  '/input',
+  '/production',
+  '/quantity_planning',
+  '/capacity_planning',
+  '/sequence_planning',
+  '/order_planning',
+  '/result',
+];
 
 const AnimationWrapper = ({ children }) => (
   <div
@@ -68,31 +82,151 @@ class Main extends Component {
     });
   }
 
-  state = {
-    activeLanguage: 'en',
-    activeStep: 0,
-    lastPeriodResults: undefined,
+  getDefaultState = (language) => {
+    const simulationInputString = JSON.stringify(defaultSimulationInput);
+    const simulationInput = JSON.parse(simulationInputString);
+    const state = {
+      activeLanguage: language,
+      activeStep: 0,
+      lastPeriodResults: undefined,
+      simulationInput: { ...simulationInput },
+      simulationData: undefined,
+      showError: false,
+      errorMessageId: undefined,
+      errorMessage: undefined,
+    };
+    return state;
   };
+
+  state = this.getDefaultState('en');
 
   changeActiveLanguage = (val) => {
     this.setState({ activeLanguage: val });
     this.props.setActiveLanguage(val);
   };
 
-  handleNext = () =>
-    this.setState((prevState) => {
-      return { activeStep: prevState.activeStep + 1 };
+  setNewState = (val) => this.setState(val);
+
+  setError = (error, errorMessageId, errorMessage) =>
+    this.setState({
+      showError: error,
+      errorMessageId: errorMessageId,
+      errorMessage: errorMessage,
     });
-  handleBack = () =>
-    this.setState((prevState) => {
-      return { activeStep: prevState.activeStep - 1 };
-    });
-  handleReset = () => this.setState({ activeStep: 0 });
+
+  handleNext = () => {
+    const { history } = this.props;
+    const { simulationInput, activeStep } = this.state;
+    const { setNewState, setError } = this;
+
+    let newState = { activeStep: activeStep + 1 };
+    if (activeStep === 1) {
+      axios({
+        url: '/simulation/start',
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        data: simulationInput,
+      })
+        .then(function (response) {
+          if (response.status >= 200 && response.status < 300) {
+            if (response.status === 204) {
+              setError(true, 'Main.error.noContent', response);
+              setTimeout(() => setError(false, undefined, undefined), 10000);
+            } else {
+              setError(false, undefined, undefined);
+              newState.simulationData = response.data;
+              setNewState(newState);
+              history.push(paths[activeStep + 1]);
+            }
+          } else {
+            setError(true, 'Main.error.serverError', response);
+            setTimeout(() => setError(false, undefined, undefined), 10000);
+          }
+        })
+        .catch(function (errorMessage) {
+          const response = errorMessage.response;
+          let translateId = 'Main.error.serverError';
+          if (response.status >= 500) {
+            translateId = 'Main.error.uploadError';
+          }
+          setError(true, translateId, response);
+          setTimeout(() => setError(false, undefined, undefined), 10000);
+        });
+    } else {
+      this.setState(newState);
+      history.push(paths[activeStep + 1]);
+    }
+  };
+
+  handleBack = () => {
+    const { history } = this.props;
+    const { activeStep, activeLanguage } = this.state;
+
+    this.setState((prevState) =>
+      prevState.activeStep - 1 === 0
+        ? this.getDefaultState(activeLanguage)
+        : { activeStep: prevState.activeStep - 1 }
+    );
+    history.push(activeStep ? paths[activeStep - 1] : paths[0]);
+  };
+
+  handleReset = () =>
+    this.setState(this.getDefaultState(this.state.activeLanguage));
 
   setLastPeriodResults = (val) => this.setState({ lastPeriodResults: val });
 
+  setSimulationInput = (keyArray, val) =>
+    this.setState((prevState) => {
+      const newSimulationInput = setNestedObjectProperty(
+        prevState.simulationInput,
+        keyArray,
+        val
+      );
+      return { simulationInput: newSimulationInput };
+    });
+
+  setSimulationData = (keyArray, val) =>
+    this.setState((prevState) => {
+      const newSimulationInput = setNestedObjectProperty(
+        prevState.simulationData,
+        keyArray,
+        val
+      );
+    });
+
   render() {
-    const { activeLanguage, activeStep, lastPeriodResults } = this.state;
+    const {
+      activeLanguage,
+      activeStep,
+      lastPeriodResults,
+      simulationInput,
+      simulationData,
+      showError,
+      errorMessageId,
+      errorMessage,
+    } = this.state;
+
+    const inputProps = {
+      language: activeLanguage,
+      setLastPeriodResults: this.setLastPeriodResults,
+      handleNext: this.handleNext,
+      showError,
+      errorMessageId,
+      errorMessage,
+      setError: this.setError,
+    };
+
+    const stepperProps = {
+      paths,
+      activeStep,
+      language: activeLanguage,
+      handleNext: this.handleNext,
+      handleBack: this.handleBack,
+      handleReset: this.handleReset,
+      showError,
+      errorMessageId,
+      errorMessage,
+    };
 
     return (
       <>
@@ -105,25 +239,27 @@ class Main extends Component {
         <Route
           exact
           path='/input'
-          component={() => (
+          render={() => (
             <AnimationWrapper>
-              <Input
-                language={activeLanguage}
-                setLastPeriodResults={this.setLastPeriodResults}
-                handleNext={this.handleNext}
-              />
+              <div style={{ height: '30vh' }}>
+                <Input {...inputProps} />
+              </div>
             </AnimationWrapper>
           )}
         />
         <Route
           exact
           path='/production'
-          component={() => (
+          render={() => (
             <AnimationWrapper>
               <HeadlineWrapper
                 headlineComponent={<Translate id='Headline.production' />}
               >
-                <Production lastPeriodResults={lastPeriodResults} />
+                <Production
+                  simulationInput={simulationInput}
+                  setSimulationInput={this.setSimulationInput}
+                  lastPeriodResults={lastPeriodResults}
+                />
               </HeadlineWrapper>
             </AnimationWrapper>
           )}
@@ -131,14 +267,17 @@ class Main extends Component {
         <Route
           exact
           path='/quantity_planning'
-          component={() => (
+          render={() => (
             <AnimationWrapper>
               <HeadlineWrapper
                 headlineComponent={
                   <Translate id='Headline.quantity_planning' />
                 }
               >
-                <QuantityPlanning />
+                <QuantityPlanning
+                  simulationData={simulationData}
+                  setSimulationData={this.setSimulationData}
+                />
               </HeadlineWrapper>
             </AnimationWrapper>
           )}
@@ -146,7 +285,7 @@ class Main extends Component {
         <Route
           exact
           path='/capacity_planning'
-          component={() => (
+          render={() => (
             <AnimationWrapper>
               <HeadlineWrapper
                 headlineComponent={
@@ -161,7 +300,7 @@ class Main extends Component {
         <Route
           exact
           path='/sequence_planning'
-          component={() => (
+          render={() => (
             <AnimationWrapper>
               <HeadlineWrapper
                 headlineComponent={
@@ -176,7 +315,7 @@ class Main extends Component {
         <Route
           exact
           path='/order_planning'
-          component={() => (
+          render={() => (
             <AnimationWrapper>
               <HeadlineWrapper
                 headlineComponent={<Translate id='Headline.order_planning' />}
@@ -189,7 +328,7 @@ class Main extends Component {
         <Route
           exact
           path='/result'
-          component={() => (
+          render={() => (
             <AnimationWrapper>
               <HeadlineWrapper
                 headlineComponent={<Translate id='Headline.result' />}
@@ -199,16 +338,7 @@ class Main extends Component {
             </AnimationWrapper>
           )}
         />
-        {activeStep !== 0 ? (
-          <Stepper
-            activeStep={activeStep}
-            language={activeLanguage}
-            lastPeriodResults={lastPeriodResults}
-            handleNext={this.handleNext}
-            handleBack={this.handleBack}
-            handleReset={this.handleReset}
-          />
-        ) : null}
+        {activeStep !== 0 ? <Stepper {...stepperProps} /> : null}
       </>
     );
   }

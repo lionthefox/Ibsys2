@@ -4,6 +4,22 @@
     "german": ["German", "Deutsch"],
     "english": ["English", "Englisch"]
   },
+  "Main": {
+    "error": {
+      "serverError": [
+        "Server Error - Unfortunately your input couldn't be processed.",
+        "Server Error - Leider konnte Ihre Eingabe nicht verarbeitet werden."
+      ],
+      "uploadError": [
+        "Upload Error - Unfortunately your input couldn't be processed. The server is currently not available.",
+        "Error beim Hochladen - Leider konnte Ihre Eingabe nicht verarbeitet werden. Der Server ist momentan nicht erreichbar."
+      ],
+      "noContent": [
+        "No Content - Unfortunately the server didn't receive any content. Please restart the simulation.",
+        "Keine Daten - Leider konnte der Server keine Daten empfangen. Bitte starten Sie die Simulation neu. "
+      ]
+    }
+  },
   "Headline": {
     "production": ["Production", "Produktion"],
     "quantity_planning": ["Quantity Planning", "Mengenplanung"],
@@ -12,10 +28,15 @@
     "order_planning": ["Order Planning", "Bestellmengenplanung"],
     "result": ["Result", "Ergebnis"]
   },
+  "Bike": {
+    "child_bike": ["Child Bike", "Kinderfahrrad"],
+    "woman_bike": ["Woman Bike", "Damenfahrrad"],
+    "man_bike": ["Man Bike", "Herrenfahrrad"]
+  },
   "Input": {
     "start": ["Start Simulation", "Simulation starten"],
     "alert": [
-      "You have to upload the results from your last period to start the simulation.",
+      "You have to upload the results of your last period to start the simulation.",
       "Sie müssen die Ergebnisse der letzten Periode hochladen, um die Simulation zu starten."
     ]
   },
@@ -38,11 +59,9 @@
     "direct_sales": ["Direct Sales", "Direktverkäufe"],
     "product": ["Product", "Produkt"],
     "amount": ["Amount", "Menge"],
-    "child_bike": ["Child Bike", "Kinderfahrrad"],
-    "woman_bike": ["Woman Bike", "Damenfahrrad"],
-    "man_bike": ["Man Bike", "Herrenfahrrad"],
     "price": ["Price", "Preis"],
     "penalty": ["Penalty", "Konventionalstrafe"],
     "stock": ["Stock", "Bestand"]
-  }
+  },
+  "QuantityPlanning": {}
 }

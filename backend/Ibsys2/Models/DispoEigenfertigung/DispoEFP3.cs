@@ -10,15 +10,21 @@ namespace Ibsys2.Models.DispoEigenfertigung
     private readonly List<int> _articleIds = new List<int> {3, 26, 31, 16, 17, 30, 6, 12, 29, 9, 15, 20 };
     public List<DispoEFPos> ListDispoEfPos { get; set; } = new List<DispoEFPos>();
 
-    public DispoEFP3(Vertriebswunsch vertriebsWunsch, Forecast forecast, results lastPeriodResults, IList<DispoEFPos> updatedDispo = null)
+    public DispoEFP3(Vertriebswunsch vertriebsWunsch, Forecast forecast, results lastPeriodResults,
+        IList<Artikel> artikelStammdaten, IList<DispoEFPos> updatedDispo = null)
     {
       foreach (var articleId in _articleIds)
       {
-        var dispoEfPos = new DispoEFPos {ArticleId = articleId};
+        var dispoEfPos = new DispoEFPos
+        {
+          ArticleId = articleId,
+          Name = artikelStammdaten.FirstOrDefault(x => x.Artikelnummer == articleId)?.Bezeichnung,
+          NameEng = artikelStammdaten.FirstOrDefault(x => x.Artikelnummer == articleId)?.NameEng
+        };
         switch (articleId)
         {
           case 3:
-            dispoEfPos.Vertrieb = vertriebsWunsch.Produkt1 + vertriebsWunsch.Direktverkauf.Produkt1.Menge;
+            dispoEfPos.Vertrieb = vertriebsWunsch.Produkt3 + vertriebsWunsch.Direktverkauf.Produkt3.Menge;
             dispoEfPos.AuftragUebernahme = 0;
             break;
           case 26:

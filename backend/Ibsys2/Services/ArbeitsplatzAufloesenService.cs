@@ -62,23 +62,23 @@ namespace Ibsys2.Services
                     benoetigteTeile.Add(position.Teil, position.Anzahl);
         }
 
-        private void GetNachfolger(IList<int> nachfolger, Arbeitsplatz arbeitsplatz)
+      private void GetNachfolger(IList<int> nachfolger, Arbeitsplatz arbeitsplatz)
+      {
+        // füge den Nachfolgearbeitsplatz den Nachfolgern hinzu
+        var existingArbeitsplatz = nachfolger.FirstOrDefault(x => x == arbeitsplatz.Nachfolger);
+        if (existingArbeitsplatz == 0 && arbeitsplatz.Nachfolger.HasValue)
+          nachfolger.Add(arbeitsplatz.Nachfolger.Value);
+        else
+          return;
+        
+        //Iteriere erneut über die Arbeitsplätze
+        foreach (var position in Arbeitsplaetze)
         {
-            // füge den Nachfolgearbeitsplatz den Nachfolgern hinzu
-            var existingArbeitsplatz = nachfolger.FirstOrDefault(x => x == arbeitsplatz.Nachfolger);
-            if (existingArbeitsplatz == 0 && arbeitsplatz.Nachfolger.HasValue)
-                nachfolger.Add(arbeitsplatz.Nachfolger.Value);
-            else
-                return;
-
-            //Iteriere erneut über die Arbeitsplätze
-            foreach (var position in Arbeitsplaetze)
-            {
-                if (position.Platz == arbeitsplatz.Nachfolger)
-                    GetNachfolger(nachfolger, position);
-                else if (position.Nachfolger == null)
-                    return;
-            }
+          if (position.Platz == arbeitsplatz.Nachfolger)
+            GetNachfolger(nachfolger, position);
+          else if (position.Nachfolger == null) 
+            return;
         }
+      }
     }
 }
