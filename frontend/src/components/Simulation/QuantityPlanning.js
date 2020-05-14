@@ -36,7 +36,7 @@ const QuantityPlanning = ({
     const formProps = {
       obj:
         (simulationData && simulationData[products[productIndex]]) || undefined,
-      setObj: setSimulationData,
+      setObjState: setSimulationData,
     };
 
     if (simulationData) {

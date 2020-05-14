@@ -30,7 +30,7 @@
   },
   "Bike": {
     "child_bike": ["Children's Bike", "Kinderfahrrad"],
-    "woman_bike": ["Ladies Bike", "Damenfahrrad"],
+    "woman_bike": ["Women's Bike", "Damenfahrrad"],
     "man_bike": ["Men's Bike", "Herrenfahrrad"]
   },
   "Input": {

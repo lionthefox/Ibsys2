@@ -1,6 +1,8 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
+import artNumbers from '../../assets/artNumbers';
+
 const styles = {
   textContainer: {
     display: 'flex',
@@ -27,13 +29,7 @@ const Text = ({ classes, obj, idProp, label, prop, text, idArray }) => {
   const getArticleProp = (article) => {
     if (article[prop]) {
       if (prop === idProp) {
-        if (
-          article[idProp] === 1 ||
-          article[idProp] === 2 ||
-          article[idProp] === 3
-        )
-          return `P${article[prop]}`;
-        else return `E${article[prop]}`;
+        return artNumbers[article[prop] - 1];
       } else return article[prop];
     } else return 0;
   };
