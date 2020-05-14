@@ -72,7 +72,7 @@ namespace Ibsys2.Services
         {
           if (position.Platz == arbeitsplatz.Nachfolger)
             GetNachfolger(nachfolger, position);
-          else if (position.Nachfolger == null)
+          else if (position.Nachfolger == null) 
             return;
         }
       }
