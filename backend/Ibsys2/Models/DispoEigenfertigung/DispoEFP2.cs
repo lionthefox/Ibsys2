@@ -24,7 +24,7 @@ namespace Ibsys2.Models.DispoEigenfertigung
         switch (articleId)
         {
           case 2:
-            dispoEfPos.Vertrieb = vertriebsWunsch.Produkt2 + vertriebsWunsch.Direktverkauf.Produkt1.Menge;
+            dispoEfPos.Vertrieb = vertriebsWunsch.Produkt2 + vertriebsWunsch.Direktverkauf.Produkt2.Menge;
             dispoEfPos.AuftragUebernahme = 0;
             break;
           case 26:
