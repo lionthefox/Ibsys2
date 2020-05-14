@@ -33,9 +33,9 @@ namespace Ibsys2.Services
                 GetBedarf(3, lieferdaten, forecast, vertriebswunsch, ergebnisseVorperiodeService);
             kaufdispoPos.BedarfPeriode4 =
                 GetBedarf(4, lieferdaten, forecast, vertriebswunsch, ergebnisseVorperiodeService);
-            var MengeBestellart = GetMengeBestellart(kaufdispoPos.BedarfPeriode1, kaufdispoPos.BedarfPeriode2, kaufdispoPos.BedarfPeriode3, kaufdispoPos.BedarfPeriode4, lieferdaten, lastPeriodResults);
-            kaufdispoPos.Menge = MengeBestellart[0];
-            kaufdispoPos.Bestellart = MengeBestellart[1];
+            var mengeBestellart = GetMengeBestellart(kaufdispoPos.BedarfPeriode1, kaufdispoPos.BedarfPeriode2, kaufdispoPos.BedarfPeriode3, kaufdispoPos.BedarfPeriode4, lieferdaten, lastPeriodResults);
+            kaufdispoPos.Menge = mengeBestellart[0];
+            kaufdispoPos.Bestellart = mengeBestellart[1];
             return kaufdispoPos;
         }
 
@@ -73,7 +73,7 @@ namespace Ibsys2.Services
             int menge = 0;
             int bestellart = 5;
             var lagerbestand = lastPeriodResults.warehousestock.article.FirstOrDefault(x => x.id == lieferdaten.Kaufteil);
-            var startmengeLagerbestand = Convert.ToDouble(lagerbestand.startamount);
+            var startmengeLagerbestand = Convert.ToDouble(lagerbestand?.startamount);
             if (lagerbestand != null)
             {
                 if (lieferdaten.MaxLieferzeit < 1 &&
