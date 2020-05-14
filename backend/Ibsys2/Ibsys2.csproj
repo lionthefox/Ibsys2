@@ -32,6 +32,9 @@
     <None Update="Models\XSD\input.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Update="Data\Lieferdaten.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

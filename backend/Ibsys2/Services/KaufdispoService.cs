@@ -45,24 +45,24 @@ namespace Ibsys2.Services
             switch (periode)
             {
                 case 1:
-                    bedarf = (vertriebswunsch.Produkt1 + vertriebswunsch.Direktverkauf.Produkt1.Menge) * lieferdaten.VerwendungP1 +
-                             (vertriebswunsch.Produkt2 + vertriebswunsch.Direktverkauf.Produkt2.Menge) * lieferdaten.VerwendungP2 +
-                             (vertriebswunsch.Produkt3 + vertriebswunsch.Direktverkauf.Produkt3.Menge) * lieferdaten.VerwendungP3;
+                    bedarf = (vertriebswunsch.Produkt1 + vertriebswunsch.Direktverkauf.Produkt1.Menge) * lieferdaten.VerwendungP1 ?? 0 +
+                             (vertriebswunsch.Produkt2 + vertriebswunsch.Direktverkauf.Produkt2.Menge) * lieferdaten.VerwendungP2 ?? 0 +
+                             (vertriebswunsch.Produkt3 + vertriebswunsch.Direktverkauf.Produkt3.Menge) * lieferdaten.VerwendungP3 ?? 0;
                     break;
                 case 2:
-                    bedarf = forecast.Periode2.Produkt1 * lieferdaten.VerwendungP1 +
-                             forecast.Periode2.Produkt2 * lieferdaten.VerwendungP2 + 
-                             forecast.Periode2.Produkt3 + lieferdaten.VerwendungP3;
+                    bedarf = forecast.Periode2.Produkt1 * lieferdaten.VerwendungP1 ?? 0 +
+                             forecast.Periode2.Produkt2 * lieferdaten.VerwendungP2 ?? 0 + 
+                             forecast.Periode2.Produkt3 + lieferdaten.VerwendungP3 ?? 0;
                     break;
                 case 3:
-                    bedarf = forecast.Periode3.Produkt1 * lieferdaten.VerwendungP1 +
-                             forecast.Periode3.Produkt2 * lieferdaten.VerwendungP2 +
-                             forecast.Periode3.Produkt3 * lieferdaten.VerwendungP3;
+                    bedarf = forecast.Periode3.Produkt1 * lieferdaten.VerwendungP1 ?? 0+
+                             forecast.Periode3.Produkt2 * lieferdaten.VerwendungP2 ?? 0+
+                             forecast.Periode3.Produkt3 * lieferdaten.VerwendungP3 ?? 0;
                     break;
                 case 4:
-                    bedarf = forecast.Periode4.Produkt1 * lieferdaten.VerwendungP1 +
-                             forecast.Periode4.Produkt2 * lieferdaten.VerwendungP2 +
-                             forecast.Periode4.Produkt3 * lieferdaten.VerwendungP3;
+                    bedarf = forecast.Periode4.Produkt1 * lieferdaten.VerwendungP1 ?? 0+
+                             forecast.Periode4.Produkt2 * lieferdaten.VerwendungP2 ?? 0+
+                             forecast.Periode4.Produkt3 * lieferdaten.VerwendungP3 ?? 0;
                     break;
             }
             return bedarf;

@@ -35,7 +35,7 @@ namespace Ibsys2.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError("ParseResultsXml failed:", exception);
+                _logger.LogError("ParseResultsXml failed:", exception.Message);
                 return null;
             }
         }
@@ -51,7 +51,7 @@ namespace Ibsys2.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError("ParseArtikelCsv failed:", exception);
+                _logger.LogError("ParseArtikelCsv failed:", exception.Message);
                 return null;
             }
         }   
@@ -66,7 +66,7 @@ namespace Ibsys2.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError("ParsePersonalMaschinenCsv failed:", exception);
+                _logger.LogError("ParsePersonalMaschinenCsv failed:", exception.Message);
                 return null;
             }
         }
@@ -81,7 +81,7 @@ namespace Ibsys2.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError("ParseStuecklistenAufloesungCsv failed:", exception);
+                _logger.LogError("ParseStuecklistenAufloesungCsv failed:", exception.Message);
                 return null;
             }
         }
@@ -96,7 +96,22 @@ namespace Ibsys2.Services
             }
             catch (Exception exception)
             {
-                _logger.LogError("ParseArbeitsplaetzeCsv failed:", exception);
+                _logger.LogError("ParseArbeitsplaetzeCsv failed:", exception.Message);
+                return null;
+            }
+        }
+        
+        public IList<Lieferdaten> ParseLieferdatenCsv()
+        {
+            try
+            {
+                using var reader = new StreamReader(Path.Combine(_dataDirectory, "Lieferdaten.csv"));
+                using var csvReader = new CsvReader(reader, CultureInfo.InvariantCulture);
+                return new List<Lieferdaten>(csvReader.GetRecords<Lieferdaten>().ToList());
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError("ParseLieferdatenCsv failed:", exception.Message);
                 return null;
             }
         }

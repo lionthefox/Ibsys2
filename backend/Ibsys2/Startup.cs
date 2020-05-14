@@ -28,6 +28,7 @@ namespace Ibsys2
       services.AddSingleton<ErgebnisseVorperiodeService>();
       services.AddSingleton<ArbeitsplatzAufloesenService>();
       services.AddSingleton<KapazitaetService>();
+      services.AddSingleton<KaufdispoService>();
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest).AddXmlSerializerFormatters();
     }
 

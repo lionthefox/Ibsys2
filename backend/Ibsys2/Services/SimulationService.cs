@@ -2,6 +2,7 @@
 using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
 using Ibsys2.Models.KapazitaetsPlan;
+using Ibsys2.Models.Kaufdispo;
 using Ibsys2.Models.Stammdaten;
 using Ibsys2.Models.Stueckliste;
 
@@ -26,6 +27,8 @@ namespace Ibsys2.Services
         public DispoEigenfertigungen DispoEigenfertigungen { get; set; }
         public IList<Lieferdaten> Kaufteilbestellungen { get; set; }
         public IList<KapazitaetsPlan> KapazitaetsPlaene { get; set; }
+        
+        public IList<KaufdispoPos> Kaufdispo { get; set; }
 
     public Vertriebswunsch Vertriebswunsch { get; set; }
         public Forecast Forecast { get; set; }
@@ -67,19 +70,9 @@ namespace Ibsys2.Services
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
             _ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen, Stueckliste);
-
             DispoEigenfertigungen = _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults, _ergebnisseVorperiodeService, ArtikelStammdaten);
-        }
-
-
-        public void Kapaplan(DispoEigenfertigungen dispoEigenfertigungen)
-        {
-           KapazitaetsPlaene = _kapazitaetService.clalcKapaPlan(dispoEigenfertigungen, ArtikelStammdaten);
-        }
-
-        public void KaufDispo()
-        {
-            _kaufdispoService.GetKaufDispo(Kaufteilbestellungen, Forecast, Vertriebswunsch, _ergebnisseVorperiodeService, LastPeriodResults);
+            KapazitaetsPlaene = _kapazitaetService.clalcKapaPlan(DispoEigenfertigungen, ArtikelStammdaten);
+            Kaufdispo = _kaufdispoService.GetKaufDispo(Kaufteilbestellungen, Forecast, Vertriebswunsch, _ergebnisseVorperiodeService, LastPeriodResults);
         }
 
         private void ParseStammdaten()
@@ -88,6 +81,7 @@ namespace Ibsys2.Services
             PersonalMaschinenStammdaten = _fileRepository.ParsePersonalMaschinenCsv();
             Arbeitsplaetze = _fileRepository.ParseArbeitsplaetzeCsv();
             Stueckliste = _fileRepository.ParseStuecklistenAufloesungCsv();
+            Kaufteilbestellungen = _fileRepository.ParseLieferdatenCsv();
         }
     }
 }

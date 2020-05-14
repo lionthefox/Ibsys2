@@ -55,7 +55,6 @@ namespace Ibsys2.Controllers
                     throw new Exception("Upload LastPeriodResults first!");
 
                 _simulationService.Start(input);
-                _simulationService.Kapaplan(_simulationService.DispoEigenfertigungen);
                 _logger.LogInformation("Simulation successful");
                 return _simulationService.DispoEigenfertigungen;
             }
