@@ -17,27 +17,51 @@ const styles = {
   },
 };
 
-const Input = withStyles({
-  root: {
-    marginBottom: '10px',
-    width: '10rem',
+const inputStyleRoot = {
+  marginBottom: '10px',
 
-    '& label.Mui-focused': {
-      color: '#135444',
+  '& label.Mui-focused': {
+    color: '#135444',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: '#135444',
+  },
+  '& .MuiOutlinedInput-root': {
+    '&.Mui-focused fieldset': {
+      borderColor: '#135444',
     },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: '#135444',
-    },
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: '#135444',
-      },
+  },
+};
+
+const SmallInput = withStyles({
+  root: {
+    ...inputStyleRoot,
+    width: '6rem',
+    '& .MuiInputBase-root': {
+      height: '2.5rem',
+      fontSize: '15px',
     },
   },
 })(TextField);
 
-const Form = ({ classes, obj, setObjState, label, values, prop }) => {
-  const inputProps = {
+const Input = withStyles({
+  root: {
+    ...inputStyleRoot,
+    width: '10rem',
+  },
+})(TextField);
+
+const Form = ({
+  classes,
+  obj,
+  setObjState,
+  label,
+  values,
+  prop,
+  product,
+  small,
+}) => {
+  const inputBaseProps = {
     type: 'number',
     variant: 'outlined',
   };
@@ -48,28 +72,42 @@ const Form = ({ classes, obj, setObjState, label, values, prop }) => {
     <div className={classes.columnContainer}>
       {label ? <div className={classes.headerLabel}>{label}</div> : null}
       {values
-        ? values.map((val, index) => (
-            <Input
-              key={`Input_${label || 'label'}_${index}`}
-              {...inputProps}
-              value={getInputValue(getNestedObjectProperty(obj, val)) || 0}
-              onChange={(e) => {
-                setObjState(val, getFloatValue(e.target.value));
-              }}
-            />
-          ))
+        ? values.map((val, index) => {
+            const inputProps = {
+              ...inputBaseProps,
+              key: `Input_${label || 'label'}_${index}`,
+              value: getInputValue(getNestedObjectProperty(obj, val)) || 0,
+              onChange: (e) => {
+                setObjState(undefined, val, getFloatValue(e.target.value));
+              },
+            };
+            return small ? (
+              <SmallInput {...inputProps} />
+            ) : (
+              <Input {...inputProps} />
+            );
+          })
         : prop
         ? obj
-          ? obj.map((art, index) => (
-              <Input
-                key={`Input_${label || 'label'}_${index}`}
-                {...inputProps}
-                value={getInputValue(getNestedObjectProperty(art, [prop])) || 0}
-                onChange={(e) => {
-                  setObjState([prop], getFloatValue(e.target.value));
-                }}
-              />
-            ))
+          ? obj.map((art, index) => {
+              const inputProps = {
+                ...inputBaseProps,
+                key: `Input_${label || 'label'}_${index}`,
+                value: getInputValue(getNestedObjectProperty(art, [prop])) || 0,
+                onChange: (e) => {
+                  setObjState(
+                    product,
+                    [index, prop],
+                    getFloatValue(e.target.value)
+                  );
+                },
+              };
+              return small ? (
+                <SmallInput {...inputProps} />
+              ) : (
+                <Input {...inputProps} />
+              );
+            })
           : null
         : null}
     </div>

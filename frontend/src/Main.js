@@ -31,7 +31,7 @@ const paths = [
 const AnimationWrapper = ({ children }) => (
   <div
     className='cssanimation sequence fadeInBottom'
-    style={{ paddingTop: '10rem', paddingBottom: '15rem' }}
+    style={{ paddingTop: '8rem', paddingBottom: '13rem' }}
   >
     {children}
   </div>
@@ -62,7 +62,7 @@ const HeadlineWrapper = ({ headlineComponent, children }) => (
       style={{
         width: '90%',
         borderBottom: '3px solid #135444',
-        marginBottom: '2rem',
+        marginBottom: '1rem',
       }}
     ></div>
     {children}
@@ -119,7 +119,7 @@ class Main extends Component {
     const { simulationInput, activeStep } = this.state;
     const { setNewState, setError } = this;
 
-    let newState = { activeStep: activeStep + 1 };
+    const newState = { activeStep: activeStep + 1 };
     if (activeStep === 1) {
       axios({
         url: '/simulation/start',
@@ -175,7 +175,7 @@ class Main extends Component {
 
   setLastPeriodResults = (val) => this.setState({ lastPeriodResults: val });
 
-  setSimulationInput = (keyArray, val) =>
+  setSimulationInput = (product, keyArray, val) =>
     this.setState((prevState) => {
       const newSimulationInput = setNestedObjectProperty(
         prevState.simulationInput,
@@ -185,15 +185,48 @@ class Main extends Component {
       return { simulationInput: newSimulationInput };
     });
 
-  setSimulationData = (keyArray, val) =>
-    this.setState((prevState) => {
-      const newSimulationData = setNestedObjectProperty(
-        prevState.simulationData,
-        keyArray,
-        val
-      );
-      return { simulationData: newSimulationData };
-    });
+  putSimulationData = (product, keyArray, val) => {
+    const { simulationData } = this.state;
+    const { setNewState, setError } = this;
+
+    const newSimulationData = setNestedObjectProperty(
+      simulationData,
+      [product, ...keyArray],
+      val
+    );
+    const newState = { simulationData: { ...simulationData } };
+    axios({
+      url: `simulation/update-dispo-ef/${product}`,
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      data: newSimulationData[product],
+    })
+      .then(function (response) {
+        if (response.status >= 200 && response.status < 300) {
+          if (response.status === 204) {
+            setError(true, 'Main.error.noContent', response);
+            setTimeout(() => setError(false, undefined, undefined), 10000);
+          } else {
+            setError(false, undefined, undefined);
+            newState.simulationData[product] = response.data;
+            console.log(newState);
+            setNewState(newState);
+          }
+        } else {
+          setError(true, 'Main.error.serverError', response);
+          setTimeout(() => setError(false, undefined, undefined), 10000);
+        }
+      })
+      .catch(function (errorMessage) {
+        const response = errorMessage.response;
+        let translateId = 'Main.error.serverError';
+        if (response && response.status >= 500) {
+          translateId = 'Main.error.uploadError';
+        }
+        setError(true, translateId, response);
+        setTimeout(() => setError(false, undefined, undefined), 10000);
+      });
+  };
 
   render() {
     const {
@@ -278,7 +311,7 @@ class Main extends Component {
                 <QuantityPlanning
                   activeLanguage={activeLanguage}
                   simulationData={simulationData}
-                  setSimulationData={this.setSimulationData}
+                  putSimulationData={this.putSimulationData}
                 />
               </HeadlineWrapper>
             </AnimationWrapper>

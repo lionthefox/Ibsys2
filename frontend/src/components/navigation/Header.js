@@ -19,7 +19,7 @@ const styles = (theme) => ({
     position: 'fixed',
     top: 0,
     width: '100%',
-    height: '8rem',
+    height: '6.5rem',
     zIndex: 1000,
   },
   appBar: {
@@ -69,6 +69,7 @@ const styles = (theme) => ({
     margin: theme.spacing(1),
   },
   inputLabel: {
+    top: '3px',
     color: '#fff !important',
   },
   selectIcon: {
@@ -89,15 +90,16 @@ const BootstrapInput = withStyles((theme) => ({
   root: {
     'label + &': {
       marginTop: theme.spacing(3),
+      top: '2px',
     },
   },
   input: {
     borderRadius: 4,
-    width: '8rem',
+    width: '6.5rem',
     position: 'relative',
     color: '#fff',
     border: '1px solid #fff',
-    fontSize: 16,
+    fontSize: 15,
     padding: '10px 26px 10px 12px',
     '&:focus': {
       borderRadius: 4,
@@ -126,7 +128,7 @@ const Header = ({ classes, language, setLanguage, handleReset }) => (
         <div className={classes.appIconContainer}>
           <FormControl className={classes.margin}>
             <InputLabel classes={{ root: classes.inputLabel }}>
-              Language
+              <Translate id='Header.language' />
             </InputLabel>
             <NativeSelect
               classes={{

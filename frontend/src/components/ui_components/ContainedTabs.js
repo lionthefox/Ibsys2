@@ -28,7 +28,6 @@ const useTabStyles = makeStyles(({ palette, spacing, breakpoints }) => {
       selectedBgColor = defaultSelectedBgColor,
     }) => ({
       opacity: 1,
-      marginBottom: '1.5rem',
       overflow: 'initial',
       color: getTextColor(bgColor),
       backgroundColor: bgColor,

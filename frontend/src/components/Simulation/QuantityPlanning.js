@@ -15,6 +15,7 @@ const styles = {
   },
   root: {
     display: 'flex',
+    overflowY: 'scroll',
     justifyContent: 'space-around',
     marginTop: '2rem',
   },
@@ -23,12 +24,11 @@ const styles = {
 const QuantityPlanning = ({
   classes,
   simulationData,
-  setSimulationData,
+  putSimulationData,
   activeLanguage,
 }) => {
   const [index, setIndex] = useState(0);
 
-  console.log(simulationData);
   const products = ['p1', 'p2', 'p3'];
 
   const getComponent = (productIndex) => {
@@ -36,7 +36,8 @@ const QuantityPlanning = ({
     const formProps = {
       obj:
         (simulationData && simulationData[products[productIndex]]) || undefined,
-      setObjState: setSimulationData,
+      setObjState: putSimulationData,
+      product: products[productIndex],
     };
 
     if (simulationData) {
@@ -57,10 +58,11 @@ const QuantityPlanning = ({
         artKey === 'sicherheitsbestand'
           ? elements.push(
               <Form
-                key={`quantity_planning_form_${productIndex}_${artKey}`}
                 {...formProps}
+                key={`quantity_planning_form_${productIndex}_${artKey}`}
                 label={<Translate id={`QuantityPlanning.${artKey}`} />}
                 prop='sicherheitsbestand'
+                small
               />
             )
           : elements.push(

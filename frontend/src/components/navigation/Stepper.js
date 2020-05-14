@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     background: '#fff',
     display: 'flex',
     justifyContent: 'center',
-    paddingBottom: '2rem',
+    paddingBottom: '1rem',
   },
   stepIcon: {
     color: '#135444 !important',
@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
   disabledIconLabel: {
     fontSize: '1rem',
     color: 'grey',
+  },
+  stepperPadding: {
+    paddingTop: '5px !important',
   },
   stepper: {
     width: '100%',
@@ -134,7 +137,11 @@ const HorizontalStepper = ({
           </div>
         </div>
       ) : null}
-      <Stepper activeStep={activeStep} alternativeLabel>
+      <Stepper
+        classes={{ root: classes.stepperPadding }}
+        activeStep={activeStep}
+        alternativeLabel
+      >
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel

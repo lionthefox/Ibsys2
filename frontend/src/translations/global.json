@@ -1,6 +1,7 @@
 {
   "Header": {
     "title": ["Supply Chain Management Tool", "Produktionsplanungstool"],
+    "language": ["Language", "Sprache"],
     "german": ["German", "Deutsch"],
     "english": ["English", "Englisch"]
   },

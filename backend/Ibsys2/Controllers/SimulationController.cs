@@ -65,7 +65,7 @@ namespace Ibsys2.Controllers
             }
         }
 
-        [HttpPut("update-dispo-ef/1")]
+        [HttpPut("update-dispo-ef/p1")]
         public IList<DispoEFPos> UpdateDispoEfP1([FromBody] IList<DispoEFPos> input)
         {
             try
@@ -85,7 +85,7 @@ namespace Ibsys2.Controllers
             }
         }
 
-        [HttpPut("update-dispo-ef/2")]
+        [HttpPut("update-dispo-ef/p2")]
         public IList<DispoEFPos> UpdateDispoEfP2([FromBody] IList<DispoEFPos> input)
         {
             try
@@ -105,7 +105,7 @@ namespace Ibsys2.Controllers
             }
         }
 
-        [HttpPut("update-dispo-ef/3")]
+        [HttpPut("update-dispo-ef/p3")]
         public IList<DispoEFPos> UpdateDispoEfP3([FromBody] IList<DispoEFPos> input)
         {
             try
