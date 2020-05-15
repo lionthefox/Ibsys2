@@ -65,8 +65,7 @@ namespace Ibsys2.Services
         {
             if (lieferdaten.Standardlieferzeit < periode)
                 return lagermenge - bedarf + menge;
-            else
-                return lagermenge - bedarf;
+            return lagermenge - bedarf;
         }
 
         private int GetBedarf(int periode, Lieferdaten lieferdaten, Forecast forecast, Vertriebswunsch vertriebswunsch)

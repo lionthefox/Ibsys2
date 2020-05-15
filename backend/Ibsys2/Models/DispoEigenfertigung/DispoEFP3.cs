@@ -13,14 +13,21 @@ namespace Ibsys2.Models.DispoEigenfertigung
     public DispoEFP3(Vertriebswunsch vertriebsWunsch, Forecast forecast, results lastPeriodResults,
         IList<Artikel> artikelStammdaten, IList<DispoEFPos> updatedDispo = null)
     {
+      if (updatedDispo != null)
+        ListDispoEfPos = new List<DispoEFPos>();
       foreach (var articleId in _articleIds)
       {
-        var dispoEfPos = new DispoEFPos
-        {
-          ArticleId = articleId,
-          Name = artikelStammdaten.FirstOrDefault(x => x.Artikelnummer == articleId)?.Bezeichnung,
-          NameEng = artikelStammdaten.FirstOrDefault(x => x.Artikelnummer == articleId)?.NameEng
-        };
+        DispoEFPos dispoEfPos;
+        
+        if (updatedDispo != null)
+          dispoEfPos = updatedDispo.First(x => x.ArticleId == articleId);
+        else 
+          dispoEfPos = new DispoEFPos
+          {
+            ArticleId = articleId,
+            Name = artikelStammdaten.FirstOrDefault(x => x.Artikelnummer == articleId)?.Bezeichnung,
+            NameEng = artikelStammdaten.FirstOrDefault(x => x.Artikelnummer == articleId)?.NameEng
+          };
         switch (articleId)
         {
           case 3:
@@ -55,9 +62,11 @@ namespace Ibsys2.Models.DispoEigenfertigung
         dispoEfPos.Sicherheitsbestand = updatedDispo?.FirstOrDefault(x => x.ArticleId == articleId)?.Sicherheitsbestand ?? CalcSicherheitsbestand(forecast, vertriebsWunsch);
         dispoEfPos.Lagerbestand = DispoEfService.GetLagerbestand(articleId, lastPeriodResults);
 
-        // Muss noch erweitert werden
-        dispoEfPos.AuftraegeBearbeitung = 0;
-        dispoEfPos.AuftraegeWarteschlange = 0;
+        if (updatedDispo == null)
+        {
+          dispoEfPos.AuftraegeBearbeitung = 0;
+          dispoEfPos.AuftraegeWarteschlange = 0;
+        }
 
         dispoEfPos.Produktion = DispoEfService.CalcProduktion(dispoEfPos);
 
