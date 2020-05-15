@@ -9,37 +9,39 @@ namespace Ibsys2.Services
 {
     public class KaufdispoService
     {
-        public IList<KaufdispoPos> GetKaufDispo(IList<Lieferdaten> lieferdaten, Forecast forecast, Vertriebswunsch vertriebswunsch, ErgebnisseVorperiodeService ergebnisseVorperiodeService, results lastPeriodResults)
+        private readonly ErgebnisseVorperiodeService _service;
+
+        public IList<KaufdispoPos> GetKaufDispo(IList<Lieferdaten> lieferdaten, Forecast forecast, Vertriebswunsch vertriebswunsch, results lastPeriodResults)
         {
             var kaufDispo = new List<KaufdispoPos>();
             foreach (var bestellinfo in lieferdaten)
             {
-                var kaufdispoPos = GetBestellmengen(bestellinfo, forecast, vertriebswunsch, ergebnisseVorperiodeService, lastPeriodResults);
+                var kaufdispoPos = GetBestellmengen(bestellinfo, forecast, vertriebswunsch, lastPeriodResults);
                 kaufDispo.Add(kaufdispoPos);
             }
             return kaufDispo;
         }
 
         private KaufdispoPos GetBestellmengen(Lieferdaten lieferdaten, Forecast forecast,
-            Vertriebswunsch vertriebswunsch, ErgebnisseVorperiodeService ergebnisseVorperiodeService, results lastPeriodResults)
+            Vertriebswunsch vertriebswunsch, results lastPeriodResults)
         {
             var kaufdispoPos = new KaufdispoPos();
             kaufdispoPos.MatNr = lieferdaten.Kaufteil;
             kaufdispoPos.BedarfPeriode1 =
-                GetBedarf(1, lieferdaten, forecast, vertriebswunsch, ergebnisseVorperiodeService);
+                GetBedarf(1, lieferdaten, forecast, vertriebswunsch);
             kaufdispoPos.BedarfPeriode2 =
-                GetBedarf(2, lieferdaten, forecast, vertriebswunsch, ergebnisseVorperiodeService);
+                GetBedarf(2, lieferdaten, forecast, vertriebswunsch);
             kaufdispoPos.BedarfPeriode3 =
-                GetBedarf(3, lieferdaten, forecast, vertriebswunsch, ergebnisseVorperiodeService);
+                GetBedarf(3, lieferdaten, forecast, vertriebswunsch);
             kaufdispoPos.BedarfPeriode4 =
-                GetBedarf(4, lieferdaten, forecast, vertriebswunsch, ergebnisseVorperiodeService);
+                GetBedarf(4, lieferdaten, forecast, vertriebswunsch);
             var mengeBestellart = GetMengeBestellart(kaufdispoPos.BedarfPeriode1, kaufdispoPos.BedarfPeriode2, kaufdispoPos.BedarfPeriode3, kaufdispoPos.BedarfPeriode4, lieferdaten, lastPeriodResults);
             kaufdispoPos.Menge = mengeBestellart[0];
             kaufdispoPos.Bestellart = mengeBestellart[1];
             return kaufdispoPos;
         }
 
-        private int GetBedarf(int periode, Lieferdaten lieferdaten, Forecast forecast, Vertriebswunsch vertriebswunsch, ErgebnisseVorperiodeService ergebnisseVorperiodeService)
+        private int GetBedarf(int periode, Lieferdaten lieferdaten, Forecast forecast, Vertriebswunsch vertriebswunsch)
         {
             int bedarf = 0;
             switch (periode)

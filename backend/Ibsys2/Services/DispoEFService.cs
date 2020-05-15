@@ -10,18 +10,25 @@ namespace Ibsys2.Services
 {
     public class DispoEfService
     {
+        private readonly ErgebnisseVorperiodeService _ergebnisseVorperiodeService;
+
+        public DispoEfService(ErgebnisseVorperiodeService ergebnisseVorperiodeService)
+        {
+            _ergebnisseVorperiodeService = ergebnisseVorperiodeService;
+        }
+
         public DispoEFP1 DispoEfP1 { get; set; }
         public DispoEFP2 DispoEfP2 { get; set; }
         public DispoEFP3 DispoEfP3 { get; set; }
 
-    public DispoEigenfertigungen GetEfDispo(Vertriebswunsch vertriebWunsch, Forecast forecast, results lastPeriodResults, ErgebnisseVorperiodeService ergebnisseVorperiodeService, IList<Artikel> artikelStammdaten)
+        public DispoEigenfertigungen GetEfDispo(Vertriebswunsch vertriebWunsch, Forecast forecast, results lastPeriodResults, IList<Artikel> artikelStammdaten)
     {
         DispoEfP1 = new DispoEFP1(vertriebWunsch, forecast, lastPeriodResults, artikelStammdaten);
         DispoEfP2 = new DispoEFP2(vertriebWunsch, forecast, lastPeriodResults, artikelStammdaten);
         DispoEfP3 = new DispoEFP3(vertriebWunsch, forecast, lastPeriodResults, artikelStammdaten);
       
       // Aufträge in Bearbeitung in die Dispo-Eigenfertigung übertragen
-        foreach (var auftrag in ergebnisseVorperiodeService.InBearbeitung.AuftraegeInBearbeitung)
+        foreach (var auftrag in _ergebnisseVorperiodeService.InBearbeitung.AuftraegeInBearbeitung)
         {
             switch (auftrag.Teil)
             {
@@ -55,7 +62,7 @@ namespace Ibsys2.Services
         }
 
         // Aufträge in der Warteschlange in die Dispo-Eigenfertigung übertragen
-        foreach (var arbeitsplatz in ergebnisseVorperiodeService.WartelisteArbeitsplaetze.ArbeitsplatzWarteListe)
+        foreach (var arbeitsplatz in _ergebnisseVorperiodeService.WartelisteArbeitsplaetze.ArbeitsplatzWarteListe)
         {
             foreach (var auftrag in arbeitsplatz.ArbeitsplatzWartelisteAuftraege)
             {

@@ -25,7 +25,7 @@ namespace Ibsys2.Services
             }
         }
 
-        public IList<KapazitaetsPlan> clalcKapaPlan(DispoEigenfertigungen dispoEigenfertigungen,
+        public IList<KapazitaetsPlan> CalcKapaPlan(DispoEigenfertigungen dispoEigenfertigungen,
             IList<Artikel> artikelStammdaten)
         {
             ResetKapaPlan();
@@ -34,7 +34,7 @@ namespace Ibsys2.Services
             CalcKapaZeit(dispoEigenfertigungen.P3, artikelStammdaten);
             foreach (var kapazitaetsPlan in KapazitaetsPlaene)
             {
-                kapazitaetsPlan.calcSchiten();
+                kapazitaetsPlan.CalcSchichten();
             }
 
             return KapazitaetsPlaene;

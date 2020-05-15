@@ -25,7 +25,7 @@ namespace Ibsys2.Models.KapazitaetsPlan
             ArbeitsplatzId = arbeitsplatzID;
         }
 
-        public void calcSchiten()
+        public void CalcSchichten()
         {
             var kapaGesamt = CalcBearbGes() + CalcRusestGes();
             if (kapaGesamt <= SchichtDauer + MaxUeberMinuten)

@@ -26,9 +26,7 @@ namespace Ibsys2.Services
         public IList<ArbeitsplatzNachfolger> ArbeitsplatzAufloesungen { get; set; }
         public DispoEigenfertigungen DispoEigenfertigungen { get; set; }
         public IList<Lieferdaten> Kaufteilbestellungen { get; set; }
-        public IList<KapazitaetsPlan> KapazitaetsPlaene { get; set; }
         
-        public IList<KaufdispoPos> Kaufdispo { get; set; }
 
     public Vertriebswunsch Vertriebswunsch { get; set; }
         public Forecast Forecast { get; set; }
@@ -65,14 +63,23 @@ namespace Ibsys2.Services
             LastPeriodResults = results;
         }
 
-        public void Start(SimulationInput input)
+        public DispoEigenfertigungen GetEfDispo(SimulationInput input)
         {
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
             _ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen, Stueckliste);
-            DispoEigenfertigungen = _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults, _ergebnisseVorperiodeService, ArtikelStammdaten);
-            KapazitaetsPlaene = _kapazitaetService.clalcKapaPlan(DispoEigenfertigungen, ArtikelStammdaten);
-            Kaufdispo = _kaufdispoService.GetKaufDispo(Kaufteilbestellungen, Forecast, Vertriebswunsch, _ergebnisseVorperiodeService, LastPeriodResults);
+            DispoEigenfertigungen = _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults, ArtikelStammdaten);
+            return DispoEigenfertigungen;
+        }
+
+        public IList<KapazitaetsPlan> GetKapaPlaene()
+        {
+            return _kapazitaetService.CalcKapaPlan(DispoEigenfertigungen, ArtikelStammdaten);
+        }
+
+        public IList<KaufdispoPos> GetKaufDispos()
+        {
+            return _kaufdispoService.GetKaufDispo(Kaufteilbestellungen, Forecast, Vertriebswunsch, LastPeriodResults);
         }
 
         private void ParseStammdaten()

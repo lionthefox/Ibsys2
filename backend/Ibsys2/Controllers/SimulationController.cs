@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
 using Ibsys2.Models.KapazitaetsPlan;
+using Ibsys2.Models.Kaufdispo;
 using Ibsys2.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -54,9 +54,9 @@ namespace Ibsys2.Controllers
                 if (_simulationService.LastPeriodResults == null)
                     throw new Exception("Upload LastPeriodResults first!");
 
-                _simulationService.Start(input);
+                var dispoEigenfertigungen = _simulationService.GetEfDispo(input);
                 _logger.LogInformation("Simulation successful");
-                return _simulationService.DispoEigenfertigungen;
+                return dispoEigenfertigungen;
             }
             catch (Exception exception)
             {
@@ -117,6 +117,34 @@ namespace Ibsys2.Controllers
                     _simulationService.ArtikelStammdaten,
                     input
                     ).ListDispoEfPos;
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, exception.Message);
+                return null;
+            }
+        }
+
+        [HttpGet("kapa-plan")]
+        public IList<KapazitaetsPlan> GetKapazitaetsPlaene()
+        {
+            try
+            {
+                return _simulationService.GetKapaPlaene();
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, exception.Message);
+                return null;
+            }
+        }        
+        
+        [HttpGet("kauf-dispo")]
+        public IList<KaufdispoPos> GetKaufDispos()
+        {
+            try
+            {
+                return _simulationService.GetKaufDispos();
             }
             catch (Exception exception)
             {
