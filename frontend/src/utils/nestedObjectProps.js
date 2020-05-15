@@ -11,7 +11,7 @@ export const setNestedObjectProperty = (theObject, keyArray, value) => {
   let index = 0;
   const setValue = (obj) => {
     Object.keys(obj).map((key) => {
-      if (keyArray[index] && keyArray[index].toString() === key) {
+      if (keyArray[index].toString() === key) {
         if (index === keyArray.length - 1) {
           obj[key] = value;
         } else {

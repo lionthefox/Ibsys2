@@ -209,7 +209,6 @@ class Main extends Component {
           } else {
             setError(false, undefined, undefined);
             newState.simulationData[product] = response.data;
-            console.log(newState);
             setNewState(newState);
           }
         } else {
