@@ -9,8 +9,6 @@ namespace Ibsys2.Services
 {
     public class KaufdispoService
     {
-        private readonly ErgebnisseVorperiodeService _service;
-
         public IList<KaufdispoPos> GetKaufDispo(IList<Lieferdaten> lieferdaten, Forecast forecast, Vertriebswunsch vertriebswunsch, results lastPeriodResults)
         {
             var kaufDispo = new List<KaufdispoPos>();
