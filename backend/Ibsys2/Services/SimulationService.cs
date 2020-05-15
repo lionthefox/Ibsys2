@@ -79,8 +79,8 @@ namespace Ibsys2.Services
 
         public IList<KaufdispoPos> GetKaufDispos()
         {
-            return _kaufdispoService.GetKaufDispo(Kaufteilbestellungen, Forecast, Vertriebswunsch, LastPeriodResults);
-        }
+            return _kaufdispoService.GetKaufDispo(Kaufteilbestellungen, Forecast, Vertriebswunsch, LastPeriodResults, _ergebnisseVorperiodeService.BenoetigteTeile);
+        }    
 
         private void ParseStammdaten()
         {

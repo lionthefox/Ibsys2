@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ibsys2.Models;
+using Ibsys2.Models.ErgebnisseVorperiode;
 using Ibsys2.Models.Kaufdispo;
 using Ibsys2.Models.Stammdaten;
 
@@ -9,19 +10,19 @@ namespace Ibsys2.Services
 {
     public class KaufdispoService
     {
-        public IList<KaufdispoPos> GetKaufDispo(IList<Lieferdaten> lieferdaten, Forecast forecast, Vertriebswunsch vertriebswunsch, results lastPeriodResults)
+        public IList<KaufdispoPos> GetKaufDispo(IList<Lieferdaten> lieferdaten, Forecast forecast, Vertriebswunsch vertriebswunsch, results lastPeriodResults, BenoetigteTeile benoetigteTeile)
         {
             var kaufDispo = new List<KaufdispoPos>();
             foreach (var bestellinfo in lieferdaten)
             {
-                var kaufdispoPos = GetBestellmengen(bestellinfo, forecast, vertriebswunsch, lastPeriodResults);
+                var kaufdispoPos = GetBestellmengen(bestellinfo, forecast, vertriebswunsch, lastPeriodResults, benoetigteTeile);
                 kaufDispo.Add(kaufdispoPos);
             }
             return kaufDispo;
         }
 
         private KaufdispoPos GetBestellmengen(Lieferdaten lieferdaten, Forecast forecast,
-            Vertriebswunsch vertriebswunsch, results lastPeriodResults)
+            Vertriebswunsch vertriebswunsch, results lastPeriodResults, BenoetigteTeile benoetigteTeile)
         {
             var kaufdispoPos = new KaufdispoPos();
             kaufdispoPos.MatNr = lieferdaten.Kaufteil;
@@ -33,7 +34,7 @@ namespace Ibsys2.Services
                 GetBedarf(3, lieferdaten, forecast, vertriebswunsch);
             kaufdispoPos.BedarfPeriode4 =
                 GetBedarf(4, lieferdaten, forecast, vertriebswunsch);
-            var mengeBestellart = GetMengeBestellart(kaufdispoPos.BedarfPeriode1, kaufdispoPos.BedarfPeriode2, kaufdispoPos.BedarfPeriode3, kaufdispoPos.BedarfPeriode4, lieferdaten, lastPeriodResults);
+            var mengeBestellart = GetMengeBestellart(kaufdispoPos.BedarfPeriode1, kaufdispoPos.BedarfPeriode2, kaufdispoPos.BedarfPeriode3, kaufdispoPos.BedarfPeriode4, lieferdaten, lastPeriodResults, benoetigteTeile);
             kaufdispoPos.Menge = mengeBestellart[0];
             kaufdispoPos.Bestellart = mengeBestellart[1];
             kaufdispoPos.Lagermenge = lastPeriodResults.warehousestock.article
@@ -70,42 +71,43 @@ namespace Ibsys2.Services
             return bedarf;
         }
 
-        public IList<int> GetMengeBestellart(int bedarfP1, int bedarfP2, int bedarfP3, int bedarfP4, Lieferdaten lieferdaten, results lastPeriodResults)
+        public IList<int> GetMengeBestellart(int bedarfP1, int bedarfP2, int bedarfP3, int bedarfP4, Lieferdaten lieferdaten, results lastPeriodResults, BenoetigteTeile benoetigteTeile)
         {
             int menge = 0;
             int bestellart = 5;
             var lagerbestand = lastPeriodResults.warehousestock.article.FirstOrDefault(x => x.id == lieferdaten.Kaufteil);
+            var abzugWarteschlange = benoetigteTeile.Teilliste.First(x => x.MatNr == lieferdaten.Kaufteil).Anzahl;
             var startmengeLagerbestand = Convert.ToDouble(lagerbestand?.startamount);
             if (lagerbestand != null)
             {
                 if (lieferdaten.MaxLieferzeit < 1 &&
-                    ((lagerbestand.amount - bedarfP1) <= (startmengeLagerbestand * 0.1)))
+                    ((lagerbestand.amount - (bedarfP1 + abzugWarteschlange)) <= (startmengeLagerbestand * 0.1)))
                 {
                     menge = lieferdaten.Diskontmenge;
                     if ((lagerbestand.amount - bedarfP1) <= 0)
                         bestellart = 4;
                 } 
                 else if (lieferdaten.MaxLieferzeit >= 1 && lieferdaten.MaxLieferzeit < 2 &&
-                         ((lagerbestand.amount - (bedarfP1 + bedarfP2) <= (startmengeLagerbestand * 0.1))))
+                         ((lagerbestand.amount - (bedarfP1 + bedarfP2 + abzugWarteschlange) <= (startmengeLagerbestand * 0.1))))
                 {
                     menge = lieferdaten.Diskontmenge;
                     if((lagerbestand.amount - (bedarfP1 + bedarfP2) <= 0))
                         bestellart = 4;
                 }
                 else if (lieferdaten.MaxLieferzeit >= 2 && lieferdaten.MaxLieferzeit < 3 &&
-                         ((lagerbestand.amount - (bedarfP1 + bedarfP2 + bedarfP3) <= (startmengeLagerbestand * 0.1))))
+                         ((lagerbestand.amount - (bedarfP1 + bedarfP2 + bedarfP3 + abzugWarteschlange) <= (startmengeLagerbestand * 0.1))))
                 {
                     menge = lieferdaten.Diskontmenge;
-                    if ((lagerbestand.amount - (bedarfP1 + bedarfP2 + bedarfP3) <= 0))
+                    if ((lagerbestand.amount - (bedarfP1 + bedarfP2 + bedarfP3 + abzugWarteschlange) <= 0))
                         bestellart = 4;
                 }
-                    
+                   
                 else if (lieferdaten.MaxLieferzeit > 3 &&
-                         ((lagerbestand.amount - (bedarfP1 + bedarfP2 + bedarfP3 + bedarfP4) <=
+                         ((lagerbestand.amount - (bedarfP1 + bedarfP2 + bedarfP3 + bedarfP4 + abzugWarteschlange) <=
                            (startmengeLagerbestand * 0.1))))
                 {
                     menge = lieferdaten.Diskontmenge;
-                    if ((lagerbestand.amount - (bedarfP1 + bedarfP2 + bedarfP3 + bedarfP4) <= 0))
+                    if ((lagerbestand.amount - (bedarfP1 + bedarfP2 + bedarfP3 + bedarfP4 + abzugWarteschlange) <= 0))
                         bestellart = 4;
                 }
                     
