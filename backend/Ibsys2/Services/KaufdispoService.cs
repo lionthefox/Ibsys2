@@ -36,6 +36,8 @@ namespace Ibsys2.Services
             var mengeBestellart = GetMengeBestellart(kaufdispoPos.BedarfPeriode1, kaufdispoPos.BedarfPeriode2, kaufdispoPos.BedarfPeriode3, kaufdispoPos.BedarfPeriode4, lieferdaten, lastPeriodResults);
             kaufdispoPos.Menge = mengeBestellart[0];
             kaufdispoPos.Bestellart = mengeBestellart[1];
+            kaufdispoPos.Lagermenge = lastPeriodResults.warehousestock.article
+                .First(x => x.id == lieferdaten.Kaufteil).amount;
             return kaufdispoPos;
         }
 
