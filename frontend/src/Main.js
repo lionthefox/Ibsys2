@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { withLocalize, Translate } from 'react-localize-redux';
 import { Route, Redirect } from 'react-router-dom';
-import axios from 'axios';
+
 import globalTranslations from './translations/global.json';
 import defaultSimulationInput from './assets/defaultSimulationInput.json';
 
@@ -17,6 +17,11 @@ import Result from './components/Simulation/Result';
 import Stepper from './components/navigation/Stepper';
 
 import { setNestedObjectProperty } from './utils/nestedObjectProps';
+import {
+  postSimulationInput,
+  putSimulationData,
+  getCapacityPlan,
+} from './utils/requests';
 
 const paths = [
   '/input',
@@ -91,6 +96,7 @@ class Main extends Component {
       lastPeriodResults: undefined,
       simulationInput: { ...simulationInput },
       simulationData: undefined,
+      capacityPlan: undefined,
       showError: false,
       errorMessageId: undefined,
       errorMessage: undefined,
@@ -120,41 +126,22 @@ class Main extends Component {
     const { setNewState, setError } = this;
 
     const newState = { activeStep: activeStep + 1 };
-    if (activeStep === 1) {
-      axios({
-        url: '/simulation/start',
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        data: simulationInput,
-      })
-        .then(function (response) {
-          if (response.status >= 200 && response.status < 300) {
-            if (response.status === 204) {
-              setError(true, 'Main.error.noContent', response);
-              setTimeout(() => setError(false, undefined, undefined), 10000);
-            } else {
-              setError(false, undefined, undefined);
-              newState.simulationData = response.data;
-              setNewState(newState);
-              history.push(paths[activeStep + 1]);
-            }
-          } else {
-            setError(true, 'Main.error.serverError', response);
-            setTimeout(() => setError(false, undefined, undefined), 10000);
-          }
-        })
-        .catch(function (errorMessage) {
-          const response = errorMessage.response;
-          let translateId = 'Main.error.serverError';
-          if (response && response.status >= 500) {
-            translateId = 'Main.error.uploadError';
-          }
-          setError(true, translateId, response);
-          setTimeout(() => setError(false, undefined, undefined), 10000);
-        });
-    } else {
-      this.setState(newState);
-      history.push(paths[activeStep + 1]);
+    const requestProps = {
+      newState,
+      setNewState,
+      setError,
+      history,
+      activeStep,
+      paths,
+    };
+    switch (activeStep) {
+      case 1:
+        return postSimulationInput(simulationInput, requestProps);
+      case 2:
+        return getCapacityPlan(requestProps);
+      default:
+        this.setState(newState);
+        history.push(paths[activeStep + 1]);
     }
   };
 
@@ -185,7 +172,7 @@ class Main extends Component {
       return { simulationInput: newSimulationInput };
     });
 
-  putSimulationData = (product, keyArray, val) => {
+  changeSimulationData = (product, keyArray, val) => {
     const { simulationData } = this.state;
     const { setNewState, setError } = this;
 
@@ -195,37 +182,24 @@ class Main extends Component {
       val
     );
     const newState = { simulationData: { ...simulationData } };
-    axios({
-      url: `simulation/update-dispo-ef/${product}`,
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      data: newSimulationData[product],
-    })
-      .then(function (response) {
-        if (response.status >= 200 && response.status < 300) {
-          if (response.status === 204) {
-            setError(true, 'Main.error.noContent', response);
-            setTimeout(() => setError(false, undefined, undefined), 10000);
-          } else {
-            setError(false, undefined, undefined);
-            newState.simulationData[product] = response.data;
-            setNewState(newState);
-          }
-        } else {
-          setError(true, 'Main.error.serverError', response);
-          setTimeout(() => setError(false, undefined, undefined), 10000);
-        }
-      })
-      .catch(function (errorMessage) {
-        const response = errorMessage.response;
-        let translateId = 'Main.error.serverError';
-        if (response && response.status >= 500) {
-          translateId = 'Main.error.uploadError';
-        }
-        setError(true, translateId, response);
-        setTimeout(() => setError(false, undefined, undefined), 10000);
-      });
+    putSimulationData(
+      product,
+      newSimulationData,
+      newState,
+      setNewState,
+      setError
+    );
   };
+
+  changeCapacityPlan = (product, keyArray, val) =>
+    this.setState((prevState) => {
+      const newCapacityPlan = setNestedObjectProperty(
+        prevState.simulationInput,
+        keyArray,
+        val
+      );
+      return { capacityPlan: newCapacityPlan };
+    });
 
   render() {
     const {
@@ -237,6 +211,7 @@ class Main extends Component {
       showError,
       errorMessageId,
       errorMessage,
+      capacityPlan,
     } = this.state;
 
     const inputProps = {
@@ -310,7 +285,7 @@ class Main extends Component {
                 <QuantityPlanning
                   activeLanguage={activeLanguage}
                   simulationData={simulationData}
-                  putSimulationData={this.putSimulationData}
+                  changeSimulationData={this.changeSimulationData}
                 />
               </HeadlineWrapper>
             </AnimationWrapper>
@@ -326,7 +301,10 @@ class Main extends Component {
                   <Translate id='Headline.capacity_planning' />
                 }
               >
-                <CapacityPlanning />
+                <CapacityPlanning
+                  capacityPlan={capacityPlan}
+                  changeCapacityPlan={this.changeCapacityPlan}
+                />
               </HeadlineWrapper>
             </AnimationWrapper>
           )}

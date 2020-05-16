@@ -76,5 +76,11 @@
     ],
     "auftraegeBearbeitung": ["Products in Work", "Produkte in Bearbeitung"],
     "produktion": ["Production Amount", "Produktionsmenge"]
+  },
+  "CapacityPlanning": {
+    "arbeitsplatzId": ["Work station", "Arbeitsplatz"],
+    "kapaProduktion": ["Total Capacity", "Gesamtkapazität"],
+    "ubermin": ["Overtime [min]", "Überminuten"],
+    "anzSchicht": ["Shifts", "Schichten"]
   }
 }

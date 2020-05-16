@@ -24,11 +24,20 @@ const styles = {
   },
 };
 
-const Text = ({ classes, obj, idProp, label, prop, text, idArray }) => {
+const Text = ({
+  classes,
+  obj,
+  idProp,
+  label,
+  prop,
+  text,
+  idArray,
+  productIDs,
+}) => {
   const elements = [];
   const getArticleProp = (article) => {
     if (article[prop]) {
-      if (prop === idProp) {
+      if (prop === idProp && productIDs) {
         return artNumbers[article[prop] - 1];
       } else return article[prop];
     } else return 0;
