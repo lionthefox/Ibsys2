@@ -11,13 +11,16 @@ namespace Ibsys2.Services
     public class KaufdispoService
     {
         public IList<KaufdispoPos> GetKaufDispo(IList<Lieferdaten> lieferdaten, Forecast forecast,
-            Vertriebswunsch vertriebswunsch, results lastPeriodResults, BenoetigteTeile benoetigteTeile)
+            Vertriebswunsch vertriebswunsch, results lastPeriodResults, BenoetigteTeile benoetigteTeile, IList<KaufdispoPos> updatedKaufdispo = null)
         {
             var kaufDispo = new List<KaufdispoPos>();
             foreach (var bestellinfo in lieferdaten)
             {
+                KaufdispoPos updatedKaufdispoPos = null;
+                if (updatedKaufdispo != null)
+                    updatedKaufdispoPos = updatedKaufdispo.FirstOrDefault(x => x.MatNr == bestellinfo.Kaufteil);
                 var kaufdispoPos = GetBestellmengen(bestellinfo, forecast, vertriebswunsch, lastPeriodResults,
-                    benoetigteTeile);
+                    benoetigteTeile, updatedKaufdispoPos);
                 kaufDispo.Add(kaufdispoPos);
             }
 
@@ -25,7 +28,7 @@ namespace Ibsys2.Services
         }
 
         private KaufdispoPos GetBestellmengen(Lieferdaten lieferdaten, Forecast forecast,
-            Vertriebswunsch vertriebswunsch, results lastPeriodResults, BenoetigteTeile benoetigteTeile)
+            Vertriebswunsch vertriebswunsch, results lastPeriodResults, BenoetigteTeile benoetigteTeile, KaufdispoPos updatedKaufdispoPos = null)
         {
             var kaufdispoPos = new KaufdispoPos();
             kaufdispoPos.MatNr = lieferdaten.Kaufteil;
@@ -40,13 +43,20 @@ namespace Ibsys2.Services
             kaufdispoPos.BedarfPeriode4 =
                 GetBedarf(4, lieferdaten, forecast, vertriebswunsch);
 
-            var mengeBestellart = GetMengeBestellart(kaufdispoPos.BedarfPeriode1, kaufdispoPos.BedarfPeriode2,
-                kaufdispoPos.BedarfPeriode3, kaufdispoPos.BedarfPeriode4, lieferdaten, lastPeriodResults,
-                benoetigteTeile);
-            kaufdispoPos.Menge = mengeBestellart[0];
-            if (kaufdispoPos.Bestellart == null)
-                kaufdispoPos.Bestellart = mengeBestellart[1];
-            
+            if (updatedKaufdispoPos == null)
+            {
+                var mengeBestellart = GetMengeBestellart(kaufdispoPos.BedarfPeriode1, kaufdispoPos.BedarfPeriode2,
+                    kaufdispoPos.BedarfPeriode3, kaufdispoPos.BedarfPeriode4, lieferdaten, lastPeriodResults,
+                    benoetigteTeile);
+                kaufdispoPos.Menge = mengeBestellart[0];
+                if (kaufdispoPos.Bestellart == null)
+                    kaufdispoPos.Bestellart = mengeBestellart[1];
+            }
+            else
+            {
+                kaufdispoPos.Menge = updatedKaufdispoPos.Menge;
+                kaufdispoPos.Bestellart = updatedKaufdispoPos.Bestellart;
+            }
             // Lagervorraussagen
             kaufdispoPos.LagerbestandPeriode1 =
                 GetLagerbestandZukunft(1, kaufdispoPos.BedarfPeriode1, kaufdispoPos.Lagermenge, lieferdaten, kaufdispoPos.Menge);
