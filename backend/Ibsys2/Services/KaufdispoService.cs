@@ -170,7 +170,8 @@ namespace Ibsys2.Services
                 lieferdauer = lieferdaten.Standardlieferzeit;
 
             double dWochentag = Convert.ToDouble(lieferdauer % 1);
-
+            dWochentag = Math.Round(dWochentag, 1, MidpointRounding.AwayFromZero);
+            
             if (lang == 'D')
             {
                 switch (dWochentag)
@@ -194,6 +195,10 @@ namespace Ibsys2.Services
                     case 0.8:
                     case 0.9:
                         wochentag = "Freitag";
+                        break;
+                    case 1:
+                        wochentag = "Montag";
+                        period += 1;
                         break;
                     default:
                         wochentag = "";
@@ -233,6 +238,10 @@ namespace Ibsys2.Services
                     case 0.8:
                     case 0.9:
                         wochentag = "Friday";
+                        break;
+                    case 1:
+                        wochentag = "Monday";
+                        period += 1;
                         break;
                     default:
                         wochentag = "";
