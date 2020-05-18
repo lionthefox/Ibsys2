@@ -10,10 +10,8 @@ namespace Ibsys2.Models.KapazitaetsPlan
         public int KapaProduktion { get; set; }
         public int RuestzeitProduktion { get; set; }
 
-        public int KapafBearbeitung { get; set; }
-        public int RuestzeitBearbeitung { get; set; }
-        public int KapaWarteschlange { get; set; }
-        public int RuestzeitWarteschlange { get; set; }
+        public int KapaVorperiode { get; set; }
+        public int RuestVorperiode { get; set; }
         public int AnzSchicht { get; set; }
         public int Ubermin { get; set; }
 
@@ -46,12 +44,12 @@ namespace Ibsys2.Models.KapazitaetsPlan
 
         private int CalcBearbGes()
         {
-            return KapaProduktion + KapafBearbeitung + KapaWarteschlange;
+            return KapaProduktion + KapaVorperiode;
         }
 
         private int CalcRusestGes()
         {
-            return RuestzeitProduktion + RuestzeitBearbeitung + RuestzeitWarteschlange;
+            return RuestzeitProduktion + RuestVorperiode;
         }
     }
 }
