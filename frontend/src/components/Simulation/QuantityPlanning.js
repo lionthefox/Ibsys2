@@ -15,7 +15,6 @@ const styles = {
   },
   root: {
     display: 'flex',
-    overflowY: 'scroll',
     justifyContent: 'space-around',
     marginTop: '2rem',
   },

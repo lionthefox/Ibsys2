@@ -1,7 +1,11 @@
-export const getFloatValue = (val, decimal) => {
-  let newVal = val;
-  if (val && !decimal) {
-    newVal = val.replace('.', '');
+export const getValue = (val, decimal, maxValue) => {
+  let newVal = val
+    ? decimal
+      ? parseFloat(val.replace('-', ''))
+      : parseInt(val.replace('-', ''))
+    : 0;
+  if (newVal > maxValue) {
+    newVal = maxValue;
   }
-  return val ? parseFloat(newVal) : 0;
+  return newVal;
 };
