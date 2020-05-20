@@ -1,5 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml;
+using System.Xml.Serialization;
 using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
 using Ibsys2.Models.KapazitaetsPlan;
@@ -16,6 +21,8 @@ namespace Ibsys2.Controllers
     {
         private readonly ILogger<SimulationController> _logger;
         private readonly SimulationService _simulationService;
+
+        private Regex regex = new Regex(@"<sellwish>[\r\n]+\W*<item article=""\d"" quantity=""\d+"" (price=""0"" penalty=""0"")\W\/>[\r\n]+\W*<item article=""\d"" quantity=""\d+"" (price=""0"" penalty=""0"")\W\/>[\r\n]+\W*<item article=""\d"" quantity=""\d+"" (price=""0"" penalty=""0"")\W\/>[\r\n]+\W*sellwish>", RegexOptions.Compiled);
 
         public SimulationController(
             ILogger<SimulationController> logger,
@@ -165,6 +172,37 @@ namespace Ibsys2.Controllers
                 _logger.LogError(exception, exception.Message);
                 return null;
             }
+        }
+
+        [HttpPost("convert-to-xml")]
+        public string ConvertToXml([FromBody] Input json)
+        {
+            var xmlSerializer = new XmlSerializer(json.GetType());
+
+            using var ms = new MemoryStream();
+            using var xw = XmlWriter.Create(ms,
+                new XmlWriterSettings
+                {
+                    Encoding = new UTF8Encoding(false),
+                    Indent = true,
+                    NewLineOnAttributes = false,
+                    
+
+                });
+            var ns = new XmlSerializerNamespaces();
+            ns.Add("", "");
+            xmlSerializer.Serialize(xw, json, ns);
+            var xmlString = Encoding.UTF8.GetString(ms.ToArray());
+
+            var x = regex.Replace(xmlString,
+                $@"<sellwish>
+    <item article=""{json.sellwish[0].article}"" quantity=""{json.sellwish[0].quantity}"" />
+    <item article= ""{json.sellwish[1].article}"" quantity= ""{json.sellwish[1].quantity}"" />
+    <item article= ""{json.sellwish[2].article}"" quantity= ""{json.sellwish[2].quantity}"" />
+  </sellwish>"
+);
+
+            return x;
         }
     }
 }
