@@ -75,12 +75,16 @@
       "Produkte in der Warteschlange"
     ],
     "auftraegeBearbeitung": ["Products in Work", "Produkte in Bearbeitung"],
-    "produktion": ["Production Amount", "Produktionsmenge"]
+    "produktion": ["Production Amount", "Produktionsmenge"],
+    "vertrieb": ["Binding orders", "Verbindliche Aufträge"]
   },
   "CapacityPlanning": {
     "arbeitsplatzId": ["Work station", "Arbeitsplatz"],
     "kapaProduktion": ["Total Capacity", "Gesamtkapazität"],
-    "ubermin": ["Overtime [min]", "Überminuten"],
+    "ruestzeitProduktion": ["Setup Time Production", "Rüstzeit Produktion"],
+    "kapaVorperiode": ["Capacity Previous Period", "Kapazität Vorperiode"],
+    "ruestVorperiode": ["Setup Time Previous Period", "Rüstzeit Vorperiode"],
+    "ubermin": ["Overtime [min/day]", "Überstunden [min/Tag]"],
     "anzSchicht": ["Shifts", "Schichten"]
   }
 }

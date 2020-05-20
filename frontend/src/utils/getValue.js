@@ -1,1 +1,7 @@
-export const getFloatValue = (val) => (val ? parseFloat(val) : 0);
+export const getFloatValue = (val, decimal) => {
+  let newVal = val;
+  if (val && !decimal) {
+    newVal = val.replace('.', '');
+  }
+  return val ? parseFloat(newVal) : 0;
+};

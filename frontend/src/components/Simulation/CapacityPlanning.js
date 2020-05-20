@@ -21,7 +21,6 @@ const styles = {
 };
 
 const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
-  console.log(capacityPlan);
   const getComponent = () => {
     const elements = [];
     const formProps = {
@@ -32,27 +31,23 @@ const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
     if (capacityPlan) {
       let keys = [];
       Object.keys(capacityPlan[0]).map((key) => keys.push(key));
-      keys = keys.filter((val) => {
-        if (
-          val === 'ruestzeitProduktion' ||
-          val === 'kapafBearbeitung' ||
-          val === 'ruestzeitBearbeitung' ||
-          val === 'kapaWarteschlange' ||
-          val === 'ruestzeitWarteschlange'
-        )
-          return false;
-      });
 
       keys.map((artKey) =>
-        artKey === 'ubermin' || 'anzSchicht'
+        artKey === 'ubermin' || artKey === 'anzSchicht'
           ? elements.push(
-              <Form
-                {...formProps}
-                key={`capacity_planning_form_${artKey}`}
-                label={<Translate id={`CapacityPlanning.${artKey}`} />}
-                prop={artKey}
-                small
-              />
+              <div
+                key={`capacity_planning_form_${artKey}_wrapper`}
+                style={{ marginRight: '1rem' }}
+              >
+                <Form
+                  {...formProps}
+                  max={artKey === 'ubermin' ? 240 : 3}
+                  key={`capacity_planning_form_${artKey}`}
+                  label={<Translate id={`CapacityPlanning.${artKey}`} />}
+                  prop={artKey}
+                  small
+                />
+              </div>
             )
           : elements.push(
               <Text

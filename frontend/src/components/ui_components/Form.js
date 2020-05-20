@@ -60,10 +60,13 @@ const Form = ({
   prop,
   product,
   small,
+  decimal,
+  max,
 }) => {
   const inputBaseProps = {
     type: 'number',
     variant: 'outlined',
+    InputProps: { inputProps: { min: 0, max: max || undefined } },
   };
 
   const getInputValue = (val) => String(val).replace('^0+', '');
@@ -78,7 +81,11 @@ const Form = ({
               key: `Input_${label || 'label'}_${index}`,
               value: getInputValue(getNestedObjectProperty(obj, val)) || 0,
               onChange: (e) => {
-                setObjState(undefined, val, getFloatValue(e.target.value));
+                setObjState(
+                  undefined,
+                  val,
+                  getFloatValue(e.target.value, decimal)
+                );
               },
             };
             return small ? (
@@ -94,13 +101,19 @@ const Form = ({
                 ...inputBaseProps,
                 key: `Input_${label || 'label'}_${index}`,
                 value: getInputValue(getNestedObjectProperty(art, [prop])) || 0,
-                onChange: (e) => {
-                  setObjState(
-                    product,
-                    [index, prop],
-                    getFloatValue(e.target.value)
-                  );
-                },
+                onChange: product
+                  ? (e) =>
+                      setObjState(
+                        product,
+                        [index, prop],
+                        getFloatValue(e.target.value, decimal)
+                      )
+                  : (e) =>
+                      setObjState(
+                        undefined,
+                        [index, prop],
+                        getFloatValue(e.target.value, decimal)
+                      ),
               };
               return small ? (
                 <SmallInput {...inputProps} />

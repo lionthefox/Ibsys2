@@ -193,10 +193,14 @@ class Main extends Component {
 
   changeCapacityPlan = (product, keyArray, val) =>
     this.setState((prevState) => {
-      const newCapacityPlan = setNestedObjectProperty(
-        prevState.simulationInput,
+      const newCapacityObject = setNestedObjectProperty(
+        prevState.capacityPlan,
         keyArray,
         val
+      );
+      let newCapacityPlan = [];
+      Object.keys(newCapacityObject).map((key) =>
+        newCapacityPlan.push(newCapacityObject[key])
       );
       return { capacityPlan: newCapacityPlan };
     });

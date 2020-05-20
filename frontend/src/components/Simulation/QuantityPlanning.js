@@ -46,7 +46,7 @@ const QuantityPlanning = ({
         keys.push(key)
       );
       keys = keys.filter((val) => {
-        if (val === 'vertrieb' || val === 'auftragUebernahme') return false;
+        if (val === 'auftragUebernahme') return false;
         if (activeLanguage === 'en') {
           return val !== 'name';
         } else {

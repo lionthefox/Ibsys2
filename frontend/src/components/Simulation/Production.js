@@ -128,6 +128,7 @@ const Production = ({
             />
             <Form
               {...formProps}
+              decimal
               label={<Translate id='Production.price' />}
               values={[
                 ['vertriebswunsch', 'direktverkauf', 'produkt1', 'preis'],
@@ -137,6 +138,7 @@ const Production = ({
             />
             <Form
               {...formProps}
+              decimal
               label={<Translate id='Production.penalty' />}
               values={[
                 [
