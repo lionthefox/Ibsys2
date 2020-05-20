@@ -87,6 +87,19 @@ class Main extends Component {
     });
   }
 
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      if (this.props.history.action === 'POP') {
+        let newActiveStep = prevState.activeStep;
+        paths.map((path, index) => {
+          if (this.props.history.location.pathname === path)
+            newActiveStep = index;
+        });
+        this.setState({ activeStep: newActiveStep });
+      }
+    }
+  };
+
   getDefaultState = (language) => {
     const simulationInputString = JSON.stringify(defaultSimulationInput);
     const simulationInput = JSON.parse(simulationInputString);

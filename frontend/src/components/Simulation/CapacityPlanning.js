@@ -14,7 +14,6 @@ const styles = {
   },
   root: {
     display: 'flex',
-    overflowY: 'scroll',
     justifyContent: 'space-around',
     marginTop: '2rem',
   },
@@ -41,7 +40,7 @@ const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
               >
                 <Form
                   {...formProps}
-                  max={artKey === 'ubermin' ? 240 : 3}
+                  maxValue={artKey === 'ubermin' ? 240 : 3}
                   key={`capacity_planning_form_${artKey}`}
                   label={<Translate id={`CapacityPlanning.${artKey}`} />}
                   prop={artKey}

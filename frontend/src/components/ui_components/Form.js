@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { getNestedObjectProperty } from '../../utils/nestedObjectProps';
-import { getFloatValue } from '../../utils/getValue';
+import { getValue } from '../../utils/getValue';
 
 const styles = {
   columnContainer: {
@@ -61,12 +61,12 @@ const Form = ({
   product,
   small,
   decimal,
-  max,
+  maxValue,
 }) => {
   const inputBaseProps = {
     type: 'number',
     variant: 'outlined',
-    InputProps: { inputProps: { min: 0, max: max || undefined } },
+    InputProps: { inputProps: { min: 0, max: maxValue || undefined } },
   };
 
   const getInputValue = (val) => String(val).replace('^0+', '');
@@ -84,7 +84,7 @@ const Form = ({
                 setObjState(
                   undefined,
                   val,
-                  getFloatValue(e.target.value, decimal)
+                  getValue(e.target.value, decimal, maxValue)
                 );
               },
             };
@@ -106,13 +106,13 @@ const Form = ({
                       setObjState(
                         product,
                         [index, prop],
-                        getFloatValue(e.target.value, decimal)
+                        getValue(e.target.value, decimal, maxValue)
                       )
                   : (e) =>
                       setObjState(
                         undefined,
                         [index, prop],
-                        getFloatValue(e.target.value, decimal)
+                        getValue(e.target.value, decimal, maxValue)
                       ),
               };
               return small ? (
