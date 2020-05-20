@@ -28,39 +28,24 @@ namespace Ibsys2.Models.DispoEigenfertigung
            NameEng = artikelStammdaten.FirstOrDefault(x => x.Artikelnummer == articleId)?.NameEng
           };
 
-        switch (articleId)
-        {
-          case 1:
-            dispoEfPos.Vertrieb = vertriebsWunsch.Produkt1 + vertriebsWunsch.Direktverkauf.Produkt1.Menge;
-            dispoEfPos.AuftragUebernahme = 0;
-            break;
-          case 26:
-          case 51:
-            dispoEfPos.Vertrieb = ListDispoEfPos[0].Produktion;
-            dispoEfPos.AuftragUebernahme = ListDispoEfPos[0].AuftraegeWarteschlange;
-            break;
-          case 16:
-          case 17:
-          case 50:
-            dispoEfPos.Vertrieb = ListDispoEfPos[2].Produktion;
-            dispoEfPos.AuftragUebernahme = ListDispoEfPos[2].AuftraegeWarteschlange;
-            break;
-          case 4:
-          case 10:
-          case 49:
-            dispoEfPos.Vertrieb = ListDispoEfPos[5].Produktion;
-            dispoEfPos.AuftragUebernahme = ListDispoEfPos[5].AuftraegeWarteschlange;
-            break;
-          case 7:
-          case 13:
-          case 18:
-            dispoEfPos.Vertrieb = ListDispoEfPos[8].Produktion;
-            dispoEfPos.AuftragUebernahme = ListDispoEfPos[8].AuftraegeWarteschlange;
-            break;
-        }
+        Uebernahmemengen(dispoEfPos, vertriebsWunsch, ListDispoEfPos);
 
         dispoEfPos.Sicherheitsbestand = updatedDispo?.FirstOrDefault(x => x.ArticleId == articleId)?.Sicherheitsbestand ?? CalcSicherheitsbestand(forecast, vertriebsWunsch);
-        dispoEfPos.Lagerbestand = DispoEfService.GetLagerbestand(articleId, lastPeriodResults);
+
+        // Lagerbestand
+        switch (articleId)
+        {
+          case 26:
+          case 16:
+          case 17:
+            dispoEfPos.Lagerbestand = (DispoEfService.GetLagerbestand(articleId, lastPeriodResults) / 3);
+            break;
+          default:
+            dispoEfPos.Lagerbestand = DispoEfService.GetLagerbestand(articleId, lastPeriodResults);
+            break;
+        }
+        
+        
 
         if (updatedDispo == null)
         {
@@ -74,10 +59,45 @@ namespace Ibsys2.Models.DispoEigenfertigung
       }
     }
 
+    public static void Uebernahmemengen(DispoEFPos dispoEfPos, Vertriebswunsch vertriebswunsch,
+      IList<DispoEFPos> dispoEfPoses)
+    {
+      switch (dispoEfPos.ArticleId)
+      {
+        case 1:
+          dispoEfPos.Vertrieb = vertriebswunsch.Produkt1 + vertriebswunsch.Direktverkauf.Produkt1.Menge;
+          dispoEfPos.AuftragUebernahme = 0;
+          break;
+        case 26:
+        case 51:
+          dispoEfPos.Vertrieb = dispoEfPoses[0].Produktion;
+          dispoEfPos.AuftragUebernahme = dispoEfPoses[0].AuftraegeWarteschlange;
+          break;
+        case 16:
+        case 17:
+        case 50:
+          dispoEfPos.Vertrieb = dispoEfPoses[2].Produktion;
+          dispoEfPos.AuftragUebernahme = dispoEfPoses[2].AuftraegeWarteschlange;
+          break;
+        case 4:
+        case 10:
+        case 49:
+          dispoEfPos.Vertrieb = dispoEfPoses[5].Produktion;
+          dispoEfPos.AuftragUebernahme = dispoEfPoses[5].AuftraegeWarteschlange;
+          break;
+        case 7:
+        case 13:
+        case 18:
+          dispoEfPos.Vertrieb = dispoEfPoses[8].Produktion;
+          dispoEfPos.AuftragUebernahme = dispoEfPoses[8].AuftraegeWarteschlange;
+          break;
+      }
+    }
+
     public int CalcSicherheitsbestand(Forecast forecast, Vertriebswunsch vertriebswunsch)
     {
       return Convert.ToInt32((vertriebswunsch.Produkt1 + forecast.Periode2.Produkt1 + forecast.Periode3.Produkt1 +
-                              forecast.Periode4.Produkt1) / 4 * 0.5);
+                              forecast.Periode4.Produkt1) / 4 * 0.4);
     }
   }
 }

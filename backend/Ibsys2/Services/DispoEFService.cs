@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.XPath;
 using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
 using Ibsys2.Models.ErgebnisseVorperiode;
@@ -40,23 +41,44 @@ namespace Ibsys2.Services
                     var dispoPosP1 = DispoEfP1
                         .ListDispoEfPos.First(x => x.ArticleId == auftrag.Teil);
                     dispoPosP1.AuftraegeBearbeitung = roundedMenge;
+                    DispoEFP1.Uebernahmemengen(dispoPosP1, vertriebWunsch, DispoEfP1.ListDispoEfPos);
                     var dispoPosP2 = DispoEfP2
                         .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
                     dispoPosP2.AuftraegeBearbeitung = roundedMenge;
+                    DispoEFP2.Uebernahmemengen(dispoPosP2, vertriebWunsch, DispoEfP2.ListDispoEfPos);
                     var dispoPosP3 = DispoEfP3
                         .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
                     dispoPosP3.AuftraegeBearbeitung = roundedMenge;
+                    DispoEFP3.Uebernahmemengen(dispoPosP3, vertriebWunsch, DispoEfP3.ListDispoEfPos);
+                    dispoPosP1.Produktion = CalcProduktion(dispoPosP1);
+                    dispoPosP2.Produktion = CalcProduktion(dispoPosP2);
+                    dispoPosP3.Produktion = CalcProduktion(dispoPosP3);
                     break;
                 default:
                     var dispoPos = DispoEfP1
                         .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                    if (dispoPos == null)
+                    if (dispoPos != null)
+                    {
+                        dispoPos.AuftraegeBearbeitung = auftrag.Menge;
+                        DispoEFP1.Uebernahmemengen(dispoPos, vertriebWunsch, DispoEfP1.ListDispoEfPos);
+                    } else
                         dispoPos = DispoEfP2
                             .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                    if (dispoPos == null)
+
+                    if (dispoPos != null)
+                    {
+                        dispoPos.AuftraegeBearbeitung = auftrag.Menge;
+                        DispoEFP2.Uebernahmemengen(dispoPos, vertriebWunsch, DispoEfP2.ListDispoEfPos);
+                    } else
                         dispoPos = DispoEfP3
                             .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
-                    dispoPos.AuftraegeBearbeitung = auftrag.Menge;
+
+                    if (dispoPos != null)
+                    {
+                        dispoPos.AuftraegeBearbeitung = auftrag.Menge;
+                        DispoEFP3.Uebernahmemengen(dispoPos, vertriebWunsch, DispoEfP3.ListDispoEfPos);
+                    }
+                    dispoPos.Produktion = CalcProduktion(dispoPos);
                     break;
             }
         }
@@ -84,6 +106,9 @@ namespace Ibsys2.Services
                             var dispoPosP3 = DispoEfP3
                                 .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
                             dispoPosP3.AuftraegeWarteschlange = roundedMenge;
+                            dispoPosP1.Produktion = CalcProduktion(dispoPosP1);
+                            dispoPosP2.Produktion = CalcProduktion(dispoPosP2);
+                            dispoPosP3.Produktion = CalcProduktion(dispoPosP3);
                             break;
                         default:
                             var dispoPos = DispoEfP1
@@ -95,6 +120,7 @@ namespace Ibsys2.Services
                                 dispoPos = DispoEfP3
                                     .ListDispoEfPos.FirstOrDefault(x => x.ArticleId == auftrag.Teil);
                             dispoPos.AuftraegeWarteschlange = auftrag.Menge;
+                            dispoPos.Produktion = CalcProduktion(dispoPos);
                             break;
                     }
                 }
@@ -120,6 +146,7 @@ namespace Ibsys2.Services
                             dispoEfPos.Lagerbestand - dispoEfPos.AuftraegeWarteschlange -
                             dispoEfPos.AuftraegeBearbeitung;
             return prodMenge > 0 ? prodMenge : 0;
+            //return ((prodMenge / 10 + 1) * 10) > 0 ? ((prodMenge / 10 + 1) * 10) : 0;
         }
     }
 }
