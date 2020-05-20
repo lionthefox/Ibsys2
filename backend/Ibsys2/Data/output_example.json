@@ -1,0 +1,278 @@
+{
+	"qualitycontrol": {
+		"losequantity": 0,
+		"delay": 0
+	},
+	"sellwish": [{
+			"article": 1,
+			"quantity": 100
+		},
+		{
+			"article": 2,
+			"quantity": 200
+		},
+		{
+			"article": 3,
+			"quantity": 100
+		}
+	],
+	"selldirect": [{
+			"article": 1,
+			"quantity": 0,
+			"price": 0.0,
+			"penalty": 0.0
+		},
+		{
+			"article": 2,
+			"quantity": 0,
+			"price": 0.0,
+			"penalty": 0.0
+		},
+		{
+			"article": 3,
+			"quantity": 150,
+			"price": 195,
+			"penalty": 20
+		}
+	],
+	"orderlist": [{
+			"article": 24,
+			"quantity": 6100,
+			"modus": 5
+		},
+		{
+			"article": 25,
+			"quantity": 3600,
+			"modus": 5
+		},
+		{
+			"article": 27,
+			"quantity": 900,
+			"modus": 5
+		},
+		{
+			"article": 28,
+			"quantity": 4500,
+			"modus": 5
+		},
+		{
+			"article": 32,
+			"quantity": 2700,
+			"modus": 5
+		},
+		{
+			"article": 34,
+			"quantity": 22000,
+			"modus": 5
+		},
+		{
+			"article": 35,
+			"quantity": 3600,
+			"modus": 5
+		},
+		{
+			"article": 36,
+			"quantity": 900,
+			"modus": 5
+		},
+		{
+			"article": 38,
+			"quantity": 300,
+			"modus": 5
+		},
+		{
+			"article": 39,
+			"quantity": 1800,
+			"modus": 5
+		},
+		{
+			"article": 40,
+			"quantity": 900,
+			"modus": 5
+		},
+		{
+			"article": 42,
+			"quantity": 900,
+			"modus": 5
+		},
+		{
+			"article": 44,
+			"quantity": 900,
+			"modus": 5
+		},
+		{
+			"article": 57,
+			"quantity": 600,
+			"modus": 5
+		},
+		{
+			"article": 59,
+			"quantity": 1800,
+			"modus": 5
+		}
+	],
+	"productionlist": [{
+			"article": 4,
+			"quantity": 20
+		},
+		{
+			"article": 5,
+			"quantity": 210
+		},
+		{
+			"article": 6,
+			"quantity": 10
+		},
+		{
+			"article": 8,
+			"quantity": 100
+		},
+		{
+			"article": 10,
+			"quantity": 20
+		},
+		{
+			"article": 11,
+			"quantity": 120
+		},
+		{
+			"article": 12,
+			"quantity": 10
+		},
+		{
+			"article": 14,
+			"quantity": 0
+		},
+		{
+			"article": 16,
+			"quantity": 250
+		},
+		{
+			"article": 17,
+			"quantity": 250
+		},
+		{
+			"article": 19,
+			"quantity": 100
+		},
+		{
+			"article": 26,
+			"quantity": 310
+		},
+		{
+			"article": 49,
+			"quantity": 20
+		},
+		{
+			"article": 54,
+			"quantity": 120
+		},
+		{
+			"article": 50,
+			"quantity": 40
+		},
+		{
+			"article": 55,
+			"quantity": 140
+		},
+		{
+			"article": 30,
+			"quantity": 40
+		},
+		{
+			"article": 51,
+			"quantity": 60
+		},
+		{
+			"article": 56,
+			"quantity": 160
+		},
+		{
+			"article": 31,
+			"quantity": 80
+		},
+		{
+			"article": 1,
+			"quantity": 80
+		},
+		{
+			"article": 2,
+			"quantity": 180
+		},
+		{
+			"article": 3,
+			"quantity": 130
+		}
+	],
+	"workingtimelist": [{
+			"station": 1,
+			"shift": 1,
+			"overtime": 80
+		},
+		{
+			"station": 2,
+			"shift": 1,
+			"overtime": 0
+		},
+		{
+			"station": 3,
+			"shift": 1,
+			"overtime": 0
+		},
+		{
+			"station": 4,
+			"shift": 1,
+			"overtime": 200
+		},
+		{
+			"station": 6,
+			"shift": 1,
+			"overtime": 0
+		},
+		{
+			"station": 7,
+			"shift": 1,
+			"overtime": 100
+		},
+		{
+			"station": 8,
+			"shift": 1,
+			"overtime": 0
+		},
+		{
+			"station": 9,
+			"shift": 1,
+			"overtime": 50
+		},
+		{
+			"station": 10,
+			"shift": 1,
+			"overtime": 0
+		},
+		{
+			"station": 11,
+			"shift": 1,
+			"overtime": 0
+		},
+		{
+			"station": 12,
+			"shift": 1,
+			"overtime": 0
+		},
+		{
+			"station": 13,
+			"shift": 1,
+			"overtime": 0
+		},
+		{
+			"station": 14,
+			"shift": 1,
+			"overtime": 0
+		},
+		{
+			"station": 15,
+			"shift": 1,
+			"overtime": 100
+		}
+	]
+}

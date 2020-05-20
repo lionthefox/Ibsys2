@@ -36,7 +36,7 @@
     <None Update="Data\Stuecklisten_Aufloesung.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Models\XSD\input.xsd">
+    <None Update="Models\XSD\output.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Update="Data\Lieferdaten.csv">

@@ -7,6 +7,6 @@ namespace Ibsys2.Models.Stueckliste
         public int Matnr { get; set; }
         public int Platz { get; set; }
         public IList<int> Nachfolger { get; set; }
-        public Dictionary<int, int>? BenoetigteTeile { get; set; }
+        public Dictionary<int, int> BenoetigteTeile { get; set; }
     }
 }

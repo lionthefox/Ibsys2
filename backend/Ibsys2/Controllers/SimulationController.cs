@@ -177,32 +177,40 @@ namespace Ibsys2.Controllers
         [HttpPost("convert-to-xml")]
         public string ConvertToXml([FromBody] Input json)
         {
-            var xmlSerializer = new XmlSerializer(json.GetType());
+            try
+            {
+                var xmlSerializer = new XmlSerializer(json.GetType());
 
-            using var ms = new MemoryStream();
-            using var xw = XmlWriter.Create(ms,
-                new XmlWriterSettings
-                {
-                    Encoding = new UTF8Encoding(false),
-                    Indent = true,
-                    NewLineOnAttributes = false,
-                    
+                using var ms = new MemoryStream();
+                using var xw = XmlWriter.Create(ms,
+                    new XmlWriterSettings
+                    {
+                        Encoding = new UTF8Encoding(false),
+                        Indent = true,
+                        NewLineOnAttributes = false,
 
-                });
-            var ns = new XmlSerializerNamespaces();
-            ns.Add("", "");
-            xmlSerializer.Serialize(xw, json, ns);
-            var xmlString = Encoding.UTF8.GetString(ms.ToArray());
 
-            var x = regex.Replace(xmlString,
-                $@"<sellwish>
+                    });
+                var ns = new XmlSerializerNamespaces();
+                ns.Add("", "");
+                xmlSerializer.Serialize(xw, json, ns);
+                var xmlString = Encoding.UTF8.GetString(ms.ToArray());
+
+                var x = regex.Replace(xmlString,
+                    $@"<sellwish>
     <item article=""{json.sellwish[0].article}"" quantity=""{json.sellwish[0].quantity}"" />
     <item article= ""{json.sellwish[1].article}"" quantity= ""{json.sellwish[1].quantity}"" />
     <item article= ""{json.sellwish[2].article}"" quantity= ""{json.sellwish[2].quantity}"" />
   </sellwish>"
-);
+                );
 
-            return x;
+                return x;
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, exception.Message);
+                return exception.Message;
+            }
         }
     }
 }

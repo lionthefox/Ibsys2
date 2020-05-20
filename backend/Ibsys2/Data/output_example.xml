@@ -1,7 +1,9 @@
 <input>
   <qualitycontrol type="no" losequantity="0" delay="0" />
   <sellwish>
-    <item article="1" quantity="100" /><item article="2" quantity="200" /><item article="3" quantity="100" />
+    <item article="1" quantity="100" />
+    <item article="2" quantity="200" />
+    <item article="3" quantity="100" />
   </sellwish>
   <selldirect>
     <item article="1" quantity="0" price="0.0" penalty="0.0" />

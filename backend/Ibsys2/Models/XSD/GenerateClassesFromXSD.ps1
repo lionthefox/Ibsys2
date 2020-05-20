@@ -1,2 +1,2 @@
 .\xsd.exe /c .\results.xsd
-.\xsd.exe /c .\input.xsd
+.\xsd.exe /c .\output.xsd
