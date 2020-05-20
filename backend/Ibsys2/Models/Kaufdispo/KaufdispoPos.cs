@@ -7,7 +7,17 @@ namespace Ibsys2.Models.Kaufdispo
         public int BedarfPeriode2 { get; set; }
         public int BedarfPeriode3 { get; set; }
         public int BedarfPeriode4 { get; set; }
+        
+        public int LagerbestandPeriode1 { get; set; }
+        public int LagerbestandPeriode2 { get; set; }
+        public int LagerbestandPeriode3 { get; set; }
+        public int LagerbestandPeriode4 { get; set; }
         public int Menge { get; set; }
-        public int Bestellart { get; set; }
+        public int? Bestellart { get; set; }
+        public int Lagermenge { get; set; }
+
+        public string Liefertermin { get; set; }
+        public string LieferterminEng { get; set; }
+        
     }
 }

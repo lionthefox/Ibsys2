@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { getNestedObjectProperty } from '../../utils/nestedObjectProps';
-import { getFloatValue } from '../../utils/getValue';
+import { getValue } from '../../utils/getValue';
 
 const styles = {
   columnContainer: {
@@ -60,10 +60,13 @@ const Form = ({
   prop,
   product,
   small,
+  decimal,
+  maxValue,
 }) => {
   const inputBaseProps = {
     type: 'number',
     variant: 'outlined',
+    InputProps: { inputProps: { min: 0, max: maxValue || undefined } },
   };
 
   const getInputValue = (val) => String(val).replace('^0+', '');
@@ -78,7 +81,11 @@ const Form = ({
               key: `Input_${label || 'label'}_${index}`,
               value: getInputValue(getNestedObjectProperty(obj, val)) || 0,
               onChange: (e) => {
-                setObjState(undefined, val, getFloatValue(e.target.value));
+                setObjState(
+                  undefined,
+                  val,
+                  getValue(e.target.value, decimal, maxValue)
+                );
               },
             };
             return small ? (
@@ -94,13 +101,19 @@ const Form = ({
                 ...inputBaseProps,
                 key: `Input_${label || 'label'}_${index}`,
                 value: getInputValue(getNestedObjectProperty(art, [prop])) || 0,
-                onChange: (e) => {
-                  setObjState(
-                    product,
-                    [index, prop],
-                    getFloatValue(e.target.value)
-                  );
-                },
+                onChange: product
+                  ? (e) =>
+                      setObjState(
+                        product,
+                        [index, prop],
+                        getValue(e.target.value, decimal, maxValue)
+                      )
+                  : (e) =>
+                      setObjState(
+                        undefined,
+                        [index, prop],
+                        getValue(e.target.value, decimal, maxValue)
+                      ),
               };
               return small ? (
                 <SmallInput {...inputProps} />

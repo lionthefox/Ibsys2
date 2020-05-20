@@ -77,10 +77,10 @@ namespace Ibsys2.Services
             return _kapazitaetService.CalcKapaPlan(DispoEigenfertigungen, ArtikelStammdaten);
         }
 
-        public IList<KaufdispoPos> GetKaufDispos()
+        public IList<KaufdispoPos> GetKaufDispos(IList<KaufdispoPos> updatedKaufdispo = null)
         {
-            return _kaufdispoService.GetKaufDispo(Kaufteilbestellungen, Forecast, Vertriebswunsch, LastPeriodResults);
-        }
+            return _kaufdispoService.GetKaufDispo(Kaufteilbestellungen, Forecast, Vertriebswunsch, LastPeriodResults, _ergebnisseVorperiodeService.BenoetigteTeile, updatedKaufdispo);
+        }    
 
         private void ParseStammdaten()
         {

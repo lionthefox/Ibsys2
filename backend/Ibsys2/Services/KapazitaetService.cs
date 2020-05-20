@@ -36,7 +36,6 @@ namespace Ibsys2.Services
             {
                 kapazitaetsPlan.CalcSchichten();
             }
-
             return KapazitaetsPlaene;
         }
 
@@ -58,19 +57,16 @@ namespace Ibsys2.Services
 
                     if (efPos.AuftraegeBearbeitung > 0)
                     {
-                        kapazitaetsPlan.KapafBearbeitung += WartelisteArbeitsplatz.getZeitbedarf(
+                        kapazitaetsPlan.KapaVorperiode += WartelisteArbeitsplatz.getZeitbedarf(
                             kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
                             efPos.AuftraegeBearbeitung, artikelStammdaten);
-                        kapazitaetsPlan.RuestzeitBearbeitung += WartelisteArbeitsplatz.GetRuestzeit(
-                            kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
-                            artikelStammdaten);
                     }
 
                     if (efPos.AuftraegeWarteschlange <= 0) continue;
-                    kapazitaetsPlan.KapaWarteschlange += WartelisteArbeitsplatz.getZeitbedarf(
+                    kapazitaetsPlan.KapaVorperiode += WartelisteArbeitsplatz.getZeitbedarf(
                         kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
                         efPos.AuftraegeBearbeitung, artikelStammdaten);
-                    kapazitaetsPlan.RuestzeitWarteschlange += WartelisteArbeitsplatz.GetRuestzeit(
+                    kapazitaetsPlan.RuestVorperiode += WartelisteArbeitsplatz.GetRuestzeit(
                         kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
                         artikelStammdaten);
                 }
@@ -84,11 +80,8 @@ namespace Ibsys2.Services
                 kapazitaetsPlan.KapaProduktion = 0;
                 kapazitaetsPlan.RuestzeitProduktion = 0;
                 
-                kapazitaetsPlan.KapafBearbeitung = 0;
-                kapazitaetsPlan.RuestzeitBearbeitung = 0;
-                
-                kapazitaetsPlan.KapaWarteschlange = 0;
-                kapazitaetsPlan.RuestzeitWarteschlange = 0;
+                kapazitaetsPlan.KapaVorperiode = 0;
+                kapazitaetsPlan.RuestVorperiode = 0;
             }
         }
     }

@@ -69,7 +69,7 @@ const Input = ({
                 <Translate id='Input.alert' />
               </Alert>
             }
-            enterDelay={500}
+            enterDelay={1500}
             leaveDelay={200}
           >
             <span>

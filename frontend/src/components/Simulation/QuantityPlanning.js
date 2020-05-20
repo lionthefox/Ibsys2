@@ -15,7 +15,6 @@ const styles = {
   },
   root: {
     display: 'flex',
-    overflowY: 'scroll',
     justifyContent: 'space-around',
     marginTop: '2rem',
   },
@@ -24,7 +23,7 @@ const styles = {
 const QuantityPlanning = ({
   classes,
   simulationData,
-  putSimulationData,
+  changeSimulationData,
   activeLanguage,
 }) => {
   const [index, setIndex] = useState(0);
@@ -36,7 +35,7 @@ const QuantityPlanning = ({
     const formProps = {
       obj:
         (simulationData && simulationData[products[productIndex]]) || undefined,
-      setObjState: putSimulationData,
+      setObjState: changeSimulationData,
       product: products[productIndex],
     };
 
@@ -46,7 +45,7 @@ const QuantityPlanning = ({
         keys.push(key)
       );
       keys = keys.filter((val) => {
-        if (val === 'vertrieb' || val === 'auftragUebernahme') return false;
+        if (val === 'auftragUebernahme') return false;
         if (activeLanguage === 'en') {
           return val !== 'name';
         } else {
@@ -54,27 +53,30 @@ const QuantityPlanning = ({
         }
       });
 
-      keys.map((artKey) =>
+      keys.map((artKey) => {
+        const elementProps = {
+          label: <Translate id={`QuantityPlanning.${artKey}`} />,
+          prop: artKey,
+        };
         artKey === 'sicherheitsbestand'
           ? elements.push(
               <Form
                 {...formProps}
+                {...elementProps}
                 key={`quantity_planning_form_${productIndex}_${artKey}`}
-                label={<Translate id={`QuantityPlanning.${artKey}`} />}
-                prop='sicherheitsbestand'
                 small
               />
             )
           : elements.push(
               <Text
+                {...elementProps}
                 key={`quantity_planning_text_${productIndex}_${artKey}`}
                 obj={simulationData[products[productIndex]]}
                 idProp='articleId'
-                label={<Translate id={`QuantityPlanning.${artKey}`} />}
-                prop={artKey}
+                productIDs
               />
-            )
-      );
+            );
+      });
     }
 
     return (

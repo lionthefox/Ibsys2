@@ -152,5 +152,19 @@ namespace Ibsys2.Controllers
                 return null;
             }
         }
+        
+        [HttpPut("update-kauf-dispo")]
+        public IList<KaufdispoPos> UpdateKaufDispo([FromBody] IList<KaufdispoPos> input)
+        {
+            try
+            {
+                return _simulationService.GetKaufDispos(input);
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError(exception, exception.Message);
+                return null;
+            }
+        }
     }
 }
