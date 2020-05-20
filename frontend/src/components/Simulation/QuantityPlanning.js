@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Translate } from 'react-localize-redux';
 
@@ -18,6 +19,10 @@ const styles = {
     justifyContent: 'space-around',
     marginTop: '2rem',
   },
+  paper: {
+    marginTop: '1rem',
+    paddingBottom: '1rem',
+  },
 };
 
 const QuantityPlanning = ({
@@ -30,18 +35,17 @@ const QuantityPlanning = ({
 
   const products = ['p1', 'p2', 'p3'];
 
-  const getComponent = (productIndex) => {
+  const getComponents = () => {
     const elements = [];
     const formProps = {
-      obj:
-        (simulationData && simulationData[products[productIndex]]) || undefined,
+      obj: (simulationData && simulationData[products[index]]) || undefined,
       setObjState: changeSimulationData,
-      product: products[productIndex],
+      product: products[index],
     };
 
     if (simulationData) {
       let keys = [];
-      Object.keys(simulationData[products[productIndex]][0]).map((key) =>
+      Object.keys(simulationData[products[index]][0]).map((key) =>
         keys.push(key)
       );
       keys = keys.filter((val) => {
@@ -63,15 +67,15 @@ const QuantityPlanning = ({
               <Form
                 {...formProps}
                 {...elementProps}
-                key={`quantity_planning_form_${productIndex}_${artKey}`}
+                key={`quantity_planning_form_${index}_${artKey}`}
                 small
               />
             )
           : elements.push(
               <Text
                 {...elementProps}
-                key={`quantity_planning_text_${productIndex}_${artKey}`}
-                obj={simulationData[products[productIndex]]}
+                key={`quantity_planning_text_${index}_${artKey}`}
+                obj={simulationData[products[index]]}
                 idProp='articleId'
                 productIDs
               />
@@ -95,9 +99,11 @@ const QuantityPlanning = ({
         value={index}
         onChange={(e, i) => setIndex(i)}
       />
-      <form noValidate autoComplete='off'>
-        {getComponent(index)}
-      </form>
+      <Paper classes={{ root: classes.paper }} elevation={3}>
+        <form noValidate autoComplete='off'>
+          {getComponents()}
+        </form>
+      </Paper>
     </div>
   );
 };

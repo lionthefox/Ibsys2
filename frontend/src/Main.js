@@ -87,19 +87,6 @@ class Main extends Component {
     });
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.location.pathname !== this.props.location.pathname) {
-      if (this.props.history.action === 'POP') {
-        let newActiveStep = prevState.activeStep;
-        paths.map((path, index) => {
-          if (this.props.history.location.pathname === path)
-            newActiveStep = index;
-        });
-        this.setState({ activeStep: newActiveStep });
-      }
-    }
-  };
-
   getDefaultState = (language) => {
     const simulationInputString = JSON.stringify(defaultSimulationInput);
     const simulationInput = JSON.parse(simulationInputString);
@@ -118,6 +105,23 @@ class Main extends Component {
   };
 
   state = this.getDefaultState('en');
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      if (this.props.history.action === 'POP') {
+        if (prevState.activeStep - 1 === 0) {
+          this.setState(this.getDefaultState(prevState.activeLanguage));
+        } else {
+          let newActiveStep = prevState.activeStep;
+          paths.map((path, index) => {
+            if (this.props.history.location.pathname === path)
+              newActiveStep = index;
+          });
+          this.setState({ activeStep: newActiveStep });
+        }
+      }
+    }
+  };
 
   changeActiveLanguage = (val) => {
     this.setState({ activeLanguage: val });
@@ -336,7 +340,7 @@ class Main extends Component {
                   <Translate id='Headline.sequence_planning' />
                 }
               >
-                <SequencePlanning />
+                <SequencePlanning simulationData={simulationData} />
               </HeadlineWrapper>
             </AnimationWrapper>
           )}

@@ -4,6 +4,7 @@ import { Translate } from 'react-localize-redux';
 
 import Form from '../ui_components/Form';
 import Text from '../ui_components/Text';
+import { Paper } from '@material-ui/core';
 
 const styles = {
   wrapper: {
@@ -11,6 +12,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    paddingBottom: '1rem',
   },
   root: {
     display: 'flex',
@@ -20,7 +22,7 @@ const styles = {
 };
 
 const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
-  const getComponent = () => {
+  const getComponents = () => {
     const elements = [];
     const formProps = {
       obj: capacityPlan || undefined,
@@ -63,11 +65,13 @@ const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
     return <div className={classes.root}>{capacityPlan ? elements : null}</div>;
   };
   return (
-    <div className={classes.wrapper}>
-      <form noValidate autoComplete='off'>
-        {getComponent()}
-      </form>
-    </div>
+    <Paper elevation={3}>
+      <div className={classes.wrapper}>
+        <form noValidate autoComplete='off'>
+          {getComponents()}
+        </form>
+      </div>
+    </Paper>
   );
 };
 

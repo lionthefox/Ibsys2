@@ -62,7 +62,8 @@
     "amount": ["Amount", "Menge"],
     "price": ["Price", "Preis"],
     "penalty": ["Penalty", "Konventionalstrafe"],
-    "stock": ["Stock", "Bestand"]
+    "stock": ["Stock", "Bestand"],
+    "period": ["Period", "Periode"]
   },
   "QuantityPlanning": {
     "articleId": ["ID", "ID"],
