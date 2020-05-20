@@ -5,6 +5,7 @@ using System.Linq;
 using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
 using Ibsys2.Models.ErgebnisseVorperiode;
+using Ibsys2.Models.Stammdaten;
 
 namespace Ibsys2.Services
 {
@@ -22,7 +23,7 @@ namespace Ibsys2.Services
         public DispoEFP3 DispoEfP3 { get; set; }
 
         public DispoEigenfertigungen GetEfDispo(Vertriebswunsch vertriebWunsch, Forecast forecast, results lastPeriodResults, IList<Artikel> artikelStammdaten)
-    {
+        {
         DispoEfP1 = new DispoEFP1(vertriebWunsch, forecast, lastPeriodResults, artikelStammdaten);
         DispoEfP2 = new DispoEFP2(vertriebWunsch, forecast, lastPeriodResults, artikelStammdaten);
         DispoEfP3 = new DispoEFP3(vertriebWunsch, forecast, lastPeriodResults, artikelStammdaten);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ibsys2.Models.Stammdaten;
 using Ibsys2.Services;
 
 namespace Ibsys2.Models.DispoEigenfertigung
