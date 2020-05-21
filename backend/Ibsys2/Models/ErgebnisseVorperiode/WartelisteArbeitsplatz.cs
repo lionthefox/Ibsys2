@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Ibsys2.Models.Stammdaten;
 using Ibsys2.Models.Stueckliste;
@@ -42,10 +43,10 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
       }
     }
 
-    public WartelisteArbeitsplatz(int arbeitsplatz, AuftraegeWarteschlange auftragVorgaenger, IList<Artikel> artikelStammdaten)
+    public WartelisteArbeitsplatz(int arbeitsplatz, AuftraegeWarteschlange auftragVorgaenger, IList<Artikel> artikelStammdaten, Boolean keinMaterial)
     {
       Arbeitsplatz = arbeitsplatz;
-
+      
       var auftrag = new AuftraegeWarteschlange
       {
         Arbeitsplatz = arbeitsplatz,
@@ -59,7 +60,11 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
         Zeitbedarf = getZeitbedarf(arbeitsplatz, auftragVorgaenger.Teil, auftragVorgaenger.Menge, artikelStammdaten),
         Ruestzeit = GetRuestzeit(arbeitsplatz, auftragVorgaenger.Teil, artikelStammdaten)
       };
-      Arbeitszeit = auftrag.Zeitbedarf;
+
+      if (keinMaterial == true)
+        auftrag.BasisAuftrag = true;
+
+        Arbeitszeit = auftrag.Zeitbedarf;
       Ruestzeit = auftrag.Ruestzeit;
       ArbeitsplatzWartelisteAuftraege.Add(auftrag);
     }

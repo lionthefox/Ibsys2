@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
+using Ibsys2.Models.ErgebnisseVorperiode;
 using Ibsys2.Models.KapazitaetsPlan;
 using Ibsys2.Models.Kaufdispo;
 using Ibsys2.Models.Stammdaten;
@@ -26,6 +27,8 @@ namespace Ibsys2.Services
         public IList<ArbeitsplatzNachfolger> ArbeitsplatzAufloesungen { get; set; }
         public DispoEigenfertigungen DispoEigenfertigungen { get; set; }
         public IList<Lieferdaten> Kaufteilbestellungen { get; set; }
+        public WartelisteArbeitsplaetze WartelisteArbeitsplaetze { get; set; }
+        public InBearbeitung InBearbeitung { get; set; }
         
 
     public Vertriebswunsch Vertriebswunsch { get; set; }
@@ -68,13 +71,15 @@ namespace Ibsys2.Services
             Vertriebswunsch = input.Vertriebswunsch;
             Forecast = input.Forecast;
             _ergebnisseVorperiodeService.GetErgebnisse(LastPeriodResults, ArtikelStammdaten, ArbeitsplatzAufloesungen, Stueckliste);
+            WartelisteArbeitsplaetze = _ergebnisseVorperiodeService.WartelisteArbeitsplaetze;
+            InBearbeitung = _ergebnisseVorperiodeService.InBearbeitung;
             DispoEigenfertigungen = _dispoEfService.GetEfDispo(Vertriebswunsch, Forecast, LastPeriodResults, ArtikelStammdaten);
             return DispoEigenfertigungen;
         }
 
         public IList<KapazitaetsPlan> GetKapaPlaene()
         {
-            return _kapazitaetService.CalcKapaPlan(DispoEigenfertigungen, ArtikelStammdaten);
+            return _kapazitaetService.CalcKapaPlan(DispoEigenfertigungen, ArtikelStammdaten, WartelisteArbeitsplaetze, InBearbeitung);
         }
 
         public IList<KaufdispoPos> GetKaufDispos(IList<KaufdispoPos> updatedKaufdispo = null)

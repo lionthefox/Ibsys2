@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ibsys2.Models;
 using Ibsys2.Models.DispoEigenfertigung;
 using Ibsys2.Models.ErgebnisseVorperiode;
@@ -26,17 +27,41 @@ namespace Ibsys2.Services
         }
 
         public IList<KapazitaetsPlan> CalcKapaPlan(DispoEigenfertigungen dispoEigenfertigungen,
-            IList<Artikel> artikelStammdaten)
+            IList<Artikel> artikelStammdaten, WartelisteArbeitsplaetze wartelisteArbeitsplaetze, InBearbeitung inBearbeitung)
         {
             ResetKapaPlan();
             CalcKapaZeit(dispoEigenfertigungen.P1, artikelStammdaten);
             CalcKapaZeit(dispoEigenfertigungen.P2, artikelStammdaten);
             CalcKapaZeit(dispoEigenfertigungen.P3, artikelStammdaten);
+            CalcKapaZeitLastPeriod(artikelStammdaten, wartelisteArbeitsplaetze, inBearbeitung);
             foreach (var kapazitaetsPlan in KapazitaetsPlaene)
             {
                 kapazitaetsPlan.CalcSchichten();
             }
             return KapazitaetsPlaene;
+        }
+
+        private void CalcKapaZeitLastPeriod(IList<Artikel> artikelStammdaten, WartelisteArbeitsplaetze wartelisteArbeitsplaetze, InBearbeitung inBearbeitung)
+        {
+            foreach (var kapazitaetsPlan in KapazitaetsPlaene)
+            {
+                var bearbeitung =
+                    inBearbeitung.AuftraegeInBearbeitung.FirstOrDefault(x =>
+                        x.Arbeitsplatz == kapazitaetsPlan.ArbeitsplatzId);
+                if (bearbeitung != null)
+                    kapazitaetsPlan.KapaVorperiode += bearbeitung.Zeitbedarf;
+
+                var arbeitsplatz =
+                    wartelisteArbeitsplaetze.ArbeitsplatzWarteListe.FirstOrDefault(x =>
+                        x.Arbeitsplatz == kapazitaetsPlan.ArbeitsplatzId);
+                if (arbeitsplatz == null)
+                    continue;
+                foreach (var auftrag in arbeitsplatz.ArbeitsplatzWartelisteAuftraege)
+                {
+                    kapazitaetsPlan.KapaVorperiode += auftrag.Zeitbedarf;
+                    kapazitaetsPlan.RuestVorperiode += auftrag.Ruestzeit;
+                }
+            }
         }
 
         private void CalcKapaZeit(IList<DispoEFPos> dispoEf, IList<Artikel> artikelStammdaten)
@@ -47,28 +72,15 @@ namespace Ibsys2.Services
                 {
                     if (efPos.Produktion > 0)
                     {
-                        kapazitaetsPlan.KapaProduktion = kapazitaetsPlan.KapaProduktion + WartelisteArbeitsplatz.getZeitbedarf(
-                            kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
-                            efPos.Produktion, artikelStammdaten);
-                        kapazitaetsPlan.RuestzeitProduktion = kapazitaetsPlan.RuestzeitProduktion + WartelisteArbeitsplatz.GetRuestzeit(
-                            kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
-                            artikelStammdaten);
+                        kapazitaetsPlan.KapaProduktion =
+                            kapazitaetsPlan.KapaProduktion + WartelisteArbeitsplatz.getZeitbedarf(
+                                kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
+                                efPos.Produktion, artikelStammdaten);
+                        kapazitaetsPlan.RuestzeitProduktion =
+                            kapazitaetsPlan.RuestzeitProduktion + WartelisteArbeitsplatz.GetRuestzeit(
+                                kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
+                                artikelStammdaten);
                     }
-
-                    if (efPos.AuftraegeBearbeitung > 0)
-                    {
-                        kapazitaetsPlan.KapaVorperiode += WartelisteArbeitsplatz.getZeitbedarf(
-                            kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
-                            efPos.AuftraegeBearbeitung, artikelStammdaten);
-                    }
-
-                    if (efPos.AuftraegeWarteschlange <= 0) continue;
-                    kapazitaetsPlan.KapaVorperiode += WartelisteArbeitsplatz.getZeitbedarf(
-                        kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
-                        efPos.AuftraegeBearbeitung, artikelStammdaten);
-                    kapazitaetsPlan.RuestVorperiode += WartelisteArbeitsplatz.GetRuestzeit(
-                        kapazitaetsPlan.ArbeitsplatzId, efPos.ArticleId,
-                        artikelStammdaten);
                 }
             }
         }
