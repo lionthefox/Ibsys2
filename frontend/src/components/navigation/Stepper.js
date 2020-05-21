@@ -19,13 +19,13 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     position: 'fixed',
     bottom: '0px',
+    height: '175px',
   },
   arrowContainer: {
     width: '100%',
     background: '#fff',
     display: 'flex',
     justifyContent: 'center',
-    paddingBottom: '1rem',
   },
   stepIcon: {
     color: '#135444 !important',
@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stepperPadding: {
     paddingTop: '5px !important',
+    paddingBottom: '10px !important',
   },
   stepper: {
     width: '100%',

@@ -36,7 +36,7 @@ const paths = [
 const AnimationWrapper = ({ children }) => (
   <div
     className='cssanimation sequence fadeInBottom'
-    style={{ paddingTop: '8rem', paddingBottom: '13rem' }}
+    style={{ paddingTop: '7rem' }}
   >
     {children}
   </div>

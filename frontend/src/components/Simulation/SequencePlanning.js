@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Translate } from 'react-localize-redux';
+import { Paper } from '@material-ui/core';
 
 import ContainedTabs from '../ui_components/ContainedTabs';
 
@@ -16,7 +17,12 @@ const styles = {
     width: '80vw',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    marginTop: '2rem',
+  },
+  paper: {
+    marginTop: '1rem',
+    height: 'calc(100vh - 460px)',
+    overflow: 'auto',
+    padding: '10px',
   },
   elementContainer: {
     display: 'flex',
@@ -61,7 +67,9 @@ const SequencePlanning = ({ classes, simulationData }) => {
         value={index}
         onChange={(e, i) => setIndex(i)}
       />
-      {getComponents()}
+      <Paper classes={{ root: classes.paper }} elevation={3}>
+        {getComponents()}
+      </Paper>
     </div>
   );
 };

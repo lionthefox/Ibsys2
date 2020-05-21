@@ -55,7 +55,7 @@
     "restart": ["Restart Simulation", "Simulation neustarten"]
   },
   "Production": {
-    "forecast": ["Forecast", "Prognose"],
+    "forecast": ["Production Plan", "Produktionsplan"],
     "sell_wish": ["Sell Wish", "Vertriebswunsch"],
     "direct_sales": ["Direct Sales", "Direktverkäufe"],
     "product": ["Product", "Produkt"],

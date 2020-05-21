@@ -17,7 +17,11 @@ const styles = {
   root: {
     display: 'flex',
     justifyContent: 'space-around',
-    marginTop: '2rem',
+  },
+  paper: {
+    marginTop: '1rem',
+    height: 'calc(100vh - 388px)',
+    overflow: 'auto',
   },
 };
 
@@ -46,7 +50,8 @@ const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
                   key={`capacity_planning_form_${artKey}`}
                   label={<Translate id={`CapacityPlanning.${artKey}`} />}
                   prop={artKey}
-                  small
+                  small={artKey === 'anzSchicht'}
+                  medium={artKey === 'ubermin'}
                 />
               </div>
             )
@@ -65,7 +70,7 @@ const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
     return <div className={classes.root}>{capacityPlan ? elements : null}</div>;
   };
   return (
-    <Paper elevation={3}>
+    <Paper classes={{ root: classes.paper }} elevation={3}>
       <div className={classes.wrapper}>
         <form noValidate autoComplete='off'>
           {getComponents()}

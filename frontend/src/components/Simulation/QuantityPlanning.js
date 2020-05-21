@@ -17,11 +17,11 @@ const styles = {
   root: {
     display: 'flex',
     justifyContent: 'space-around',
-    marginTop: '2rem',
   },
   paper: {
     marginTop: '1rem',
-    paddingBottom: '1rem',
+    height: 'calc(100vh - 440px)',
+    overflow: 'auto',
   },
 };
 
@@ -68,7 +68,7 @@ const QuantityPlanning = ({
                 {...formProps}
                 {...elementProps}
                 key={`quantity_planning_form_${index}_${artKey}`}
-                small
+                medium
               />
             )
           : elements.push(

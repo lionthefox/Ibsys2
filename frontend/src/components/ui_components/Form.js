@@ -9,11 +9,18 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     marginRight: '1rem',
+    alignItems: 'center',
   },
   headerLabel: {
-    marginBottom: '1.5rem',
     textAlign: 'center',
-    fontSize: '18px',
+    fontSize: '20px',
+    color: '#135444',
+    background: '#fff',
+    position: 'sticky',
+    top: '0rem',
+    zIndex: 100,
+    padding: '1.5rem 1rem',
+    width: '100%',
   },
 };
 
@@ -33,13 +40,24 @@ const inputStyleRoot = {
   },
 };
 
+const MediumInput = withStyles({
+  root: {
+    ...inputStyleRoot,
+    width: '8rem',
+    top: '1.5px',
+    '& .MuiInputBase-root': {
+      height: '3rem',
+    },
+  },
+})(TextField);
+
 const SmallInput = withStyles({
   root: {
     ...inputStyleRoot,
+    top: '1.5px',
     width: '6rem',
     '& .MuiInputBase-root': {
-      height: '2.5rem',
-      fontSize: '15px',
+      height: '3rem',
     },
   },
 })(TextField);
@@ -59,6 +77,7 @@ const Form = ({
   values,
   prop,
   product,
+  medium,
   small,
   decimal,
   maxValue,
@@ -88,7 +107,9 @@ const Form = ({
                 );
               },
             };
-            return small ? (
+            return medium ? (
+              <MediumInput {...inputProps} />
+            ) : small ? (
               <SmallInput {...inputProps} />
             ) : (
               <Input {...inputProps} />
@@ -108,14 +129,24 @@ const Form = ({
                         [index, prop],
                         getValue(e.target.value, decimal, maxValue)
                       )
-                  : (e) =>
+                  : (e) => {
+                      if (
+                        prop === 'anzSchicht' &&
+                        getValue(e.target.value, decimal, maxValue) === 3
+                      ) {
+                        setObjState(undefined, [index, 'ubermin'], 0);
+                      }
                       setObjState(
                         undefined,
                         [index, prop],
                         getValue(e.target.value, decimal, maxValue)
-                      ),
+                      );
+                    },
+                disabled: prop === 'ubermin' && art['anzSchicht'] === 3,
               };
-              return small ? (
+              return medium ? (
+                <MediumInput {...inputProps} />
+              ) : small ? (
                 <SmallInput {...inputProps} />
               ) : (
                 <Input {...inputProps} />

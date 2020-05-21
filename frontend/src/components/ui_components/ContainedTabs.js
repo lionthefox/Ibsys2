@@ -15,7 +15,7 @@ const useTabStyles = makeStyles(({ palette, spacing, breakpoints }) => {
   const defaultBgColor = palette.common.white;
   const defaultSelectedBgColor = '#135444';
   const defaultMinWidth = {
-    md: 250,
+    md: 290,
   };
   const getTextColor = (color) => {
     if (Color(color).isLight()) return palette.text.primary;
@@ -30,6 +30,7 @@ const useTabStyles = makeStyles(({ palette, spacing, breakpoints }) => {
       opacity: 1,
       overflow: 'initial',
       color: getTextColor(bgColor),
+      fontSize: '18px',
       backgroundColor: bgColor,
       transition: '0.2s',
       [breakpoints.up('md')]: {
