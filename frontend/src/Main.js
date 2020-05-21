@@ -109,14 +109,14 @@ class Main extends Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       if (this.props.history.action === 'POP') {
-        if (prevState.activeStep - 1 === 0) {
+        let newActiveStep = prevState.activeStep;
+        paths.map((path, index) => {
+          if (this.props.history.location.pathname === path)
+            newActiveStep = index;
+        });
+        if (newActiveStep === 0) {
           this.setState(this.getDefaultState(prevState.activeLanguage));
         } else {
-          let newActiveStep = prevState.activeStep;
-          paths.map((path, index) => {
-            if (this.props.history.location.pathname === path)
-              newActiveStep = index;
-          });
           this.setState({ activeStep: newActiveStep });
         }
       }
@@ -343,6 +343,7 @@ class Main extends Component {
                 }
               >
                 <SequencePlanning
+                  language={activeLanguage}
                   simulationData={simulationData}
                   setSimulationData={this.setSimulationData}
                 />

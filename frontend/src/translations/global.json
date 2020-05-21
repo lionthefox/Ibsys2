@@ -66,7 +66,7 @@
     "period": ["Period", "Periode"]
   },
   "QuantityPlanning": {
-    "articleId": ["ID", "ID"],
+    "articleId": ["Article number", "Artikelnummer"],
     "name": ["Name", "Name"],
     "nameEng": ["Name", "Name"],
     "lagerbestand": ["Current Stock", "Aktueller Lagerbestand"],
@@ -87,5 +87,8 @@
     "ruestVorperiode": ["Setup Time Previous Period", "Rüstzeit Vorperiode"],
     "ubermin": ["Overtime [min/day]", "Überstunden [min/Tag]"],
     "anzSchicht": ["Shifts", "Schichten"]
+  },
+  "SequencePlanning": {
+    "splitting": ["Splitting", "Splitten"]
   }
 }
