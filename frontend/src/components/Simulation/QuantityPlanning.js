@@ -32,7 +32,6 @@ const QuantityPlanning = ({
   activeLanguage,
 }) => {
   const [index, setIndex] = useState(0);
-
   const products = ['p1', 'p2', 'p3'];
 
   const getComponents = () => {
