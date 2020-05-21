@@ -189,6 +189,8 @@ class Main extends Component {
       return { simulationInput: newSimulationInput };
     });
 
+  setSimulationData = (val) => this.setState({ simulationData: val });
+
   changeSimulationData = (product, keyArray, val) => {
     const { simulationData } = this.state;
     const { setNewState, setError } = this;
@@ -340,7 +342,10 @@ class Main extends Component {
                   <Translate id='Headline.sequence_planning' />
                 }
               >
-                <SequencePlanning simulationData={simulationData} />
+                <SequencePlanning
+                  simulationData={simulationData}
+                  setSimulationData={this.setSimulationData}
+                />
               </HeadlineWrapper>
             </AnimationWrapper>
           )}

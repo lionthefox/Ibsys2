@@ -20,7 +20,7 @@ const styles = {
   },
   paper: {
     marginTop: '1rem',
-    height: 'calc(100vh - 388px)',
+    height: 'calc(100vh - 390px)',
     overflow: 'auto',
   },
 };
