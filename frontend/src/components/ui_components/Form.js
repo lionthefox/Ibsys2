@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { getNestedObjectProperty } from '../../utils/nestedObjectProps';
 import { getValue, getInputValue } from '../../utils/getValue';
 
+import { deliveryTypes, deliveryTypesEng } from '../../assets/deliveryTypes';
+
 const styles = {
   columnContainer: {
     display: 'flex',

@@ -21,6 +21,8 @@ import {
   postSimulationInput,
   putSimulationData,
   getCapacityPlan,
+  getOrderPlan,
+  putOrderPlan,
 } from './utils/requests';
 
 const paths = [
@@ -97,6 +99,7 @@ class Main extends Component {
       simulationInput: { ...simulationInput },
       simulationData: undefined,
       capacityPlan: undefined,
+      orderPlan: undefined,
       showError: false,
       errorMessageId: undefined,
       errorMessage: undefined,
@@ -156,6 +159,8 @@ class Main extends Component {
         return postSimulationInput(simulationInput, requestProps);
       case 2:
         return getCapacityPlan(requestProps);
+      case 4:
+        return getOrderPlan(requestProps);
       default:
         this.setState(newState);
         history.push(paths[activeStep + 1]);
@@ -224,6 +229,15 @@ class Main extends Component {
       return { capacityPlan: newCapacityPlan };
     });
 
+  changeOrderPlan = (product, keyArray, val) => {
+    const { orderPlan } = this.state;
+    const { setNewState, setError } = this;
+
+    const newOrderPlan = setNestedObjectProperty(orderPlan, keyArray, val);
+    const newState = { orderPlan: { ...orderPlan } };
+    putOrderPlan(newOrderPlan, newState, setNewState, setError);
+  };
+
   render() {
     const {
       activeLanguage,
@@ -235,6 +249,7 @@ class Main extends Component {
       errorMessageId,
       errorMessage,
       capacityPlan,
+      orderPlan,
     } = this.state;
 
     const inputProps = {
@@ -359,7 +374,11 @@ class Main extends Component {
               <HeadlineWrapper
                 headlineComponent={<Translate id='Headline.order_planning' />}
               >
-                <OrderPlanning />
+                <OrderPlanning
+                  language={activeLanguage}
+                  orderPlan={orderPlan}
+                  changeOrderPlan={this.changeOrderPlan}
+                />
               </HeadlineWrapper>
             </AnimationWrapper>
           )}
