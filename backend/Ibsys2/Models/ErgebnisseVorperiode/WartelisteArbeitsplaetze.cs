@@ -62,7 +62,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
                             Periode = missing.waitinglist.period,
                             Teil = missing.waitinglist.item,
                             Ruestzeit = WartelisteArbeitsplatz.GetRuestzeit(arbeitsplatzNummer, missing.waitinglist.item, artikelStammdaten)
-                        }, artikelStammdaten);
+                        }, artikelStammdaten, true);
                         ArbeitsplatzWarteListe.Add(Arbeitsplatz);
                     }
                 }
@@ -108,7 +108,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
                         }
                         else
                         {
-                            var Arbeitsplatz = new WartelisteArbeitsplatz(nachfolger, auftrag, artikelStammdaten);
+                            var Arbeitsplatz = new WartelisteArbeitsplatz(nachfolger, auftrag, artikelStammdaten, false);
                             ArbeitsplatzWarteListe.Add(Arbeitsplatz);
                         }
                     }
@@ -149,7 +149,7 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
                     }
                     else
                     {
-                        var Arbeitsplatz = new WartelisteArbeitsplatz(nachfolger, auftrag, artikelStammdaten);
+                        var Arbeitsplatz = new WartelisteArbeitsplatz(nachfolger, auftrag, artikelStammdaten, false);
                         ArbeitsplatzWarteListe.Add(Arbeitsplatz);
                     }
                 }
