@@ -89,6 +89,10 @@
     "anzSchicht": ["Shifts", "Schichten"]
   },
   "SequencePlanning": {
+    "instructions": [
+      "Please drag and drop elements to reorder the production sequence.",
+      "Verschieben Sie nach Bedarf Elemente, um die Produktionsreihenfolge anzupassen."
+    ],
     "splitting": ["Splitting", "Splitten"]
   }
 }

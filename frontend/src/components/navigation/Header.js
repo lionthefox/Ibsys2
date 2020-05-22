@@ -19,7 +19,7 @@ const styles = (theme) => ({
     position: 'fixed',
     top: 0,
     width: '100%',
-    height: '6.5rem',
+    height: '6rem',
     zIndex: 1000,
   },
   appBar: {
