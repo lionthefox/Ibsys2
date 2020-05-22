@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import VerticalSplitRoundedIcon from '@material-ui/icons/VerticalSplitRounded';
+import CallMergeRoundedIcon from '@material-ui/icons/CallMergeRounded';
 import ContainedTabs from '../ui_components/ContainedTabs';
 import Popover from '../ui_components/Popover';
 import artNumbers from '../../assets/artNumbers';
@@ -27,7 +28,7 @@ const styles = {
   },
   paper: {
     marginTop: '1rem',
-    height: 'calc(100vh - 460px)',
+    height: 'calc(100vh - 470px)',
     overflow: 'auto',
     padding: '0 10px',
   },
@@ -52,12 +53,22 @@ const styles = {
     paddingLeft: '10px',
   },
   name: {
-    width: '66%',
+    width: '57%',
   },
   productionAmount: {
-    width: '15%',
+    width: '18%',
   },
   splitButton: {
+    position: 'relative',
+    top: '3px',
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+    '&:active': {
+      backgroundColor: 'transparent',
+    },
+  },
+  mergeButton: {
     position: 'relative',
     top: '3px',
     '&:hover': {
@@ -87,7 +98,7 @@ const styles = {
     margin: '0 -10px',
   },
   articleIdHeader: {
-    width: '12.8%',
+    width: '14%',
     height: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -100,13 +111,14 @@ const styles = {
     alignItems: 'center',
   },
   productionAmountHeader: {
-    width: '10%',
+    width: '15%',
     height: '100%',
     display: 'flex',
     alignItems: 'center',
     paddingRight: '65px',
   },
   splittingHeader: {
+    width: '10%',
     height: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -117,10 +129,19 @@ const styles = {
     color: '#135444',
   },
   splitPlaceholder: {
-    width: '4.5%',
+    width: '8.7%',
+  },
+  mergePlaceholder: {
+    width: '7.3%',
+  },
+  splitButtonRoot: {
+    width: '8.5%',
+  },
+  mergeButtonRoot: {
+    width: '7%',
   },
 };
-//TODO: Merging
+
 const SequencePlanning = ({
   classes,
   language,
@@ -133,6 +154,7 @@ const SequencePlanning = ({
   const [currentIndex, setCurrentIndex] = useState(null);
   const [splittingValue1, setSplittingValue1] = useState(0);
   const [splittingValue2, setSplittingValue2] = useState(0);
+  const [splittingDisabled, setSplittingDisabled] = useState(true);
 
   const products = ['p1', 'p2', 'p3'];
 
@@ -155,6 +177,7 @@ const SequencePlanning = ({
   };
 
   const submitSplittingValues = () => {
+    closePopover();
     const newSimulationData = { ...simulationData };
     const element1 = { ...newSimulationData[products[index]][currentIndex] };
     const element2 = { ...newSimulationData[products[index]][currentIndex] };
@@ -188,22 +211,67 @@ const SequencePlanning = ({
     setSimulationData(newSimulationData);
   };
 
+  const popoverProps = {
+    val: currentVal,
+    anchorEl,
+    open,
+    closePopover,
+    splittingValue1,
+    splittingValue2,
+    setSplittingValue1,
+    setSplittingValue2,
+    submitSplittingValues,
+    splittingDisabled,
+    setSplittingDisabled,
+  };
+
+  const Merge = ({ val, keyIndex }) => {
+    let newValue = 0;
+    const entryIndices = [];
+    simulationData[products[index]].map((entry, entryIndex) => {
+      if (val.articleId === entry.articleId) {
+        entryIndices.push(entryIndex);
+        newValue += entry.produktion;
+      }
+    });
+    const enabled = entryIndices.length > 1 && keyIndex === entryIndices[0];
+
+    const mergeValues = () => {
+      const newSimulationData = { ...simulationData };
+      newSimulationData[products[index]][entryIndices[0]].produktion = newValue;
+      entryIndices.splice(0, 1);
+      entryIndices.map((entryIndex, counter) => {
+        newSimulationData[products[index]].splice(entryIndex - counter, 1);
+      });
+      setSimulationData(newSimulationData);
+    };
+
+    if (enabled) {
+      return (
+        <ListItemIcon classes={{ root: classes.mergeButtonRoot }}>
+          <IconButton
+            className={classes.mergeButton}
+            disableRipple
+            onClick={(e) => {
+              setCurrentVal(val);
+              setCurrentIndex(keyIndex);
+              mergeValues();
+            }}
+          >
+            <CallMergeRoundedIcon classes={{ root: classes.splitButtonIcon }} />
+          </IconButton>
+        </ListItemIcon>
+      );
+    } else {
+      return <div className={classes.mergePlaceholder}></div>;
+    }
+  };
+
   const getComponents = () => {
     const elements = [];
 
     if (simulationData) {
       simulationData[products[index]].map((val, keyIndex) => {
-        const popoverProps = {
-          val: currentVal,
-          anchorEl,
-          open,
-          closePopover,
-          splittingValue1,
-          splittingValue2,
-          setSplittingValue1,
-          setSplittingValue2,
-          submitSplittingValues,
-        };
         elements.push(
           <Draggable
             draggableId={`sequence_planning_${products[index]}_${keyIndex}`}
@@ -230,7 +298,7 @@ const SequencePlanning = ({
                   primary={val.produktion}
                 />
                 {val.produktion >= 20 ? (
-                  <ListItemIcon>
+                  <ListItemIcon classes={{ root: classes.splitButtonRoot }}>
                     <IconButton
                       className={classes.splitButton}
                       disableRipple
@@ -238,6 +306,7 @@ const SequencePlanning = ({
                         setInitialSplittingValues(val);
                         setCurrentVal(val);
                         setCurrentIndex(keyIndex);
+                        setSplittingDisabled(false);
                         openPopover(e);
                       }}
                     >
@@ -250,6 +319,7 @@ const SequencePlanning = ({
                 ) : (
                   <div className={classes.splitPlaceholder}></div>
                 )}
+                <Merge val={val} keyIndex={keyIndex} />
               </ListItem>
             )}
           </Draggable>
@@ -270,6 +340,9 @@ const SequencePlanning = ({
           </div>
           <div className={classes.splittingHeader}>
             <Translate id='SequencePlanning.splitting' />
+          </div>
+          <div className={classes.splittingHeader}>
+            <Translate id='SequencePlanning.merging' />
           </div>
         </div>
         <Droppable droppableId='sequene_planning_droppable'>

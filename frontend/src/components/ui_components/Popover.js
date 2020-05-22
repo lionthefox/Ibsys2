@@ -75,6 +75,8 @@ const OverflowPopover = ({
   setSplittingValue1,
   setSplittingValue2,
   submitSplittingValues,
+  splittingDisabled,
+  setSplittingDisabled,
 }) => {
   const error1 = splittingValue1 < 10;
   const error2 = splittingValue2 < 10;
@@ -157,11 +159,15 @@ const OverflowPopover = ({
       >
         <Button
           disabled={
-            error1 || error2 || isNaN(splittingValue1) || isNaN(splittingValue2)
+            splittingDisabled ||
+            error1 ||
+            error2 ||
+            isNaN(splittingValue1) ||
+            isNaN(splittingValue2)
           }
           onClick={() => {
+            setSplittingDisabled(true);
             submitSplittingValues();
-            closePopover();
           }}
           classes={{
             root: classes.splitTextButton,
