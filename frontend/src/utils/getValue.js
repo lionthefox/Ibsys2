@@ -9,3 +9,5 @@ export const getValue = (val, decimal, maxValue) => {
   }
   return newVal;
 };
+
+export const getInputValue = (val) => String(val).replace('^0+', '');

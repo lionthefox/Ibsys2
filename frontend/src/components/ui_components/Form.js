@@ -2,7 +2,7 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { getNestedObjectProperty } from '../../utils/nestedObjectProps';
-import { getValue } from '../../utils/getValue';
+import { getValue, getInputValue } from '../../utils/getValue';
 
 const styles = {
   columnContainer: {
@@ -87,8 +87,6 @@ const Form = ({
     variant: 'outlined',
     InputProps: { inputProps: { min: 0, max: maxValue || undefined } },
   };
-
-  const getInputValue = (val) => String(val).replace('^0+', '');
 
   return (
     <div className={classes.columnContainer}>

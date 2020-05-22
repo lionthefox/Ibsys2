@@ -94,5 +94,9 @@
       "Verschieben Sie nach Bedarf Elemente, um die Produktionsreihenfolge anzupassen."
     ],
     "splitting": ["Splitting", "Splitten"]
+  },
+  "Popover": {
+    "invalidNumber": ["Invalid Number", "Ungültige Eingabe"],
+    "helperText": ["Number has to be >= 10", "Eingabe muss >=10 sein"]
   }
 }

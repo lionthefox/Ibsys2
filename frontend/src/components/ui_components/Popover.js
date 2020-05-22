@@ -5,6 +5,7 @@ import Popover from '@material-ui/core/Popover';
 import { TextField, Button } from '@material-ui/core';
 
 import artNumbers from '../../assets/artNumbers';
+import { getInputValue } from '../../utils/getValue';
 
 const styles = {
   splitTextButton: {
@@ -17,8 +18,22 @@ const styles = {
       background: '#0f4336',
     },
   },
+  splitTextButtonDisabled: {
+    background: 'grey',
+    color: '#fff !important',
+  },
   popoverPaper: {
     boxShadow: '1px 2px 4px 0px rgba(194,194,194,0.5)',
+  },
+  textFieldError: {
+    '& label.Mui-focused': {
+      color: '#f44336',
+    },
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: '#f44336',
+      },
+    },
   },
 };
 
@@ -49,11 +64,9 @@ const MediumInput = withStyles({
   },
 })(TextField);
 
-//TODO: Stepper
 const OverflowPopover = ({
   classes,
   val,
-  index,
   open,
   anchorEl,
   closePopover,
@@ -63,6 +76,8 @@ const OverflowPopover = ({
   setSplittingValue2,
   submitSplittingValues,
 }) => {
+  const error1 = splittingValue1 < 10;
+  const error2 = splittingValue2 < 10;
   const maxValue = val ? val.produktion - 10 : undefined;
   const inputProps = {
     type: 'number',
@@ -76,9 +91,6 @@ const OverflowPopover = ({
     let input = parseInt(newVal.replace('-', ''));
     if (input > maxValue) {
       input = maxValue;
-    }
-    if (input < 10) {
-      input = 10;
     }
     if (input1) {
       setSplittingValue1(input);
@@ -118,12 +130,20 @@ const OverflowPopover = ({
       <div>
         <MediumInput
           {...inputProps}
-          value={splittingValue1}
+          classes={{ root: error1 ? classes.textFieldError : null }}
+          error={error1}
+          label={error1 ? <Translate id='Popover.invalidNumber' /> : null}
+          helperText={error1 ? <Translate id='Popover.helperText' /> : null}
+          value={getInputValue(splittingValue1) || 0}
           onChange={(e) => setNewSplittingValues(e.target.value, true)}
         />
         <MediumInput
           {...inputProps}
-          value={splittingValue2}
+          classes={{ root: error2 ? classes.textFieldError : null }}
+          error={error2}
+          label={error2 ? <Translate id='Popover.invalidNumber' /> : null}
+          helperText={error2 ? <Translate id='Popover.helperText' /> : null}
+          value={getInputValue(splittingValue2) || 0}
           onChange={(e) => setNewSplittingValues(e.target.value, false)}
         />
       </div>
@@ -136,11 +156,17 @@ const OverflowPopover = ({
         }}
       >
         <Button
+          disabled={
+            error1 || error2 || isNaN(splittingValue1) || isNaN(splittingValue2)
+          }
           onClick={() => {
             submitSplittingValues();
             closePopover();
           }}
-          classes={{ root: classes.splitTextButton }}
+          classes={{
+            root: classes.splitTextButton,
+            disabled: classes.splitTextButtonDisabled,
+          }}
         >
           <Translate id='SequencePlanning.splitting' />
         </Button>

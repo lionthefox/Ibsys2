@@ -120,7 +120,7 @@ const styles = {
     width: '4.5%',
   },
 };
-//FIXME: Splitting
+//TODO: Merging
 const SequencePlanning = ({
   classes,
   language,
@@ -156,8 +156,8 @@ const SequencePlanning = ({
 
   const submitSplittingValues = () => {
     const newSimulationData = { ...simulationData };
-    const element1 = newSimulationData[products[index]][currentIndex];
-    const element2 = newSimulationData[products[index]][currentIndex];
+    const element1 = { ...newSimulationData[products[index]][currentIndex] };
+    const element2 = { ...newSimulationData[products[index]][currentIndex] };
     element1.produktion = splittingValue1;
     element2.produktion = splittingValue2;
     newSimulationData[products[index]].splice(currentIndex, 1);
@@ -195,7 +195,6 @@ const SequencePlanning = ({
       simulationData[products[index]].map((val, keyIndex) => {
         const popoverProps = {
           val: currentVal,
-          index: currentIndex,
           anchorEl,
           open,
           closePopover,
