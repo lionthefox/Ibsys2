@@ -174,7 +174,6 @@ export const putOrderPlan = (newOrderPlan, newState, setNewState, setError) =>
           setTimeout(() => setError(false, undefined, undefined), 10000);
         } else {
           setError(false, undefined, undefined);
-          console.log(response.data);
           newState.orderPlan = response.data;
           setNewState(newState);
         }

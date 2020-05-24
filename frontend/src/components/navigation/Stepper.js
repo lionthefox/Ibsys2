@@ -5,6 +5,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import IconButton from '@material-ui/core/IconButton';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Translate } from 'react-localize-redux';
 import Alert from '@material-ui/lab/Alert';
 
@@ -12,6 +13,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import DoneIcon from '@material-ui/icons/Done';
 import ReplayIcon from '@material-ui/icons/Replay';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +21,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     position: 'fixed',
     bottom: '0px',
+  },
+  rootHeight: {
     height: '175px',
+  },
+  rootHeightBig: {
+    height: '210px',
   },
   arrowContainer: {
     width: '100%',
@@ -110,11 +117,17 @@ const HorizontalStepper = ({
   errorMessage,
 }) => {
   const classes = useStyles();
+  const matches = useMediaQuery('(min-width:1020px)');
 
   const steps = getSteps(language);
 
   return (
-    <div className={classes.root}>
+    <div
+      className={clsx(classes.root, {
+        [classes.rootHeight]: matches,
+        [classes.rootHeightBig]: !matches,
+      })}
+    >
       {showError ? (
         <div
           style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
@@ -127,6 +140,7 @@ const HorizontalStepper = ({
               fontSize: '1rem',
               color: 'red',
               paddingBottom: '1rem',
+              marginTop: '-5rem',
             }}
           >
             <Alert severity='error'>

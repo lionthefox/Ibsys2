@@ -23,10 +23,16 @@ const styles = {
     height: 'calc(100vh - 390px)',
     overflow: 'auto',
   },
+  form: {
+    display: 'flex',
+    width: '90vw',
+  },
 };
 //TODO: Multiselect Bestellart
+//TODO: articleID sticky left
+//TODO: height Header
+//TODO: overflow auto Production
 const OrderPlanning = ({ classes, language, orderPlan, changeOrderPlan }) => {
-  console.log(orderPlan);
   const getComponents = () => {
     const elements = [];
     const formProps = {
@@ -50,7 +56,6 @@ const OrderPlanning = ({ classes, language, orderPlan, changeOrderPlan }) => {
               >
                 <Form
                   {...formProps}
-                  maxValue={artKey === 'ubermin' ? 240 : 3}
                   key={`capacity_planning_form_${artKey}`}
                   label={<Translate id={`OrderPlanning.${artKey}`} />}
                   prop={artKey}
@@ -76,7 +81,7 @@ const OrderPlanning = ({ classes, language, orderPlan, changeOrderPlan }) => {
   return (
     <Paper classes={{ root: classes.paper }} elevation={3}>
       <div className={classes.wrapper}>
-        <form noValidate autoComplete='off'>
+        <form className={classes.form} noValidate autoComplete='off'>
           {getComponents()}
         </form>
       </div>

@@ -233,7 +233,9 @@ class Main extends Component {
     const { orderPlan } = this.state;
     const { setNewState, setError } = this;
 
-    const newOrderPlan = setNestedObjectProperty(orderPlan, keyArray, val);
+    const newOrderPlan = Object.values(
+      setNestedObjectProperty(orderPlan, keyArray, val)
+    );
     const newState = { orderPlan: { ...orderPlan } };
     putOrderPlan(newOrderPlan, newState, setNewState, setError);
   };

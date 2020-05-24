@@ -21,8 +21,9 @@ const styles = {
     position: 'sticky',
     top: '0rem',
     zIndex: 100,
-    padding: '1.5rem 1rem',
+    padding: '1.5rem 1rem 0',
     width: '100%',
+    height: '45px',
   },
 };
 

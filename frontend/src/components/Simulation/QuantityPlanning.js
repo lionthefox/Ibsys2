@@ -23,6 +23,10 @@ const styles = {
     height: 'calc(100vh - 440px)',
     overflow: 'auto',
   },
+  form: {
+    display: 'flex',
+    width: '90vw',
+  },
 };
 
 const QuantityPlanning = ({
@@ -99,7 +103,7 @@ const QuantityPlanning = ({
         onChange={(e, i) => setIndex(i)}
       />
       <Paper classes={{ root: classes.paper }} elevation={3}>
-        <form noValidate autoComplete='off'>
+        <form className={classes.form} noValidate autoComplete='off'>
           {getComponents()}
         </form>
       </Paper>
