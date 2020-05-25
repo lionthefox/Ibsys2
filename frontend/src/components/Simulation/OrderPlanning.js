@@ -1,10 +1,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Translate } from 'react-localize-redux';
+import { Paper } from '@material-ui/core';
 
 import Form from '../ui_components/Form';
 import Text from '../ui_components/Text';
-import { Paper } from '@material-ui/core';
+import MultiSelect from '../ui_components/Select';
 
 const styles = {
   wrapper: {
@@ -28,7 +29,7 @@ const styles = {
     width: '90vw',
   },
 };
-//TODO: Multiselect Bestellart
+//TODO: Download Instructions Text
 //TODO: articleID sticky left
 //TODO: height Header
 //TODO: overflow auto Production
@@ -54,10 +55,23 @@ const OrderPlanning = ({
       );
 
       keys.map((artKey) =>
-        artKey === 'bestellart' || artKey === 'menge'
+        artKey === 'bestellart'
           ? elements.push(
               <div
-                key={`capacity_planning_form_${artKey}_wrapper`}
+                key={`order_planning_select_${artKey}_wrapper`}
+                style={{ marginRight: '1rem' }}
+              >
+                <MultiSelect
+                  {...formProps}
+                  label={<Translate id={`OrderPlanning.${artKey}`} />}
+                  prop={artKey}
+                />
+              </div>
+            )
+          : artKey === 'menge'
+          ? elements.push(
+              <div
+                key={`order_planning_form_${artKey}_wrapper`}
                 style={{ marginRight: '1rem' }}
               >
                 <Form
@@ -71,7 +85,7 @@ const OrderPlanning = ({
             )
           : elements.push(
               <Text
-                key={`capacity_planning_text_${artKey}`}
+                key={`order_planning_text_${artKey}`}
                 obj={orderPlan}
                 idProp='matNr'
                 label={
