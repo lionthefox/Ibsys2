@@ -21,6 +21,8 @@ import {
   postSimulationInput,
   putSimulationData,
   getCapacityPlan,
+  getOrderPlan,
+  putOrderPlan,
 } from './utils/requests';
 
 const paths = [
@@ -36,7 +38,7 @@ const paths = [
 const AnimationWrapper = ({ children }) => (
   <div
     className='cssanimation sequence fadeInBottom'
-    style={{ paddingTop: '8rem', paddingBottom: '13rem' }}
+    style={{ paddingTop: '7rem' }}
   >
     {children}
   </div>
@@ -97,6 +99,7 @@ class Main extends Component {
       simulationInput: { ...simulationInput },
       simulationData: undefined,
       capacityPlan: undefined,
+      orderPlan: undefined,
       showError: false,
       errorMessageId: undefined,
       errorMessage: undefined,
@@ -109,14 +112,14 @@ class Main extends Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       if (this.props.history.action === 'POP') {
-        if (prevState.activeStep - 1 === 0) {
+        let newActiveStep = prevState.activeStep;
+        paths.map((path, index) => {
+          if (this.props.history.location.pathname === path)
+            newActiveStep = index;
+        });
+        if (newActiveStep === 0) {
           this.setState(this.getDefaultState(prevState.activeLanguage));
         } else {
-          let newActiveStep = prevState.activeStep;
-          paths.map((path, index) => {
-            if (this.props.history.location.pathname === path)
-              newActiveStep = index;
-          });
           this.setState({ activeStep: newActiveStep });
         }
       }
@@ -156,6 +159,8 @@ class Main extends Component {
         return postSimulationInput(simulationInput, requestProps);
       case 2:
         return getCapacityPlan(requestProps);
+      case 4:
+        return getOrderPlan(requestProps);
       default:
         this.setState(newState);
         history.push(paths[activeStep + 1]);
@@ -188,6 +193,8 @@ class Main extends Component {
       );
       return { simulationInput: newSimulationInput };
     });
+
+  setSimulationData = (val) => this.setState({ simulationData: val });
 
   changeSimulationData = (product, keyArray, val) => {
     const { simulationData } = this.state;
@@ -222,6 +229,17 @@ class Main extends Component {
       return { capacityPlan: newCapacityPlan };
     });
 
+  changeOrderPlan = (product, keyArray, val) => {
+    const { orderPlan } = this.state;
+    const { setNewState, setError } = this;
+
+    const newOrderPlan = Object.values(
+      setNestedObjectProperty(orderPlan, keyArray, val)
+    );
+    const newState = { orderPlan: { ...orderPlan } };
+    putOrderPlan(newOrderPlan, newState, setNewState, setError);
+  };
+
   render() {
     const {
       activeLanguage,
@@ -233,6 +251,7 @@ class Main extends Component {
       errorMessageId,
       errorMessage,
       capacityPlan,
+      orderPlan,
     } = this.state;
 
     const inputProps = {
@@ -340,7 +359,11 @@ class Main extends Component {
                   <Translate id='Headline.sequence_planning' />
                 }
               >
-                <SequencePlanning simulationData={simulationData} />
+                <SequencePlanning
+                  language={activeLanguage}
+                  simulationData={simulationData}
+                  setSimulationData={this.setSimulationData}
+                />
               </HeadlineWrapper>
             </AnimationWrapper>
           )}
@@ -353,7 +376,11 @@ class Main extends Component {
               <HeadlineWrapper
                 headlineComponent={<Translate id='Headline.order_planning' />}
               >
-                <OrderPlanning />
+                <OrderPlanning
+                  language={activeLanguage}
+                  orderPlan={orderPlan}
+                  changeOrderPlan={this.changeOrderPlan}
+                />
               </HeadlineWrapper>
             </AnimationWrapper>
           )}

@@ -77,13 +77,15 @@ namespace Ibsys2.Controllers
         {
             try
             {
-                return new DispoEFP1(
-                    _simulationService.Vertriebswunsch, 
+                var dispoEFP1 = new DispoEFP1(
+                    _simulationService.Vertriebswunsch,
                     _simulationService.Forecast,
                     _simulationService.LastPeriodResults,
                     _simulationService.ArtikelStammdaten,
                     input
-                    ).ListDispoEfPos;
+                ).ListDispoEfPos;
+                _simulationService.DispoEigenfertigungen.P1 = dispoEFP1;
+                return dispoEFP1;
             }
             catch (Exception exception)
             {
@@ -97,13 +99,15 @@ namespace Ibsys2.Controllers
         {
             try
             {
-                return new DispoEFP2(
-                    _simulationService.Vertriebswunsch,
-                    _simulationService.Forecast,
-                    _simulationService.LastPeriodResults,
-                    _simulationService.ArtikelStammdaten,
-                    input
-                    ).ListDispoEfPos;
+               var dispoEFP2 = new DispoEFP2(
+                   _simulationService.Vertriebswunsch,
+                   _simulationService.Forecast,
+                   _simulationService.LastPeriodResults,
+                   _simulationService.ArtikelStammdaten,
+                   input
+               ).ListDispoEfPos;
+                _simulationService.DispoEigenfertigungen.P2 = dispoEFP2;
+                return dispoEFP2;
             }
             catch (Exception exception)
             {
@@ -117,13 +121,16 @@ namespace Ibsys2.Controllers
         {
             try
             {
-                return new DispoEFP3(
+                var dispoEFP3 = new DispoEFP3(
                     _simulationService.Vertriebswunsch, 
                     _simulationService.Forecast,
                     _simulationService.LastPeriodResults,
                     _simulationService.ArtikelStammdaten,
                     input
-                    ).ListDispoEfPos;
+                ).ListDispoEfPos;
+                _simulationService.DispoEigenfertigungen.P3 = dispoEFP3;
+                return dispoEFP3;
+
             }
             catch (Exception exception)
             {

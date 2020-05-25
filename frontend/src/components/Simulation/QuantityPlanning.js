@@ -17,11 +17,15 @@ const styles = {
   root: {
     display: 'flex',
     justifyContent: 'space-around',
-    marginTop: '2rem',
   },
   paper: {
     marginTop: '1rem',
-    paddingBottom: '1rem',
+    height: 'calc(100vh - 440px)',
+    overflow: 'auto',
+  },
+  form: {
+    display: 'flex',
+    width: '90vw',
   },
 };
 
@@ -32,7 +36,6 @@ const QuantityPlanning = ({
   activeLanguage,
 }) => {
   const [index, setIndex] = useState(0);
-
   const products = ['p1', 'p2', 'p3'];
 
   const getComponents = () => {
@@ -68,7 +71,7 @@ const QuantityPlanning = ({
                 {...formProps}
                 {...elementProps}
                 key={`quantity_planning_form_${index}_${artKey}`}
-                small
+                medium
               />
             )
           : elements.push(
@@ -100,7 +103,7 @@ const QuantityPlanning = ({
         onChange={(e, i) => setIndex(i)}
       />
       <Paper classes={{ root: classes.paper }} elevation={3}>
-        <form noValidate autoComplete='off'>
+        <form className={classes.form} noValidate autoComplete='off'>
           {getComponents()}
         </form>
       </Paper>

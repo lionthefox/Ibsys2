@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Translate } from 'react-localize-redux';
+import { Paper, ListItemIcon, IconButton } from '@material-ui/core';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
+import VerticalSplitRoundedIcon from '@material-ui/icons/VerticalSplitRounded';
+import CallMergeRoundedIcon from '@material-ui/icons/CallMergeRounded';
 import ContainedTabs from '../ui_components/ContainedTabs';
+import Popover from '../ui_components/Popover';
+import artNumbers from '../../assets/artNumbers';
 
 const styles = {
   wrapper: {
@@ -16,38 +25,340 @@ const styles = {
     width: '80vw',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    marginTop: '2rem',
+  },
+  paper: {
+    marginTop: '1rem',
+    height: 'calc(100vh - 470px)',
+    overflow: 'auto',
+    padding: '0 10px',
   },
   elementContainer: {
     display: 'flex',
     width: '100%',
     height: '3rem',
-    border: '3px solid #135444',
+    marginBottom: '8px',
+    background: '#fff',
+    fontSize: '20px',
+    borderRadius: '10px',
+    boxShadow: '1px 2px 8px 0px rgba(194,194,194,0.5)',
+    '&:hover': {
+      background: 'rgba(19, 83, 67, 0.25)',
+    },
+    '&:active': {
+      background: 'rgba(19, 83, 67, 0.8)',
+    },
+  },
+  articleId: {
+    width: '11.5%',
+    paddingLeft: '10px',
+  },
+  name: {
+    width: '57%',
+  },
+  productionAmount: {
+    width: '18%',
+  },
+  splitButton: {
+    position: 'relative',
+    top: '3px',
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+    '&:active': {
+      backgroundColor: 'transparent',
+    },
+  },
+  mergeButton: {
+    position: 'relative',
+    top: '3px',
+    '&:hover': {
+      backgroundColor: 'transparent',
+    },
+    '&:active': {
+      backgroundColor: 'transparent',
+    },
+  },
+  splitButtonIcon: {
+    color: '#fff',
+    padding: '5px',
+    borderRadius: '10px',
+    background: '#135444',
+  },
+  headerContainer: {
+    display: 'flex',
+    width: '100%',
+    height: '4rem',
+    background: '#fff',
+    fontSize: '18px',
+    color: '#135444',
+    zIndex: 1000,
+    position: 'sticky',
+    top: 0,
+    padding: '0.3rem 10px 0',
+    margin: '0 -10px',
+  },
+  articleIdHeader: {
+    width: '14%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: '1rem',
+  },
+  nameHeader: {
+    width: '65%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  productionAmountHeader: {
+    width: '15%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    paddingRight: '65px',
+  },
+  splittingHeader: {
+    width: '10%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  instructions: {
+    marginTop: '10px',
+    fontSize: '18px',
+    color: '#135444',
+  },
+  splitPlaceholder: {
+    width: '8.7%',
+  },
+  mergePlaceholder: {
+    width: '7.3%',
+  },
+  splitButtonRoot: {
+    width: '8.5%',
+  },
+  mergeButtonRoot: {
+    width: '7%',
   },
 };
 
-const SequencePlanning = ({ classes, simulationData }) => {
+const SequencePlanning = ({
+  classes,
+  language,
+  simulationData,
+  setSimulationData,
+}) => {
   const [index, setIndex] = useState(0);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [currentVal, setCurrentVal] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const [splittingValue1, setSplittingValue1] = useState(0);
+  const [splittingValue2, setSplittingValue2] = useState(0);
+  const [splittingDisabled, setSplittingDisabled] = useState(true);
+
   const products = ['p1', 'p2', 'p3'];
 
-  console.log(simulationData);
+  const openPopover = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const closePopover = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
+  const setInitialSplittingValues = (val) => {
+    const newSplittingValue1 =
+      Math.floor(val.produktion / 2) + (val.produktion % 2);
+    const newSplittingValue2 = Math.floor(val.produktion / 2);
+    setSplittingValue1(newSplittingValue1);
+    setSplittingValue2(newSplittingValue2);
+  };
+
+  const submitSplittingValues = () => {
+    closePopover();
+    const newSimulationData = { ...simulationData };
+    const element1 = { ...newSimulationData[products[index]][currentIndex] };
+    const element2 = { ...newSimulationData[products[index]][currentIndex] };
+    element1.produktion = splittingValue1;
+    element2.produktion = splittingValue2;
+    newSimulationData[products[index]].splice(currentIndex, 1);
+    newSimulationData[products[index]].splice(currentIndex, 0, element2);
+    newSimulationData[products[index]].splice(currentIndex, 0, element1);
+    setSimulationData(newSimulationData);
+  };
+
+  const onDragEnd = (result) => {
+    const { destination, source } = result;
+    if (!destination) {
+      return;
+    }
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
+    const newSimulationData = { ...simulationData };
+    const draggedElement = newSimulationData[products[index]][source.index];
+    newSimulationData[products[index]].splice(source.index, 1);
+    newSimulationData[products[index]].splice(
+      destination.index,
+      0,
+      draggedElement
+    );
+    setSimulationData(newSimulationData);
+  };
+
+  const popoverProps = {
+    val: currentVal,
+    anchorEl,
+    open,
+    closePopover,
+    splittingValue1,
+    splittingValue2,
+    setSplittingValue1,
+    setSplittingValue2,
+    submitSplittingValues,
+    splittingDisabled,
+    setSplittingDisabled,
+  };
+
+  const Merge = ({ val, keyIndex }) => {
+    let newValue = 0;
+    const entryIndices = [];
+    simulationData[products[index]].map((entry, entryIndex) => {
+      if (val.articleId === entry.articleId) {
+        entryIndices.push(entryIndex);
+        newValue += entry.produktion;
+      }
+    });
+    const enabled = entryIndices.length > 1 && keyIndex === entryIndices[0];
+
+    const mergeValues = () => {
+      const newSimulationData = { ...simulationData };
+      newSimulationData[products[index]][entryIndices[0]].produktion = newValue;
+      entryIndices.splice(0, 1);
+      entryIndices.map((entryIndex, counter) => {
+        newSimulationData[products[index]].splice(entryIndex - counter, 1);
+      });
+      setSimulationData(newSimulationData);
+    };
+
+    if (enabled) {
+      return (
+        <ListItemIcon classes={{ root: classes.mergeButtonRoot }}>
+          <IconButton
+            className={classes.mergeButton}
+            disableRipple
+            onClick={(e) => {
+              setCurrentVal(val);
+              setCurrentIndex(keyIndex);
+              mergeValues();
+            }}
+          >
+            <CallMergeRoundedIcon classes={{ root: classes.splitButtonIcon }} />
+          </IconButton>
+        </ListItemIcon>
+      );
+    } else {
+      return <div className={classes.mergePlaceholder}></div>;
+    }
+  };
+
   const getComponents = () => {
     const elements = [];
 
     if (simulationData) {
       simulationData[products[index]].map((val, keyIndex) => {
         elements.push(
-          <div
-            className={classes.elementContainer}
+          <Draggable
+            draggableId={`sequence_planning_${products[index]}_${keyIndex}`}
+            index={keyIndex}
             key={`sequence_planning_${products[index]}_${keyIndex}`}
           >
-            {val.articleId}
-          </div>
+            {(provided) => (
+              <ListItem
+                {...provided.draggableProps}
+                {...provided.dragHandleProps}
+                innerRef={provided.innerRef}
+                classes={{ root: classes.elementContainer }}
+              >
+                <ListItemText
+                  classes={{ root: classes.articleId }}
+                  primary={artNumbers[val.articleId - 1]}
+                />
+                <ListItemText
+                  classes={{ root: classes.name }}
+                  primary={language === 'en' ? val.nameEng : val.name}
+                />
+                <ListItemText
+                  classes={{ root: classes.productionAmount }}
+                  primary={val.produktion}
+                />
+                {val.produktion >= 20 ? (
+                  <ListItemIcon classes={{ root: classes.splitButtonRoot }}>
+                    <IconButton
+                      className={classes.splitButton}
+                      disableRipple
+                      onClick={(e) => {
+                        setInitialSplittingValues(val);
+                        setCurrentVal(val);
+                        setCurrentIndex(keyIndex);
+                        setSplittingDisabled(false);
+                        openPopover(e);
+                      }}
+                    >
+                      <VerticalSplitRoundedIcon
+                        classes={{ root: classes.splitButtonIcon }}
+                      />
+                    </IconButton>
+                    <Popover {...popoverProps} />
+                  </ListItemIcon>
+                ) : (
+                  <div className={classes.splitPlaceholder}></div>
+                )}
+                <Merge val={val} keyIndex={keyIndex} />
+              </ListItem>
+            )}
+          </Draggable>
         );
       });
     }
     return (
-      <div className={classes.root}>{simulationData ? elements : null}</div>
+      <div className={classes.root}>
+        <div className={classes.headerContainer}>
+          <div className={classes.articleIdHeader}>
+            <Translate id='QuantityPlanning.articleId' />
+          </div>
+          <div className={classes.nameHeader}>
+            <Translate id='QuantityPlanning.name' />
+          </div>
+          <div className={classes.productionAmountHeader}>
+            <Translate id='QuantityPlanning.produktion' />
+          </div>
+          <div className={classes.splittingHeader}>
+            <Translate id='SequencePlanning.splitting' />
+          </div>
+          <div className={classes.splittingHeader}>
+            <Translate id='SequencePlanning.merging' />
+          </div>
+        </div>
+        <Droppable droppableId='sequene_planning_droppable'>
+          {(provided) => (
+            <List
+              component='nav'
+              aria-label='sequence_planning_list'
+              innerRef={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {simulationData ? elements : null}
+              {provided.placeholder}
+            </List>
+          )}
+        </Droppable>
+      </div>
     );
   };
   return (
@@ -61,7 +372,14 @@ const SequencePlanning = ({ classes, simulationData }) => {
         value={index}
         onChange={(e, i) => setIndex(i)}
       />
-      {getComponents()}
+      <div className={classes.instructions}>
+        <Translate id='SequencePlanning.instructions' />
+      </div>
+      <Paper classes={{ root: classes.paper }} elevation={3}>
+        <DragDropContext onDragEnd={onDragEnd}>
+          {getComponents()}
+        </DragDropContext>
+      </Paper>
     </div>
   );
 };

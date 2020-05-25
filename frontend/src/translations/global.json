@@ -55,7 +55,7 @@
     "restart": ["Restart Simulation", "Simulation neustarten"]
   },
   "Production": {
-    "forecast": ["Forecast", "Prognose"],
+    "forecast": ["Production Plan", "Produktionsplan"],
     "sell_wish": ["Sell Wish", "Vertriebswunsch"],
     "direct_sales": ["Direct Sales", "Direktverkäufe"],
     "product": ["Product", "Produkt"],
@@ -66,7 +66,7 @@
     "period": ["Period", "Periode"]
   },
   "QuantityPlanning": {
-    "articleId": ["ID", "ID"],
+    "articleId": ["Article number", "Artikelnummer"],
     "name": ["Name", "Name"],
     "nameEng": ["Name", "Name"],
     "lagerbestand": ["Current Stock", "Aktueller Lagerbestand"],
@@ -87,5 +87,33 @@
     "ruestVorperiode": ["Setup Time Previous Period", "Rüstzeit Vorperiode"],
     "ubermin": ["Overtime [min/day]", "Überstunden [min/Tag]"],
     "anzSchicht": ["Shifts", "Schichten"]
+  },
+  "SequencePlanning": {
+    "instructions": [
+      "Please drag and drop elements to reorder the production sequence.",
+      "Verschieben Sie nach Bedarf Elemente, um die Produktionsreihenfolge anzupassen."
+    ],
+    "splitting": ["Splitting", "Splitten"],
+    "merging": ["Merging", "Vereinen"]
+  },
+  "OrderPlanning": {
+    "bedarfPeriode1": ["Demand Period 1", "Bedarf Periode 1"],
+    "bedarfPeriode2": ["Demand Period 2", "Bedarf Periode 2"],
+    "bedarfPeriode3": ["Demand Period 3", "Bedarf Periode 3"],
+    "bedarfPeriode4": ["Demand Period 4", "Bedarf Periode 4"],
+    "bestellart": ["Type of Delivery", "Bestellart"],
+    "lagerbestandPeriode1": ["Inventory Period 1", "Lagerbestand Periode 1"],
+    "lagerbestandPeriode2": ["Inventory Period 2", "Lagerbestand Periode 2"],
+    "lagerbestandPeriode3": ["Inventory Period 3", "Lagerbestand Periode 3"],
+    "lagerbestandPeriode4": ["Inventory Period 4", "Lagerbestand Periode 4"],
+    "lagermenge": ["Stock", "Lagermenge"],
+    "liefertermin": ["Expected Delivery", "Voraussichtliche Lieferung"],
+    "lieferterminEng": ["Expected Delivery", "Voraussichtliche Lieferung"],
+    "matNr": ["Material number", "Materialnr."],
+    "menge": ["Order Amount", "Bestellmenge"]
+  },
+  "Popover": {
+    "invalidNumber": ["Invalid Number", "Ungültige Eingabe"],
+    "helperText": ["Number has to be >= 10", "Eingabe muss >=10 sein"]
   }
 }

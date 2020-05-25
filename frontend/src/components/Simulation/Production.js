@@ -16,6 +16,7 @@ const styles = {
   },
   root: {
     display: 'flex',
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
@@ -24,6 +25,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
+    position: 'relative',
+    top: '-5px',
   },
   forecastHeading: {
     width: '100%',
@@ -35,19 +38,39 @@ const styles = {
     height: '2rem',
     width: '80%',
     justifyContent: 'center',
-    fontSize: '18px',
+    alignItems: 'center',
+    color: '#135444',
+    fontSize: '20px',
+    position: 'relative',
+    top: '1.3rem',
+    zIndex: 1000,
   },
   product: {
     width: '20%',
     display: 'flex',
     justifyContent: 'center',
-    fontSize: '18px',
+    alignItems: 'center',
+    color: '#135444',
+    fontSize: '20px',
     height: '2rem',
+    position: 'relative',
+    top: '1.3rem',
+    zIndex: 1000,
+  },
+  paperSmall: {
+    height: 'calc(100vh - 480px)',
+    maxHeight: '300px',
+    marginTop: '1rem',
+    padding: '0rem 1rem 0.5rem',
+    overflow: 'auto',
   },
   paper: {
+    height: 'calc(100vh - 480px)',
+    maxHeight: '310px',
     marginTop: '1rem',
-    paddingTop: '1.5rem',
     paddingBottom: '0.5rem',
+    width: '960px',
+    overflow: 'auto',
   },
 };
 
@@ -80,7 +103,7 @@ const Production = ({
               </div>
               <div className={classes.root}>
                 <Text
-                  label={<div style={{ height: '1.3rem' }} />}
+                  label={<div style={{ height: '1.3rem', width: '7rem' }} />}
                   text={[
                     <Translate id='Bike.child_bike' />,
                     <Translate id='Bike.woman_bike' />,
@@ -129,7 +152,7 @@ const Production = ({
         );
       case 1:
         return (
-          <Paper classes={{ root: classes.paper }} elevation={3}>
+          <Paper classes={{ root: classes.paperSmall }} elevation={3}>
             <div className={classes.root}>
               <Text
                 label={<Translate id='Production.product' />}

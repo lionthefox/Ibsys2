@@ -7,20 +7,27 @@ const styles = {
   textContainer: {
     display: 'flex',
     flexDirection: 'column',
-    marginRight: '2rem',
-    marginLeft: '2rem',
+    marginRight: '1.5rem',
+    marginLeft: '1.5rem',
+    alignItems: 'center',
   },
   headerLabel: {
-    marginBottom: '1.5rem',
     textAlign: 'center',
-    fontSize: '18px',
+    fontSize: '20px',
+    color: '#135444',
+    background: '#fff',
+    position: 'sticky',
+    top: '0rem',
+    zIndex: 100,
+    padding: '1.5rem 1rem',
+    width: '100%',
   },
   value: {
     display: 'flex',
     height: '25%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '3px',
+    marginBottom: '6px',
   },
 };
 

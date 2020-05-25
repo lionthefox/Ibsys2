@@ -2,18 +2,28 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { getNestedObjectProperty } from '../../utils/nestedObjectProps';
-import { getValue } from '../../utils/getValue';
+import { getValue, getInputValue } from '../../utils/getValue';
+
+import { deliveryTypes, deliveryTypesEng } from '../../assets/deliveryTypes';
 
 const styles = {
   columnContainer: {
     display: 'flex',
     flexDirection: 'column',
     marginRight: '1rem',
+    alignItems: 'center',
   },
   headerLabel: {
-    marginBottom: '1.5rem',
     textAlign: 'center',
-    fontSize: '18px',
+    fontSize: '20px',
+    color: '#135444',
+    background: '#fff',
+    position: 'sticky',
+    top: '0rem',
+    zIndex: 100,
+    padding: '1.5rem 1rem 0',
+    width: '100%',
+    height: '45px',
   },
 };
 
@@ -33,13 +43,24 @@ const inputStyleRoot = {
   },
 };
 
+const MediumInput = withStyles({
+  root: {
+    ...inputStyleRoot,
+    width: '8rem',
+    top: '1.5px',
+    '& .MuiInputBase-root': {
+      height: '3rem',
+    },
+  },
+})(TextField);
+
 const SmallInput = withStyles({
   root: {
     ...inputStyleRoot,
+    top: '1.5px',
     width: '6rem',
     '& .MuiInputBase-root': {
-      height: '2.5rem',
-      fontSize: '15px',
+      height: '3rem',
     },
   },
 })(TextField);
@@ -59,6 +80,7 @@ const Form = ({
   values,
   prop,
   product,
+  medium,
   small,
   decimal,
   maxValue,
@@ -68,8 +90,6 @@ const Form = ({
     variant: 'outlined',
     InputProps: { inputProps: { min: 0, max: maxValue || undefined } },
   };
-
-  const getInputValue = (val) => String(val).replace('^0+', '');
 
   return (
     <div className={classes.columnContainer}>
@@ -88,7 +108,9 @@ const Form = ({
                 );
               },
             };
-            return small ? (
+            return medium ? (
+              <MediumInput {...inputProps} />
+            ) : small ? (
               <SmallInput {...inputProps} />
             ) : (
               <Input {...inputProps} />
@@ -108,14 +130,24 @@ const Form = ({
                         [index, prop],
                         getValue(e.target.value, decimal, maxValue)
                       )
-                  : (e) =>
+                  : (e) => {
+                      if (
+                        prop === 'anzSchicht' &&
+                        getValue(e.target.value, decimal, maxValue) === 3
+                      ) {
+                        setObjState(undefined, [index, 'ubermin'], 0);
+                      }
                       setObjState(
                         undefined,
                         [index, prop],
                         getValue(e.target.value, decimal, maxValue)
-                      ),
+                      );
+                    },
+                disabled: prop === 'ubermin' && art['anzSchicht'] === 3,
               };
-              return small ? (
+              return medium ? (
+                <MediumInput {...inputProps} />
+              ) : small ? (
                 <SmallInput {...inputProps} />
               ) : (
                 <Input {...inputProps} />

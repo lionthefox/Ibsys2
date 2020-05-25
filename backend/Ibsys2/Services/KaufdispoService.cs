@@ -59,20 +59,23 @@ namespace Ibsys2.Services
             }
             // Lagervorraussagen
             kaufdispoPos.LagerbestandPeriode1 =
-                GetLagerbestandZukunft(1, kaufdispoPos.BedarfPeriode1, kaufdispoPos.Lagermenge, lieferdaten, kaufdispoPos.Menge);
+                GetLagerbestandZukunft(1, kaufdispoPos.BedarfPeriode1, kaufdispoPos.Lagermenge, lieferdaten, kaufdispoPos.Menge, lastPeriodResults);
             kaufdispoPos.LagerbestandPeriode2 =
-                GetLagerbestandZukunft(2, kaufdispoPos.BedarfPeriode1 + kaufdispoPos.BedarfPeriode2, kaufdispoPos.Lagermenge, lieferdaten, kaufdispoPos.Menge);
+                GetLagerbestandZukunft(2, kaufdispoPos.BedarfPeriode1 + kaufdispoPos.BedarfPeriode2, kaufdispoPos.Lagermenge, lieferdaten, kaufdispoPos.Menge, lastPeriodResults);
             kaufdispoPos.LagerbestandPeriode3 =
-                GetLagerbestandZukunft(3, kaufdispoPos.BedarfPeriode1 + kaufdispoPos.BedarfPeriode2 + kaufdispoPos.BedarfPeriode3, kaufdispoPos.Lagermenge, lieferdaten, kaufdispoPos.Menge);
+                GetLagerbestandZukunft(3, kaufdispoPos.BedarfPeriode1 + kaufdispoPos.BedarfPeriode2 + kaufdispoPos.BedarfPeriode3, kaufdispoPos.Lagermenge, lieferdaten, kaufdispoPos.Menge, lastPeriodResults);
             kaufdispoPos.LagerbestandPeriode4 =
-                GetLagerbestandZukunft(4, kaufdispoPos.BedarfPeriode1 + kaufdispoPos.BedarfPeriode2 + kaufdispoPos.BedarfPeriode3 + kaufdispoPos.BedarfPeriode4, kaufdispoPos.Lagermenge, lieferdaten, kaufdispoPos.Menge);
+                GetLagerbestandZukunft(4, kaufdispoPos.BedarfPeriode1 + kaufdispoPos.BedarfPeriode2 + kaufdispoPos.BedarfPeriode3 + kaufdispoPos.BedarfPeriode4, kaufdispoPos.Lagermenge, lieferdaten, kaufdispoPos.Menge, lastPeriodResults);
             kaufdispoPos.Liefertermin = GetLiefertermin(lastPeriodResults.period, lieferdaten, 'D', kaufdispoPos.Bestellart);
             kaufdispoPos.LieferterminEng = GetLiefertermin(lastPeriodResults.period, lieferdaten, 'E', kaufdispoPos.Bestellart);
             return kaufdispoPos;
         }
 
-        private int GetLagerbestandZukunft(int periode, int bedarf, int lagermenge, Lieferdaten lieferdaten, int menge)
+        private int GetLagerbestandZukunft(int periode, int bedarf, int lagermenge, Lieferdaten lieferdaten, int menge, results lastPeriodResults)
         {
+            var bestellung = lastPeriodResults.ordersinwork.FirstOrDefault(x => x.item == lieferdaten.Kaufteil);
+            if (bestellung != null && bestellung.period == (lastPeriodResults.period + (periode - 1)))
+                menge += bestellung.amount;
             if (lieferdaten.Standardlieferzeit < periode)
                 return lagermenge - bedarf + menge;
             return lagermenge - bedarf;
