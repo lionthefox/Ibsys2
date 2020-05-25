@@ -112,5 +112,10 @@
   },
   "Result": {
     "download": ["Download", "Herunterladen"]
+  },
+  "Select": {
+    "normal": ["normal", "Normal"],
+    "fast": ["fast", "Eilbestellung"],
+    "jit": ["just in time", "Just in Time"]
   }
 }
