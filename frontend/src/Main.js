@@ -269,6 +269,7 @@ class Main extends Component {
       errorMessage,
       capacityPlan,
       orderPlan,
+      simulationOutput,
     } = this.state;
 
     const inputProps = {
@@ -411,7 +412,7 @@ class Main extends Component {
               <HeadlineWrapper
                 headlineComponent={<Translate id='Headline.result' />}
               >
-                <Result />
+                <Result simulationOutput={simulationOutput} />
               </HeadlineWrapper>
             </AnimationWrapper>
           )}

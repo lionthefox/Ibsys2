@@ -109,5 +109,8 @@
   "Popover": {
     "invalidNumber": ["Invalid Number", "Ungültige Eingabe"],
     "helperText": ["Number has to be >= 10", "Eingabe muss >=10 sein"]
+  },
+  "Result": {
+    "download": ["Download", "Herunterladen"]
   }
 }
