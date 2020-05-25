@@ -44,7 +44,7 @@ const QuantityPlanning = ({
   const products = ['p1', 'p2', 'p3'];
 
   const centered =
-    useMediaQuery('(min-width:1500px)') && activeLanguage == 'en';
+    useMediaQuery('(min-width:1500px)') && activeLanguage === 'en';
 
   const getComponents = () => {
     const elements = [];
@@ -89,6 +89,7 @@ const QuantityPlanning = ({
                 obj={simulationData[products[index]]}
                 idProp='articleId'
                 productIDs
+                stickyIDs={artKey === 'articleId'}
               />
             );
       });

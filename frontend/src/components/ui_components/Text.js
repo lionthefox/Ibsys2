@@ -10,6 +10,12 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
   },
+  sticky: {
+    position: 'sticky',
+    left: 0,
+    background: '#fff',
+    zIndex: 1000,
+  },
   margin: {
     marginRight: '1.5rem',
     marginLeft: '1.5rem',
@@ -47,6 +53,7 @@ const Text = ({
   idArray,
   productIDs,
   margin,
+  stickyIDs,
 }) => {
   const elements = [];
   const getArticleProp = (article) => {
@@ -99,7 +106,12 @@ const Text = ({
     );
   }
   return (
-    <div className={clsx(classes.textContainer, { [classes.margin]: margin })}>
+    <div
+      className={clsx(classes.textContainer, {
+        [classes.margin]: margin,
+        [classes.sticky]: stickyIDs,
+      })}
+    >
       {label ? <div className={classes.headerLabel}>{label}</div> : null}
       <>{elements}</>
     </div>

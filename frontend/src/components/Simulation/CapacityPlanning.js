@@ -73,6 +73,7 @@ const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
                 idProp='arbeitsplatzId'
                 label={<Translate id={`CapacityPlanning.${artKey}`} />}
                 prop={artKey}
+                stickyIDs={artKey === 'arbeitsplatzId'}
               />
             )
       );

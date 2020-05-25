@@ -29,7 +29,7 @@ const styles = {
     width: '90vw',
   },
 };
-//TODO: articleID sticky left
+
 const OrderPlanning = ({
   classes,
   language,
@@ -100,6 +100,7 @@ const OrderPlanning = ({
                 }
                 prop={artKey}
                 productIDs
+                stickyIDs={artKey === 'matNr'}
               />
             )
       );
