@@ -97,15 +97,9 @@
     "merging": ["Merging", "Vereinen"]
   },
   "OrderPlanning": {
-    "bedarfPeriode1": ["Demand Period 1", "Bedarf Periode 1"],
-    "bedarfPeriode2": ["Demand Period 2", "Bedarf Periode 2"],
-    "bedarfPeriode3": ["Demand Period 3", "Bedarf Periode 3"],
-    "bedarfPeriode4": ["Demand Period 4", "Bedarf Periode 4"],
+    "bedarfPeriode": ["Demand Period", "Bedarf Periode"],
     "bestellart": ["Type of Delivery", "Bestellart"],
-    "lagerbestandPeriode1": ["Inventory Period 1", "Lagerbestand Periode 1"],
-    "lagerbestandPeriode2": ["Inventory Period 2", "Lagerbestand Periode 2"],
-    "lagerbestandPeriode3": ["Inventory Period 3", "Lagerbestand Periode 3"],
-    "lagerbestandPeriode4": ["Inventory Period 4", "Lagerbestand Periode 4"],
+    "lagerbestandPeriode": ["Inventory Period", "Lagerbestand Periode"],
     "lagermenge": ["Stock", "Lagermenge"],
     "liefertermin": ["Expected Delivery", "Voraussichtliche Lieferung"],
     "lieferterminEng": ["Expected Delivery", "Voraussichtliche Lieferung"],

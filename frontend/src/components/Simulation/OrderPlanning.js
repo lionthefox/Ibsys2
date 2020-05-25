@@ -32,7 +32,13 @@ const styles = {
 //TODO: articleID sticky left
 //TODO: height Header
 //TODO: overflow auto Production
-const OrderPlanning = ({ classes, language, orderPlan, changeOrderPlan }) => {
+const OrderPlanning = ({
+  classes,
+  language,
+  orderPlan,
+  changeOrderPlan,
+  lastPeriodResults,
+}) => {
   const getComponents = () => {
     const elements = [];
     const formProps = {
@@ -68,7 +74,19 @@ const OrderPlanning = ({ classes, language, orderPlan, changeOrderPlan }) => {
                 key={`capacity_planning_text_${artKey}`}
                 obj={orderPlan}
                 idProp='matNr'
-                label={<Translate id={`OrderPlanning.${artKey}`} />}
+                label={
+                  artKey.slice(0, -1) === 'bedarfPeriode' ||
+                  artKey.slice(0, -1) === 'lagerbestandPeriode' ? (
+                    <div>
+                      <Translate id={`OrderPlanning.${artKey.slice(0, -1)}`} />{' '}
+                      {lastPeriodResults
+                        ? lastPeriodResults.period + parseInt(artKey.slice(-1))
+                        : 0}
+                    </div>
+                  ) : (
+                    <Translate id={`OrderPlanning.${artKey}`} />
+                  )
+                }
                 prop={artKey}
                 productIDs
               />
