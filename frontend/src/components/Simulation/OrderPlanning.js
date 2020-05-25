@@ -30,8 +30,6 @@ const styles = {
   },
 };
 //TODO: articleID sticky left
-//TODO: height Header
-//TODO: overflow auto Production
 const OrderPlanning = ({
   classes,
   language,

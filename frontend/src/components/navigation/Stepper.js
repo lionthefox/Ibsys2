@@ -18,7 +18,8 @@ import clsx from 'clsx';
 const useStyles = makeStyles((theme) => ({
   root: {
     background: '#fff',
-    width: '100%',
+    width: '100vw',
+    overflow: 'auto',
     position: 'fixed',
     bottom: '0px',
   },

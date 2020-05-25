@@ -46,7 +46,7 @@ const styles = {
     zIndex: 1000,
   },
   product: {
-    width: '20%',
+    width: '22%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -103,6 +103,7 @@ const Production = ({
               </div>
               <div className={classes.root}>
                 <Text
+                  margin
                   label={<div style={{ height: '1.3rem', width: '7rem' }} />}
                   text={[
                     <Translate id='Bike.child_bike' />,
@@ -155,6 +156,7 @@ const Production = ({
           <Paper classes={{ root: classes.paperSmall }} elevation={3}>
             <div className={classes.root}>
               <Text
+                margin
                 label={<Translate id='Production.product' />}
                 text={[
                   <Translate id='Bike.child_bike' />,
@@ -179,6 +181,7 @@ const Production = ({
           <Paper classes={{ root: classes.paper }} elevation={3}>
             <div className={classes.root}>
               <Text
+                margin
                 label={<Translate id='Production.product' />}
                 text={[
                   <Translate id='Bike.child_bike' />,
@@ -231,6 +234,7 @@ const Production = ({
                 ]}
               />
               <Text
+                margin
                 obj={lastPeriodResults.warehousestock.article}
                 idProp='id'
                 idArray={[1, 2, 3]}

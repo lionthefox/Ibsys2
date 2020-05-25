@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import { Translate } from 'react-localize-redux';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import ContainedTabs from '../ui_components/ContainedTabs';
 import Form from '../ui_components/Form';
 import Text from '../ui_components/Text';
+import clsx from 'clsx';
 
 const styles = {
   wrapper: {
@@ -27,6 +29,9 @@ const styles = {
     display: 'flex',
     width: '90vw',
   },
+  centered: {
+    justifyContent: 'center',
+  },
 };
 
 const QuantityPlanning = ({
@@ -37,6 +42,9 @@ const QuantityPlanning = ({
 }) => {
   const [index, setIndex] = useState(0);
   const products = ['p1', 'p2', 'p3'];
+
+  const centered =
+    useMediaQuery('(min-width:1500px)') && activeLanguage == 'en';
 
   const getComponents = () => {
     const elements = [];
@@ -103,7 +111,11 @@ const QuantityPlanning = ({
         onChange={(e, i) => setIndex(i)}
       />
       <Paper classes={{ root: classes.paper }} elevation={3}>
-        <form className={classes.form} noValidate autoComplete='off'>
+        <form
+          className={clsx(classes.form, { [classes.centered]: centered })}
+          noValidate
+          autoComplete='off'
+        >
           {getComponents()}
         </form>
       </Paper>

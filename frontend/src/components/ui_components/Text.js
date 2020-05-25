@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 import artNumbers from '../../assets/artNumbers';
 
@@ -7,9 +8,11 @@ const styles = {
   textContainer: {
     display: 'flex',
     flexDirection: 'column',
+    alignItems: 'center',
+  },
+  margin: {
     marginRight: '1.5rem',
     marginLeft: '1.5rem',
-    alignItems: 'center',
   },
   headerLabel: {
     textAlign: 'center',
@@ -21,6 +24,8 @@ const styles = {
     zIndex: 100,
     padding: '1.5rem 1rem',
     width: '100%',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   value: {
     display: 'flex',
@@ -28,6 +33,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: '6px',
+    textAlign: 'center',
   },
 };
 
@@ -40,6 +46,7 @@ const Text = ({
   text,
   idArray,
   productIDs,
+  margin,
 }) => {
   const elements = [];
   const getArticleProp = (article) => {
@@ -92,7 +99,7 @@ const Text = ({
     );
   }
   return (
-    <div className={classes.textContainer}>
+    <div className={clsx(classes.textContainer, { [classes.margin]: margin })}>
       {label ? <div className={classes.headerLabel}>{label}</div> : null}
       <>{elements}</>
     </div>

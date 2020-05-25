@@ -25,6 +25,9 @@ const styles = {
       background: '#0f4336',
     },
   },
+  text: {
+    textAlign: 'center',
+  },
 };
 
 const Result = ({ classes, simulationOutput }) => {
@@ -44,10 +47,10 @@ const Result = ({ classes, simulationOutput }) => {
   };
   return (
     <div className={classes.container}>
-      <div>
+      <div className={classes.text}>
         <Translate id='Result.results' />
       </div>
-      <div>
+      <div className={classes.text}>
         <Translate id='Result.instructions' />
       </div>
       <Button
@@ -59,7 +62,9 @@ const Result = ({ classes, simulationOutput }) => {
         <Translate id='Result.download' />
       </Button>
       {simulationOutput ? null : (
-        <div style={{ marginTop: '1rem', color: '#f44336' }}>
+        <div
+          style={{ marginTop: '1rem', color: '#f44336', textAlign: 'center' }}
+        >
           <Translate id='Result.data' />
         </div>
       )}

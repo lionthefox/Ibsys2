@@ -21,7 +21,9 @@ const styles = {
     zIndex: 100,
     padding: '1.5rem 1rem 0',
     width: '100%',
-    height: '45px',
+    height: '47px',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
 };
 

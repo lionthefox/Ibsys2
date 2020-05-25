@@ -11,7 +11,6 @@ const styles = {
   columnContainer: {
     display: 'flex',
     flexDirection: 'column',
-    marginRight: '1rem',
     alignItems: 'center',
   },
   headerLabel: {
@@ -24,7 +23,9 @@ const styles = {
     zIndex: 100,
     padding: '1.5rem 1rem 0',
     width: '100%',
-    height: '45px',
+    height: '49px',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   formControl: {
     marginBottom: '10px',

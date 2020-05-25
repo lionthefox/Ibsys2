@@ -97,9 +97,9 @@
     "merging": ["Merging", "Vereinen"]
   },
   "OrderPlanning": {
-    "bedarfPeriode": ["Demand Period", "Bedarf Periode"],
+    "bedarfPeriode": ["Demand", "Bedarf"],
     "bestellart": ["Type of Delivery", "Bestellart"],
-    "lagerbestandPeriode": ["Inventory Period", "Lagerbestand Periode"],
+    "lagerbestandPeriode": ["Inventory", "Lagerbestand"],
     "lagermenge": ["Stock", "Lagermenge"],
     "liefertermin": ["Expected Delivery", "Voraussichtliche Lieferung"],
     "lieferterminEng": ["Expected Delivery", "Voraussichtliche Lieferung"],

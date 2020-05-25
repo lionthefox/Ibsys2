@@ -1,10 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Translate } from 'react-localize-redux';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Form from '../ui_components/Form';
 import Text from '../ui_components/Text';
 import { Paper } from '@material-ui/core';
+import clsx from 'clsx';
 
 const styles = {
   wrapper: {
@@ -27,9 +29,14 @@ const styles = {
     display: 'flex',
     width: '90vw',
   },
+  centered: {
+    justifyContent: 'center',
+  },
 };
 
 const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
+  const centered = useMediaQuery('(min-width:1500px)');
+
   const getComponents = () => {
     const elements = [];
     const formProps = {
@@ -76,7 +83,11 @@ const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
   return (
     <Paper classes={{ root: classes.paper }} elevation={3}>
       <div className={classes.wrapper}>
-        <form className={classes.form} noValidate autoComplete='off'>
+        <form
+          className={clsx(classes.form, { [classes.centered]: centered })}
+          noValidate
+          autoComplete='off'
+        >
           {getComponents()}
         </form>
       </div>
