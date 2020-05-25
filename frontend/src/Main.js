@@ -23,7 +23,9 @@ import {
   getCapacityPlan,
   getOrderPlan,
   putOrderPlan,
+  postSimulationOutput,
 } from './utils/requests';
+import getSimulationOutput from './utils/getSimulationOutput';
 
 const paths = [
   '/input',
@@ -100,6 +102,7 @@ class Main extends Component {
       simulationData: undefined,
       capacityPlan: undefined,
       orderPlan: undefined,
+      simulationOutput: undefined,
       showError: false,
       errorMessageId: undefined,
       errorMessage: undefined,
@@ -142,7 +145,13 @@ class Main extends Component {
 
   handleNext = () => {
     const { history } = this.props;
-    const { simulationInput, activeStep } = this.state;
+    const {
+      simulationInput,
+      activeStep,
+      simulationData,
+      capacityPlan,
+      orderPlan,
+    } = this.state;
     const { setNewState, setError } = this;
 
     const newState = { activeStep: activeStep + 1 };
@@ -161,6 +170,14 @@ class Main extends Component {
         return getCapacityPlan(requestProps);
       case 4:
         return getOrderPlan(requestProps);
+      case 5:
+        const output = getSimulationOutput(
+          simulationInput,
+          simulationData,
+          capacityPlan,
+          orderPlan
+        );
+        return postSimulationOutput(output, requestProps);
       default:
         this.setState(newState);
         history.push(paths[activeStep + 1]);
