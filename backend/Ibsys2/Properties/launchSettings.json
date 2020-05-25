@@ -11,7 +11,7 @@
   "profiles": {
     "Ibsys2": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "simulation",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
