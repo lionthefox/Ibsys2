@@ -206,8 +206,8 @@ namespace Ibsys2.Controllers
                 var x = regex.Replace(xmlString,
                     $@"<sellwish>
     <item article=""{json.sellwish[0].article}"" quantity=""{json.sellwish[0].quantity}"" />
-    <item article= ""{json.sellwish[1].article}"" quantity= ""{json.sellwish[1].quantity}"" />
-    <item article= ""{json.sellwish[2].article}"" quantity= ""{json.sellwish[2].quantity}"" />
+    <item article=""{json.sellwish[1].article}"" quantity= ""{json.sellwish[1].quantity}"" />
+    <item article=""{json.sellwish[2].article}"" quantity= ""{json.sellwish[2].quantity}"" />
   </sellwish>"
                 );
 
