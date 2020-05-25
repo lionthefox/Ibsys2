@@ -380,6 +380,7 @@ class Main extends Component {
                   language={activeLanguage}
                   orderPlan={orderPlan}
                   changeOrderPlan={this.changeOrderPlan}
+                  lastPeriodResults={lastPeriodResults}
                 />
               </HeadlineWrapper>
             </AnimationWrapper>
