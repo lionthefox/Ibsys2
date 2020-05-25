@@ -29,7 +29,6 @@ const styles = {
     width: '90vw',
   },
 };
-//TODO: Download Instructions Text
 //TODO: articleID sticky left
 //TODO: height Header
 //TODO: overflow auto Production

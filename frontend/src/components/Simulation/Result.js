@@ -7,7 +7,11 @@ const styles = {
     width: '100%',
     position: 'relative',
     display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     justifyContent: 'center',
+    height: 'calc(100vh - 370px)',
+    fontSize: '20px',
   },
   buttonRoot: {
     color: '#fff',
@@ -15,6 +19,8 @@ const styles = {
     borderRadius: '15px',
     padding: '2rem',
     fontSize: '18px',
+    height: '6rem',
+    marginTop: '1.5rem',
     '&:hover': {
       background: '#0f4336',
     },
@@ -38,13 +44,25 @@ const Result = ({ classes, simulationOutput }) => {
   };
   return (
     <div className={classes.container}>
+      <div>
+        <Translate id='Result.results' />
+      </div>
+      <div>
+        <Translate id='Result.instructions' />
+      </div>
       <Button
+        disabled={!simulationOutput}
         variant='contained'
         classes={{ root: classes.buttonRoot }}
         onClick={() => downloadOutput()}
       >
         <Translate id='Result.download' />
       </Button>
+      {simulationOutput ? null : (
+        <div style={{ marginTop: '1rem', color: '#f44336' }}>
+          <Translate id='Result.data' />
+        </div>
+      )}
     </div>
   );
 };

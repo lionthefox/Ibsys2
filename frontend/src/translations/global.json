@@ -111,7 +111,16 @@
     "helperText": ["Number has to be >= 10", "Eingabe muss >=10 sein"]
   },
   "Result": {
-    "download": ["Download", "Herunterladen"]
+    "results": [
+      "You can download the results from here.",
+      "Hier können Sie die Ergebnisse herunterladen."
+    ],
+    "instructions": [
+      "The generated file can be imported in your SCM-Tool to plan your next period.",
+      "Die heruntergeladene Datei kann in Ihr SCM-Tool importiert werden, um Ihre nächste Periode zu planen."
+    ],
+    "download": ["Download", "Herunterladen"],
+    "data": ["No Data available.", "Keine Daten vorhanden."]
   },
   "Select": {
     "normal": ["normal", "Normal"],
