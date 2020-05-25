@@ -146,6 +146,7 @@ class Main extends Component {
   handleNext = () => {
     const { history } = this.props;
     const {
+      lastPeriodResults,
       simulationInput,
       activeStep,
       simulationData,
@@ -172,6 +173,7 @@ class Main extends Component {
         return getOrderPlan(requestProps);
       case 5:
         const output = getSimulationOutput(
+          lastPeriodResults,
           simulationInput,
           simulationData,
           capacityPlan,

@@ -1,5 +1,11 @@
 {
+	"user": {
+		"game": 228,
+		"group": 4,
+		"period": 3
+	},
 	"qualitycontrol": {
+		"type": "yes",
 		"losequantity": 0,
 		"delay": 0
 	},

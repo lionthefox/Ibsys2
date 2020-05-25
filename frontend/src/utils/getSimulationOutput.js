@@ -1,4 +1,5 @@
 const getSimulationOutput = (
+  lastPeriodResults,
   simulationInput,
   simulationData,
   capacityPlan,
@@ -43,7 +44,12 @@ const getSimulationOutput = (
   };
 
   const output = {
-    qualitycontrol: { losequantity: 0, delay: 0 },
+    user: {
+      game: lastPeriodResults.game,
+      group: lastPeriodResults.group,
+      period: lastPeriodResults.period,
+    },
+    qualitycontrol: { type: 'yes', losequantity: 0, delay: 0 },
     sellwish: [
       {
         article: 1,
