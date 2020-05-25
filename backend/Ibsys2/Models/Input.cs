@@ -5,12 +5,27 @@ namespace Ibsys2.Models
 {
     public class Input
     {
+        public User user { get; set; }
         public Qualitycontrol qualitycontrol { get; set; }
         public List<Selldirect> sellwish { get; set; }
         public List<Selldirect> selldirect { get; set; }
         public List<Orderlist> orderlist { get; set; }
         public List<Productionlist> productionlist { get; set; }
         public List<Workingtimelist> workingtimelist { get; set; }
+    }
+
+
+    [XmlType(TypeName = "user")]
+    public class User
+    {
+        [XmlAttribute("game")]
+        public int game { get; set; }
+
+        [XmlAttribute("group")]
+        public int group { get; set; }
+
+        [XmlAttribute("period")]
+        public int period { get; set; }
     }
 
     public class Qualitycontrol
