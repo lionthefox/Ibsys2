@@ -2376,15 +2376,15 @@ public partial class resultsResultNormalsale {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsResultNormalsaleSalesprice {
     
-    private decimal currentField;
+    private object currentField;
     
-    private decimal averageField;
+    private object averageField;
     
-    private string allField;
+    private object allField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal current {
+    public object current {
         get {
             return this.currentField;
         }
@@ -2395,7 +2395,7 @@ public partial class resultsResultNormalsaleSalesprice {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal average {
+    public object average {
         get {
             return this.averageField;
         }
@@ -2406,7 +2406,7 @@ public partial class resultsResultNormalsaleSalesprice {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string all {
+    public object all {
         get {
             return this.allField;
         }
@@ -2424,15 +2424,15 @@ public partial class resultsResultNormalsaleSalesprice {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsResultNormalsaleProfit {
     
-    private decimal currentField;
+    private object currentField;
     
-    private decimal averageField;
+    private object averageField;
     
-    private decimal allField;
+    private object allField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal current {
+    public object current {
         get {
             return this.currentField;
         }
@@ -2443,7 +2443,7 @@ public partial class resultsResultNormalsaleProfit {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal average {
+    public object average {
         get {
             return this.averageField;
         }
@@ -2454,7 +2454,7 @@ public partial class resultsResultNormalsaleProfit {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal all {
+    public object all {
         get {
             return this.allField;
         }
@@ -2472,15 +2472,15 @@ public partial class resultsResultNormalsaleProfit {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true)]
 public partial class resultsResultNormalsaleProfitperunit {
     
-    private decimal currentField;
+    private object currentField;
     
-    private decimal averageField;
+    private object averageField;
     
-    private string allField;
+    private object allField;
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal current {
+    public object current {
         get {
             return this.currentField;
         }
@@ -2491,7 +2491,7 @@ public partial class resultsResultNormalsaleProfitperunit {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public decimal average {
+    public object average {
         get {
             return this.averageField;
         }
@@ -2502,7 +2502,7 @@ public partial class resultsResultNormalsaleProfitperunit {
     
     /// <remarks/>
     [System.Xml.Serialization.XmlAttributeAttribute()]
-    public string all {
+    public object all {
         get {
             return this.allField;
         }
