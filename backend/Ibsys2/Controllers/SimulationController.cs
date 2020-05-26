@@ -187,6 +187,7 @@ namespace Ibsys2.Controllers
         {
             try
             {
+                json.qualitycontrol.delay = 8;
                 var orderList = json.orderlist.Where(x => x.quantity > 0);
                 var production = json.productionlist.Where(x => x.quantity > 0);
 
