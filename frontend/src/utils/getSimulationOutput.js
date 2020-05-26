@@ -49,7 +49,7 @@ const getSimulationOutput = (
       group: lastPeriodResults.group,
       period: lastPeriodResults.period,
     },
-    qualitycontrol: { type: 'yes', losequantity: 0, delay: 0 },
+    qualitycontrol: { type: 'yes', losequantity: 0, delay: 8 },
     sellwish: [
       {
         article: 1,
