@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -186,6 +187,12 @@ namespace Ibsys2.Controllers
         {
             try
             {
+                var orderList = json.orderlist.Where(x => x.quantity > 0);
+                var production = json.productionlist.Where(x => x.quantity > 0);
+
+                json.orderlist = orderList.ToList();
+                json.productionlist = production.ToList();
+
                 var xmlSerializer = new XmlSerializer(json.GetType());
 
                 using var ms = new MemoryStream();
@@ -195,15 +202,13 @@ namespace Ibsys2.Controllers
                         Encoding = new UTF8Encoding(false),
                         Indent = true,
                         NewLineOnAttributes = false,
-
-
                     });
                 var ns = new XmlSerializerNamespaces();
                 ns.Add("", "");
                 xmlSerializer.Serialize(xw, json, ns);
                 var xmlString = Encoding.UTF8.GetString(ms.ToArray());
 
-                var x = regex.Replace(xmlString,
+                var result = regex.Replace(xmlString,
                     $@"<sellwish>
     <item article=""{json.sellwish[0].article}"" quantity=""{json.sellwish[0].quantity}"" />
     <item article=""{json.sellwish[1].article}"" quantity= ""{json.sellwish[1].quantity}"" />
@@ -211,7 +216,7 @@ namespace Ibsys2.Controllers
   </sellwish>"
                 );
 
-                return x;
+                return result;
             }
             catch (Exception exception)
             {
