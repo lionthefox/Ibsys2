@@ -32,14 +32,14 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
                     {
                         var auftrag = new AuftraegeWarteschlange();
                         auftrag.Arbeitsplatz = arbeitsplatzNummer;
-                        auftrag.Fertigungsauftrag = auftrag.Fertigungsauftrag;
-                        auftrag.Menge = auftrag.Menge;
-                        auftrag.Periode = auftrag.Periode;
-                        auftrag.Teil = auftrag.Teil;
-                        auftrag.ErstesLos = auftrag.ErstesLos;
-                        auftrag.LetztesLos = auftrag.LetztesLos;
+                        auftrag.Fertigungsauftrag = missing.waitinglist.order;
+                        auftrag.Menge = missing.waitinglist.amount;
+                        auftrag.Periode = missing.waitinglist.period;
+                        auftrag.Teil = missing.waitinglist.item;
+                        auftrag.ErstesLos = missing.waitinglist.firstbatch;
+                        auftrag.LetztesLos = missing.waitinglist.lastbatch;
                         auftrag.Ruestzeit =
-                            WartelisteArbeitsplatz.GetRuestzeit(arbeitsplatzNummer, auftrag.Teil,
+                            WartelisteArbeitsplatz.GetRuestzeit(arbeitsplatzNummer, missing.waitinglist.item,
                                 artikelStammdaten);
                         auftrag.Zeitbedarf = WartelisteArbeitsplatz.getZeitbedarf(arbeitsplatzNummer,
                             auftrag.Teil, auftrag.Menge, artikelStammdaten);
@@ -80,6 +80,8 @@ namespace Ibsys2.Models.ErgebnisseVorperiode
                 {
                     var arbeitsplatz = arbeitsplaetzeNachfolger.FirstOrDefault(x =>
                         x.Matnr == auftrag.Teil && x.Platz == element.Arbeitsplatz);
+                    if (arbeitsplatz == null)
+                        continue;
                     if (arbeitsplatz.Nachfolger.Count == 0)
                         continue;
                     foreach (var nachfolger in arbeitsplatz.Nachfolger)

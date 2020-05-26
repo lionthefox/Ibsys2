@@ -98,7 +98,7 @@ namespace Ibsys2.Models.DispoEigenfertigung
     public int CalcSicherheitsbestand(Forecast forecast, Vertriebswunsch vertriebswunsch)
     {
       return Convert.ToInt32((vertriebswunsch.Produkt1 + forecast.Periode2.Produkt1 + forecast.Periode3.Produkt1 +
-                              forecast.Periode4.Produkt1) / 4 * 0.4);
+                              forecast.Periode4.Produkt1) / 4 * 0.5);
     }
   }
 }
