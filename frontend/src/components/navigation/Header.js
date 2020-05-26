@@ -14,6 +14,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 
 import appIcon from '../../assets/bike.png';
+import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { InputLabel } from '@material-ui/core';
 
@@ -42,15 +43,6 @@ const styles = (theme) => ({
     },
   },
   appIcon: {
-    height: '4rem',
-    position: 'relative',
-    top: '-0.3rem',
-    marginRight: '1rem',
-    [theme.breakpoints.down('sm')]: {
-      height: '5rem',
-    },
-  },
-  appIconEn: {
     height: '4rem',
     position: 'relative',
     top: '-0.3rem',
@@ -103,6 +95,22 @@ const styles = (theme) => ({
   link: {
     textDecoration: 'none',
   },
+  logo: {
+    height: '6rem',
+    position: 'relative',
+    left: '-1.8rem',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
+  logoEn: {
+    height: '6rem',
+    position: 'relative',
+    left: '-4rem',
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
 });
 
 const Header = ({ classes, language, setLanguage, handleReset }) => {
@@ -124,13 +132,7 @@ const Header = ({ classes, language, setLanguage, handleReset }) => {
       <AppBar position='static' className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
           <div className={classes.appIconContainer}>
-            <img
-              src={appIcon}
-              alt=''
-              className={
-                language === 'en' ? classes.appIconEn : classes.appIcon
-              }
-            />
+            <img src={appIcon} alt='' className={classes.appIcon} />
             <Translate>
               {({ translate }) => (
                 <Typography variant='h5' className={classes.title}>
@@ -138,6 +140,13 @@ const Header = ({ classes, language, setLanguage, handleReset }) => {
                 </Typography>
               )}
             </Translate>
+          </div>
+          <div>
+            <img
+              src={logo}
+              alt=''
+              className={language === 'en' ? classes.logoEn : classes.logo}
+            />
           </div>
           <div className={classes.appIconContainer}>
             <FormControl
