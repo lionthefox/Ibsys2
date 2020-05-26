@@ -1,4 +1,6 @@
 import React from 'react';
+import FileDownload from 'js-file-download';
+import axios from 'axios';
 import { withStyles } from '@material-ui/core/styles';
 import { Translate } from 'react-localize-redux';
 import AppBar from '@material-ui/core/AppBar';
@@ -10,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
+import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 
 import appIcon from '../../assets/bike.png';
 import { Link } from 'react-router-dom';
@@ -60,7 +63,7 @@ const styles = (theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  homeButton: {
+  button: {
     width: '5rem',
     height: '5rem',
     color: '#fff !important',
@@ -107,60 +110,83 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(InputBase);
 
-const Header = ({ classes, language, setLanguage, handleReset }) => (
-  <div className={classes.root}>
-    <AppBar position='static' className={classes.appBar}>
-      <Toolbar className={classes.toolBar}>
-        <div className={classes.appIconContainer}>
-          <img
-            src={appIcon}
-            alt=''
-            className={language === 'en' ? classes.appIconEn : classes.appIcon}
-          />
-          <Translate>
-            {({ translate }) => (
-              <Typography variant='h5' className={classes.title}>
-                {translate('Header.title')}
-              </Typography>
-            )}
-          </Translate>
-        </div>
-        <div className={classes.appIconContainer}>
-          <FormControl className={classes.margin}>
-            <InputLabel classes={{ root: classes.inputLabel }}>
-              <Translate id='Header.language' />
-            </InputLabel>
-            <NativeSelect
-              classes={{
-                root: classes.nativeSelect,
-                icon: classes.selectIcon,
-              }}
-              id='demo-customized-select-native'
-              value={language}
-              onChange={(e) => setLanguage(e.target.value)}
-              input={<BootstrapInput />}
+const Header = ({ classes, language, setLanguage, handleReset }) => {
+  const downloadInstructions = () =>
+    axios({
+      method: 'GET',
+      url: 'assets/Benutzerhandbuch.pdf',
+      responseType: 'blob',
+      headers: {
+        'Content-Type': 'application/pdf',
+      },
+    }).then((response) => {
+      const fileName =
+        language === 'en' ? 'instructions.pdf' : 'Benutzerhandbuch.pdf';
+      FileDownload(response.data, fileName);
+    });
+  return (
+    <div className={classes.root}>
+      <AppBar position='static' className={classes.appBar}>
+        <Toolbar className={classes.toolBar}>
+          <div className={classes.appIconContainer}>
+            <img
+              src={appIcon}
+              alt=''
+              className={
+                language === 'en' ? classes.appIconEn : classes.appIcon
+              }
+            />
+            <Translate>
+              {({ translate }) => (
+                <Typography variant='h5' className={classes.title}>
+                  {translate('Header.title')}
+                </Typography>
+              )}
+            </Translate>
+          </div>
+          <div className={classes.appIconContainer}>
+            <FormControl className={classes.margin}>
+              <InputLabel classes={{ root: classes.inputLabel }}>
+                <Translate id='Header.language' />
+              </InputLabel>
+              <NativeSelect
+                classes={{
+                  root: classes.nativeSelect,
+                  icon: classes.selectIcon,
+                }}
+                id='demo-customized-select-native'
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+                input={<BootstrapInput />}
+              >
+                <Translate>
+                  {({ translate }) => (
+                    <option value='de'>{translate('Header.german')}</option>
+                  )}
+                </Translate>
+                <Translate>
+                  {({ translate }) => (
+                    <option value='en'>{translate('Header.english')}</option>
+                  )}
+                </Translate>
+              </NativeSelect>
+            </FormControl>
+            <IconButton
+              className={classes.button}
+              onClick={downloadInstructions}
             >
-              <Translate>
-                {({ translate }) => (
-                  <option value='de'>{translate('Header.german')}</option>
-                )}
-              </Translate>
-              <Translate>
-                {({ translate }) => (
-                  <option value='en'>{translate('Header.english')}</option>
-                )}
-              </Translate>
-            </NativeSelect>
-          </FormControl>
-          <Link to='/input' className={classes.link}>
-            <IconButton className={classes.homeButton} onClick={handleReset}>
-              <HomeIcon fontSize='large' />
+              <MenuBookRoundedIcon fontSize='large' />
             </IconButton>
-          </Link>
-        </div>
-      </Toolbar>
-    </AppBar>
-  </div>
-);
+            <Link to='/input' className={classes.link}>
+              <IconButton className={classes.button} onClick={handleReset}>
+                <HomeIcon fontSize='large' />
+              </IconButton>
+            </Link>
+          </div>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+};
 
 export default withStyles(styles)(Header);

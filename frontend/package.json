@@ -19,6 +19,7 @@
     "filepond": "^4.13.5",
     "filepond-plugin-file-encode": "^2.1.5",
     "filepond-plugin-file-validate-type": "^1.2.5",
+    "js-file-download": "^0.4.12",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
