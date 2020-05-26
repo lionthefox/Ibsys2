@@ -6,9 +6,8 @@ import { Translate } from 'react-localize-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import FormControl from '@material-ui/core/FormControl';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import InputBase from '@material-ui/core/InputBase';
-import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
@@ -16,6 +15,7 @@ import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 
 import appIcon from '../../assets/bike.png';
 import { Link } from 'react-router-dom';
+import { InputLabel } from '@material-ui/core';
 
 const styles = (theme) => ({
   root: {
@@ -68,47 +68,42 @@ const styles = (theme) => ({
     height: '5rem',
     color: '#fff !important',
   },
-  margin: {
+  formControl: {
     margin: theme.spacing(1),
+
+    '& label.Mui-focused': {
+      color: '#fff',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: '#fff',
+    },
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: '#fff',
+      },
+      '& fieldset': {
+        borderColor: '#fff',
+      },
+    },
+    '& .MuiInputBase-root': {
+      height: '3rem',
+      '& svg': {
+        color: '#fff',
+      },
+    },
   },
-  inputLabel: {
-    top: '3px',
-    color: '#fff !important',
-  },
-  selectIcon: {
+  select: {
+    width: '6rem',
+    top: '1.5px',
     color: '#fff',
-    position: 'relative',
-    top: '-0.75rem',
-    left: '-2rem',
   },
-  nativeSelect: {
-    marginBottom: '1.5rem',
+  languageLabel: {
+    color: '#fff',
   },
   link: {
     textDecoration: 'none',
   },
 });
-
-const BootstrapInput = withStyles((theme) => ({
-  root: {
-    'label + &': {
-      marginTop: theme.spacing(3),
-      top: '2px',
-    },
-  },
-  input: {
-    borderRadius: 4,
-    width: '6.5rem',
-    position: 'relative',
-    color: '#fff',
-    border: '1px solid #fff',
-    fontSize: 15,
-    padding: '10px 26px 10px 12px',
-    '&:focus': {
-      borderRadius: 4,
-    },
-  },
-}))(InputBase);
 
 const Header = ({ classes, language, setLanguage, handleReset }) => {
   const downloadInstructions = () =>
@@ -145,31 +140,26 @@ const Header = ({ classes, language, setLanguage, handleReset }) => {
             </Translate>
           </div>
           <div className={classes.appIconContainer}>
-            <FormControl className={classes.margin}>
-              <InputLabel classes={{ root: classes.inputLabel }}>
+            <FormControl
+              classes={{ root: classes.formControl }}
+              variant='outlined'
+            >
+              <InputLabel classes={{ root: classes.languageLabel }}>
                 <Translate id='Header.language' />
               </InputLabel>
-              <NativeSelect
-                classes={{
-                  root: classes.nativeSelect,
-                  icon: classes.selectIcon,
-                }}
-                id='demo-customized-select-native'
+              <Select
+                classes={{ root: classes.select }}
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                input={<BootstrapInput />}
+                label={<Translate id='Header.language' />}
               >
-                <Translate>
-                  {({ translate }) => (
-                    <option value='de'>{translate('Header.german')}</option>
-                  )}
-                </Translate>
-                <Translate>
-                  {({ translate }) => (
-                    <option value='en'>{translate('Header.english')}</option>
-                  )}
-                </Translate>
-              </NativeSelect>
+                <MenuItem value={'de'}>
+                  <Translate id='Header.german' />
+                </MenuItem>
+                <MenuItem value={'en'}>
+                  <Translate id='Header.english' />
+                </MenuItem>
+              </Select>
             </FormControl>
             <IconButton
               className={classes.button}
