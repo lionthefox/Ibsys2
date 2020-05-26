@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 
 namespace Ibsys2.Models
 {
+    [XmlType(TypeName = "input")]
     public class Input
     {
         public User user { get; set; }
@@ -35,6 +36,9 @@ namespace Ibsys2.Models
 
         [XmlAttribute("delay")]
         public int delay { get; set; }
+
+        [XmlAttribute("type")] 
+        public string type { get; set; }
     }
 
 
