@@ -39,6 +39,7 @@ namespace Ibsys2.Models.KapazitaetsPlan
             else
             {
                 AnzSchicht = 3;
+                Ubermin = 0;
             }
         }
 
