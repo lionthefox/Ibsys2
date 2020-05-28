@@ -163,6 +163,7 @@ namespace Ibsys2.Services
         {
             decimal lieferdauer;
             string wochentag = "";
+            period += 1;
 
 
             if (bestellart == 4)
