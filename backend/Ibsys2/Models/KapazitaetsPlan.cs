@@ -13,7 +13,7 @@ namespace Ibsys2.Models.KapazitaetsPlan
         public int KapaVorperiode { get; set; }
         public int RuestVorperiode { get; set; }
         public int AnzSchicht { get; set; }
-        public int Ubermin { get; set; }
+        public int Uebermin { get; set; }
 
         private readonly int SchichtDauer = 2400;
         private readonly int MaxUeberMinuten = 1200;
@@ -29,17 +29,17 @@ namespace Ibsys2.Models.KapazitaetsPlan
             if (kapaGesamt <= SchichtDauer + MaxUeberMinuten)
             {
                 AnzSchicht = 1;
-                Ubermin = Math.Max(0, (kapaGesamt - SchichtDauer) / 5);
+                Uebermin = Math.Max(0, (kapaGesamt - SchichtDauer) / 5);
             }
             else if (kapaGesamt <= SchichtDauer * 2 + MaxUeberMinuten)
             {
                 AnzSchicht = 2;
-                Ubermin = Math.Max(0, (kapaGesamt - SchichtDauer * 2) / 5);
+                Uebermin = Math.Max(0, (kapaGesamt - SchichtDauer * 2) / 5);
             }
             else
             {
                 AnzSchicht = 3;
-                Ubermin = 0;
+                Uebermin = 0;
             }
         }
 
