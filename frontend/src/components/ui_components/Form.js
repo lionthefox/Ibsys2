@@ -84,11 +84,14 @@ const Form = ({
   small,
   decimal,
   maxValue,
+  minValue,
 }) => {
   const inputBaseProps = {
     type: 'number',
     variant: 'outlined',
-    InputProps: { inputProps: { min: 0, max: maxValue || undefined } },
+    InputProps: {
+      inputProps: { min: minValue || 0, max: maxValue || undefined },
+    },
   };
 
   return (
@@ -104,7 +107,7 @@ const Form = ({
                 setObjState(
                   undefined,
                   val,
-                  getValue(e.target.value, decimal, maxValue)
+                  getValue(e.target.value, decimal, maxValue, minValue)
                 );
               },
             };
@@ -128,19 +131,24 @@ const Form = ({
                       setObjState(
                         product,
                         [index, prop],
-                        getValue(e.target.value, decimal, maxValue)
+                        getValue(e.target.value, decimal, maxValue, minValue)
                       )
                   : (e) => {
                       if (
                         prop === 'anzSchicht' &&
-                        getValue(e.target.value, decimal, maxValue) === 3
+                        getValue(
+                          e.target.value,
+                          decimal,
+                          maxValue,
+                          minValue
+                        ) === 3
                       ) {
                         setObjState(undefined, [index, 'ubermin'], 0);
                       }
                       setObjState(
                         undefined,
                         [index, prop],
-                        getValue(e.target.value, decimal, maxValue)
+                        getValue(e.target.value, decimal, maxValue, minValue)
                       );
                     },
                 disabled: prop === 'ubermin' && art['anzSchicht'] === 3,

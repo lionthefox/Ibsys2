@@ -58,6 +58,7 @@ const CapacityPlanning = ({ classes, capacityPlan, changeCapacityPlan }) => {
                 <Form
                   {...formProps}
                   maxValue={artKey === 'ubermin' ? 240 : 3}
+                  minValue={artKey === 'anzSchicht' ? 1 : 0}
                   key={`capacity_planning_form_${artKey}`}
                   label={<Translate id={`CapacityPlanning.${artKey}`} />}
                   prop={artKey}

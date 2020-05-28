@@ -1,4 +1,4 @@
-export const getValue = (val, decimal, maxValue) => {
+export const getValue = (val, decimal, maxValue, minValue) => {
   let newVal = val
     ? decimal
       ? parseFloat(val.replace('-', ''))
@@ -6,6 +6,9 @@ export const getValue = (val, decimal, maxValue) => {
     : 0;
   if (newVal > maxValue) {
     newVal = maxValue;
+  }
+  if (minValue && newVal < minValue) {
+    newVal = minValue;
   }
   return newVal;
 };
