@@ -48,7 +48,7 @@ const Input = ({
   const fileUploadProps = {
     language,
     multipleFiles: false,
-    url: '/simulation/results-input',
+    url: 'http://deckeln.eu:8888/simulation/results-input',
     setResults,
     setDisabled,
     showError,

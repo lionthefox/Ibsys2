@@ -57,6 +57,5 @@
     "@storybook/preset-create-react-app": "^2.1.2",
     "@storybook/react": "^5.3.18",
     "react-localize-redux": "^3.5.3"
-  },
-  "proxy": "http://deckeln.eu:8888"
+  }
 }

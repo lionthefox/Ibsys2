@@ -10,7 +10,7 @@ export const postSimulationInput = (simulationInput, requestProps) => {
     paths,
   } = requestProps;
   axios({
-    url: '/simulation/start',
+    url: 'http://deckeln.eu:8888/simulation/start',
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     data: simulationInput,
@@ -50,7 +50,7 @@ export const putSimulationData = (
   setError
 ) =>
   axios({
-    url: `simulation/update-dispo-ef/${product}`,
+    url: `http://deckeln.eu:8888/simulation/update-dispo-ef/${product}`,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     data: newSimulationData[product],
@@ -90,7 +90,7 @@ export const getCapacityPlan = (requestProps) => {
     paths,
   } = requestProps;
   axios({
-    url: `simulation/kapa-plan`,
+    url: `http://deckeln.eu:8888/simulation/kapa-plan`,
     method: 'GET',
   })
     .then(function (response) {
@@ -130,7 +130,7 @@ export const getOrderPlan = (requestProps) => {
     paths,
   } = requestProps;
   axios({
-    url: `simulation/kauf-dispo`,
+    url: `http://deckeln.eu:8888/simulation/kauf-dispo`,
     method: 'GET',
   })
     .then(function (response) {
@@ -162,7 +162,7 @@ export const getOrderPlan = (requestProps) => {
 
 export const putOrderPlan = (newOrderPlan, newState, setNewState, setError) =>
   axios({
-    url: `simulation/update-kauf-dispo`,
+    url: `http://deckeln.eu:8888/simulation/update-kauf-dispo`,
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     data: newOrderPlan,
@@ -202,7 +202,7 @@ export const postSimulationOutput = (simulationOutput, requestProps) => {
     paths,
   } = requestProps;
   axios({
-    url: '/simulation/convert-to-xml',
+    url: 'http://deckeln.eu:8888/simulation/convert-to-xml',
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     data: simulationOutput,
